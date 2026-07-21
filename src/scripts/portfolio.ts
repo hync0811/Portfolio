@@ -5,11 +5,13 @@ if (root) {
   const appShell = root.querySelector<HTMLElement>("[data-app-shell]");
   const progress = root.querySelector<HTMLElement>("[data-loader-progress]");
   const mascot = root.querySelector<HTMLElement>("[data-loader-mascot]");
+  const bloom = root.querySelector<HTMLElement>("[data-loader-bloom]");
   const status = root.querySelector<HTMLElement>("[data-loader-status]");
-  const enter = root.querySelector<HTMLButtonElement>("[data-loader-enter]");
+  const welcomeEnter = root.querySelector<HTMLButtonElement>("[data-welcome-enter]");
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const bloomDuration = reduceMotion ? 1 : 1400;
 
-  const reveal = () => {
+  const revealApp = () => {
     if (!loader || !appShell || loader.dataset.state === "leaving") return;
     loader.dataset.state = "leaving";
     appShell.ariaHidden = "false";
@@ -17,11 +19,27 @@ if (root) {
     window.setTimeout(() => { loader.dataset.state = "hidden"; }, reduceMotion ? 0 : 700);
   };
 
-  const introSeen = sessionStorage.getItem("portfolio-intro-seen") === "true";
+  const showWelcome = () => {
+    if (!loader || loader.dataset.state === "blooming") return;
+    if (mascot && bloom) {
+      const mascotBounds = mascot.getBoundingClientRect();
+      bloom.style.left = `${mascotBounds.left + mascotBounds.width / 2}px`;
+      bloom.style.top = `${mascotBounds.top + mascotBounds.height / 2}px`;
+    }
+    loader.dataset.state = "blooming";
+    window.setTimeout(() => {
+      loader.dataset.state = "welcome";
+      welcomeEnter?.focus({ preventScroll: true });
+      window.setTimeout(() => { loader.dataset.welcomeReady = "true"; }, reduceMotion ? 0 : 750);
+    }, bloomDuration);
+  };
+
+  const forceIntro = new URLSearchParams(window.location.search).has("intro");
+  const introSeen = !forceIntro && sessionStorage.getItem("portfolio-intro-seen") === "true";
   if (introSeen) {
     appShell?.setAttribute("aria-hidden", "false");
     loader?.setAttribute("data-state", "hidden");
-  } else if (loader && progress && mascot && status && enter) {
+  } else if (loader && progress && mascot && status) {
     let value = 0;
     const tick = window.setInterval(() => {
       value = Math.min(100, value + Math.max(4, Math.round((100 - value) / 5)));
@@ -29,15 +47,16 @@ if (root) {
       mascot.style.left = `${value}%`;
       if (value === 100) {
         window.clearInterval(tick);
-        status.textContent = "Ready when you are.";
-        enter.hidden = false;
-        enter.focus({ preventScroll: true });
+        status.textContent = "Ready!";
+        window.setTimeout(showWelcome, reduceMotion ? 0 : 300);
       }
     }, reduceMotion ? 20 : 120);
-
-    enter.addEventListener("click", reveal);
-    window.addEventListener("wheel", reveal, { passive: true, once: true });
   }
+
+  welcomeEnter?.addEventListener("click", revealApp);
+  window.addEventListener("wheel", () => {
+    if (loader?.dataset.state === "welcome" && loader.dataset.welcomeReady === "true") revealApp();
+  }, { passive: true });
 
   const date = root.querySelector<HTMLTimeElement>("[data-current-date]");
   const time = root.querySelector<HTMLTimeElement>("[data-current-time]");

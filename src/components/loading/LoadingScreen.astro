@@ -3,6 +3,7 @@ import BrandMark from "../ui/BrandMark.astro";
 ---
 
 <section class="loader" data-loader aria-label="Loading portfolio">
+  <div class="loader__bloom" data-loader-bloom aria-hidden="true"></div>
   <div class="loader__window">
     <div class="loader__chrome" aria-hidden="true">
       <span></span><span></span><span></span>
@@ -19,9 +20,15 @@ import BrandMark from "../ui/BrandMark.astro";
     </div>
   </div>
 
-  <button class="loader__enter" type="button" data-loader-enter hidden>
-    Scroll or click to enter
-  </button>
+  <div class="loader__welcome" aria-hidden="true">
+    <div class="loader__welcome-content">
+      <p class="loader__welcome-message">Hello!<br />I’m Eiter</p>
+    </div>
+    <!--<button class="loader__welcome-enter" type="button" data-welcome-enter>-->
+    <!--  Scroll or click to explore-->
+    <!--</button>-->
+  </div>
+
 </section>
 
 <style>
@@ -34,11 +41,83 @@ import BrandMark from "../ui/BrandMark.astro";
     overflow: hidden;
     padding: var(--space-5);
     background: var(--color-ink);
-    transition: translate 700ms var(--ease-out), visibility 700ms;
+    transition: translate 700ms var(--ease-out);
   }
 
   .loader[data-state="leaving"] { translate: 0 -100%; }
   .loader[data-state="hidden"] { visibility: hidden; }
+  .loader[data-state="welcome"],
+  .loader[data-state="leaving"] { background: var(--color-mint); }
+
+  .loader__bloom {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    width: 4rem;
+    aspect-ratio: 1;
+    border-radius: .6rem;
+    background: var(--color-mint);
+    opacity: 0;
+    scale: 0;
+    translate: -50% -50%;
+    transform-origin: center;
+  }
+
+  .loader[data-state="blooming"] .loader__bloom {
+    opacity: 1;
+    animation: loader-bloom 1400ms var(--ease-out) forwards;
+  }
+
+  .loader[data-state="welcome"] .loader__bloom,
+  .loader[data-state="leaving"] .loader__bloom { opacity: 0; }
+
+  .loader[data-state="blooming"] .loader__window { opacity: 0; transition: opacity 160ms linear; }
+  .loader[data-state="welcome"] .loader__window,
+  .loader[data-state="leaving"] .loader__window { opacity: 0; }
+
+  .loader__welcome {
+    position: absolute;
+    z-index: 3;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: var(--color-surface);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .loader[data-state="welcome"] .loader__welcome {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .loader__welcome-content {
+    opacity: 0;
+    scale: .72;
+    translate: 0 1.25rem;
+  }
+
+  .loader[data-state="welcome"] .loader__welcome-content {
+    animation: welcome-message 650ms 100ms var(--ease-out) forwards;
+  }
+
+  .loader__welcome-message {
+    font: 900 clamp(3rem, 7vw, 6.5rem)/1.05 var(--font-mono);
+    letter-spacing: -.08em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .loader__welcome-enter {
+    position: absolute;
+    bottom: clamp(2rem, 6vh, 4rem);
+    border: 0;
+    color: inherit;
+    background: transparent;
+    font: 600 .75rem/1 var(--font-mono);
+    cursor: pointer;
+  }
 
   .loader__window {
     width: min(40rem, 90vw);
@@ -67,10 +146,20 @@ import BrandMark from "../ui/BrandMark.astro";
   .loader__progress { width: 0; height: 100%; border-radius: inherit; background: var(--color-mint); transition: width 160ms linear; }
   .loader__mascot { position: absolute; z-index: 1; left: 0; top: 50%; translate: -40% -50%; transition: left 160ms linear; }
   .loader__status { margin-top: 3rem; font: 500 .75rem/1 var(--font-mono); text-align: center; }
-  .loader__enter { position: absolute; bottom: 2rem; border: 0; color: var(--color-surface); background: transparent; font: 500 .75rem/1 var(--font-mono); cursor: pointer; }
+  @keyframes loader-bloom {
+    0% { border-radius: .6rem; scale: 1; }
+    35% { border-radius: 45%; scale: 8; }
+    100% { border-radius: 50%; scale: 70; }
+  }
+
+  @keyframes welcome-message {
+    to { opacity: 1; scale: 1; translate: 0 0; }
+  }
 
   @media (prefers-reduced-motion: reduce) {
     .loader { transition-duration: 1ms; }
     .loader__progress, .loader__mascot { transition: none; }
+    .loader[data-state="blooming"] .loader__bloom { animation-duration: 1ms; }
+    .loader[data-state="welcome"] .loader__welcome-content { animation-duration: 1ms; animation-delay: 0ms; }
   }
 </style>
