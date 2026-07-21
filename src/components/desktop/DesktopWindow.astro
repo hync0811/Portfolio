@@ -1,4 +1,6 @@
 ---
+import icEi from "../../assets/ic-ei.svg?url";
+
 interface Props { id: string; title: string; }
 const { id, title } = Astro.props;
 ---
@@ -10,16 +12,20 @@ const { id, title } = Astro.props;
   </header>
   <div class="window__toolbar" aria-hidden="true">
     <span>←</span><span>→</span><span>↑</span><span>⟳</span>
-    <div>ei&nbsp; &gt;&nbsp; {title}</div>
+    <div class="window__address"><img src={icEi} alt="" /><span>&gt;</span><span data-window-address-title>{title}</span></div>
     <div>Searching&nbsp;⌕</div>
   </div>
   <div class="window__body">
     <aside aria-label="Sections">
-      <a href="#about" data-window-target="about">&gt;&nbsp; About me</a>
-      <a href="#works" data-window-target="works">&gt;&nbsp; Works</a>
-      <a href="#contact" data-window-target="contact">&gt;&nbsp; Contact</a>
+      <a href="#about" data-window-target="about" class="is-active" aria-current="page"><span aria-hidden="true">&gt;</span><span class="window__nav-label">About me</span></a>
+      <a href="#works" data-window-target="works"><span aria-hidden="true">&gt;</span><span class="window__nav-label">Works</span></a>
+      <a href="#contact" data-window-target="contact"><span aria-hidden="true">&gt;</span><span class="window__nav-label">Contact</span></a>
     </aside>
-    <section class="window__content"><slot /></section>
+    <section class="window__content">
+      <div data-panel="about"><slot name="about" /></div>
+      <slot name="works" />
+      <slot name="contact" />
+    </section>
   </div>
 </article>
 
@@ -30,9 +36,19 @@ const { id, title } = Astro.props;
   button { border: 0; color: var(--color-mint); background: transparent; font-size: 1.25rem; cursor: pointer; }
   .window__toolbar { display: grid; grid-template-columns: repeat(4, auto) minmax(14rem, 1fr) 13rem; align-items: center; gap: 1.25rem; min-height: 4.25rem; padding: .75rem 1.5rem; color: var(--color-purple); background: var(--color-mint); font: 600 1rem/1 var(--font-mono); }
   .window__toolbar div { overflow: hidden; padding: .75rem; border-radius: .65rem; color: var(--color-purple); background: var(--color-chrome); font-size: .72rem; white-space: nowrap; }
+  .window__toolbar .window__address { display: flex; align-items: baseline; gap: .35rem; }
+  .window__address img { width: .72rem; height: .72rem; flex: 0 0 auto; object-fit: contain; }
   .window__body { display: grid; grid-template-columns: 11rem 1fr; height: calc(100% - 6.5rem); }
   aside { display: flex; flex-direction: column; gap: 2rem; padding: 4rem 1.25rem; background: var(--color-mint); }
-  aside a { color: var(--color-purple); font: 600 .82rem/1 var(--font-mono); text-decoration: none; }
+  aside a { display: flex; align-items: center; gap: .75rem; color: var(--color-purple); font: 600 .82rem/1 var(--font-mono); text-decoration: none; }
+  .window__nav-label { padding: .35rem .5rem; border-radius: .3rem; }
+  .window__body > aside > a[aria-current="page"] .window__nav-label {
+    display: inline-block;
+    min-width: 5.65rem;
+    color: var(--color-surface) !important;
+    background: var(--color-purple) !important;
+  }
+  aside a:hover .window__nav-label, aside a:focus-visible .window__nav-label { color: var(--color-surface); background: color-mix(in srgb, var(--color-purple) 78%, transparent); }
   .window__content { overflow: auto; padding: clamp(2rem, 5vw, 5rem); }
   @media (max-width: 48rem) { .window { top: 5%; width: calc(100vw - 2rem); min-width: 0; height: calc(100% - 2rem); } .window__toolbar { grid-template-columns: repeat(4, auto) 1fr; } .window__toolbar div:last-child { display: none; } .window__body { grid-template-columns: 1fr; } aside { display: none; } }
 </style>

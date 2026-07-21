@@ -2,6 +2,7 @@
 import "../styles/reset.css";
 import "../styles/variables.css";
 import "../styles/globals.css";
+import icEi from "../assets/ic-ei.svg?url";
 
 interface Props {
   title?: string;
@@ -21,7 +22,7 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0b0b0b" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={icEi} type="image/svg+xml" />
     <title>{title}</title>
   </head>
   <body>

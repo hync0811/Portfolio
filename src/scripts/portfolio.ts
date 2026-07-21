@@ -76,6 +76,7 @@ if (root) {
 
   root.querySelectorAll<HTMLElement>("[data-draggable]").forEach((item) => {
     const handle = item.querySelector<HTMLElement>("[data-drag-handle]") ?? item;
+    item.addEventListener("dragstart", (event) => event.preventDefault());
     handle.addEventListener("pointerdown", (event) => {
       if ((event.target as HTMLElement).closest("button, a")) return;
       const bounds = item.getBoundingClientRect();
@@ -103,5 +104,48 @@ if (root) {
       handle.addEventListener("pointerup", end);
       handle.addEventListener("pointercancel", end);
     });
+  });
+
+  const windowTitle = root.querySelector<HTMLElement>(".window__titlebar span");
+  const windowAddressTitle = root.querySelector<HTMLElement>("[data-window-address-title]");
+  const panels = root.querySelectorAll<HTMLElement>("[data-panel]");
+  const selectPanel = (target: string) => {
+    if (target !== "about" && target !== "works" && target !== "contact") return;
+    panels.forEach((panel) => { panel.hidden = panel.dataset.panel !== target; });
+    const title = target === "works" ? "Works" : target === "contact" ? "Contact" : "About me";
+    if (windowTitle) windowTitle.textContent = title;
+    if (windowAddressTitle) windowAddressTitle.textContent = title;
+    root.querySelectorAll<HTMLAnchorElement>("aside [data-window-target]").forEach((link) => {
+      const isActive = link.dataset.windowTarget === target;
+      link.classList.toggle("is-active", isActive);
+      if (isActive) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    });
+  };
+
+  root.querySelectorAll<HTMLAnchorElement>("[data-window-target]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const target = link.dataset.windowTarget;
+      if (target !== "about" && target !== "works" && target !== "contact") return;
+      event.preventDefault();
+      selectPanel(target);
+    });
+  });
+
+  const detail = root.querySelector<HTMLElement>("[data-work-detail]");
+  const detailTitle = root.querySelector<HTMLElement>("[data-work-detail-title]");
+  root.querySelectorAll<HTMLButtonElement>("[data-folder]").forEach((folder) => {
+    folder.addEventListener("click", () => {
+      root.querySelectorAll<HTMLElement>("[data-folder]").forEach((item) => item.setAttribute("aria-expanded", "false"));
+      folder.setAttribute("aria-expanded", "true");
+      if (detail && detailTitle) {
+        detailTitle.textContent = folder.dataset.project ?? "Project";
+        detail.hidden = false;
+      }
+    });
+  });
+  root.querySelector<HTMLButtonElement>("[data-work-detail-close]")?.addEventListener("click", () => {
+    detail?.setAttribute("hidden", "");
+    root.querySelectorAll<HTMLElement>("[data-folder]").forEach((item) => item.setAttribute("aria-expanded", "false"));
   });
 }

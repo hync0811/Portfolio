@@ -1,5 +1,5 @@
 ---
-import BrandMark from "../ui/BrandMark.astro";
+import icEi from "../../assets/ic-ei.svg?url";
 
 const navigation = [
   { label: "Play", target: "play" },
@@ -10,7 +10,7 @@ const navigation = [
 ---
 
 <header class="site-header">
-  <a class="site-header__brand" href="#play" aria-label="Eiter home"><BrandMark /></a>
+  <a class="site-header__brand" href="#play" aria-label="Eiter home"><img src={icEi} alt="" /></a>
   <nav aria-label="Primary navigation">
     <ul>
       {navigation.map(({ label, target }) => <li><a href={`#${target}`} data-window-target={target}>{label}</a></li>)}
@@ -25,6 +25,7 @@ const navigation = [
 <style>
   .site-header { position: fixed; z-index: var(--z-shell); top: var(--shell-gap); left: var(--shell-gap); right: var(--shell-gap); display: flex; align-items: center; min-height: var(--header-height); padding: .75rem 2rem; border-radius: var(--radius-pill); background: var(--color-chrome); }
   .site-header__brand { display: grid; width: 2.5rem; text-decoration: none; }
+  .site-header__brand img { width: 100%; height: 100%; object-fit: contain; }
   ul { display: flex; gap: clamp(1.25rem, 3vw, 2.5rem); margin-left: 2.25rem; padding: 0; list-style: none; }
   a { color: var(--color-purple); font: 600 .8rem/1 var(--font-mono); text-decoration: none; }
   a:hover, a:focus-visible { color: var(--color-ink); }

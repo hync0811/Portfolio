@@ -1,0 +1,112 @@
+---
+const projects = [
+  "Lotus Water Puppet",
+  "Crescent",
+  "Holiday Inn",
+  "Rong Vang Hoang Gia",
+  "Antibiotic Abuse",
+];
+---
+
+<section class="works-panel" data-panel="works" hidden aria-labelledby="works-heading">
+  <h2 id="works-heading" class="sr-only">Works</h2>
+  <div class="works-panel__grid" role="list">
+    {projects.map((project, index) => (
+      <button class="work-folder" type="button" data-folder data-project={project} aria-expanded="false" role="listitem">
+        <span class="work-folder__art" aria-hidden="true">
+          <span class="work-folder__back">
+            <span class="work-folder__paper">
+              <span class="work-folder__preview">
+                <i>{project}</i>
+                <strong>{String(index + 1).padStart(2, "0")}</strong>
+              </span>
+              <span class="work-folder__front"><b>{String(index + 1).padStart(2, "0")}</b></span>
+            </span>
+          </span>
+        </span>
+        <span class="work-folder__name">{project}</span>
+      </button>
+    ))}
+  </div>
+
+  <aside class="works-panel__detail" data-work-detail aria-live="polite" hidden>
+    <button type="button" data-work-detail-close aria-label="Close project detail">×</button>
+    <p>Selected project</p>
+    <h3 data-work-detail-title></h3>
+    <span>Artwork and project details will be added here.</span>
+  </aside>
+</section>
+
+<style>
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .works-panel { position: relative; min-height: 100%; }
+  .works-panel__grid { display: grid; grid-template-columns: repeat(3, minmax(7.5rem, 1fr)); gap: clamp(2rem, 5vw, 5rem) clamp(1.5rem, 6vw, 5rem); padding: 1rem 1.25rem; }
+  .work-folder { display: grid; gap: .85rem; padding: 0; border: 0; color: var(--color-ink); background: transparent; text-align: left; cursor: pointer; }
+  .work-folder__art { position: relative; display: block; width: min(8.25rem, 100%); aspect-ratio: 1.34; perspective: 42rem; }
+  .work-folder__back {
+    position: absolute;
+    inset: 6% 12% 4% 6%;
+    display: block;
+  }
+  .work-folder__back::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    background: var(--color-purple);
+    clip-path: polygon(4% 0, 28% 0, 31% 7%, 100% 7%, 100% 15%, 13% 15%, 0 100%, 0 8%);
+  }
+  .work-folder__paper {
+    position: absolute;
+    z-index: 1;
+    inset: 15% -11% 0 3%;
+    display: block;
+    overflow: visible;
+  }
+  .work-folder__paper::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    background: var(--color-chrome);
+    clip-path: polygon(10% 0, 100% 0, 87% 100%, 0 100%);
+  }
+  .work-folder__preview {
+    position: absolute;
+    z-index: 1;
+    inset: 15% 15% 18% 17%;
+    display: grid;
+    align-content: center;
+    gap: .35rem;
+    color: #29449a;
+  }
+  .work-folder__preview::before { content: "✦"; font: 700 2rem/1 var(--font-sans); }
+  .work-folder__preview i { font: 600 .5rem/1.15 var(--font-mono); font-style: normal; text-transform: uppercase; }
+  .work-folder__preview strong { font: 700 .9rem/1 var(--font-mono); }
+  .work-folder__front {
+    position: absolute;
+    z-index: 2;
+    inset: 12% -7% 0 -3%;
+    display: grid;
+    place-items: end end;
+    padding: .5rem .7rem;
+    background: var(--color-mint);
+    clip-path: polygon(17% 0, 100% 0, 82% 100%, 0 100%);
+    transform-origin: center bottom;
+    transform: perspective(42rem) rotateX(0deg);
+    transition: transform 540ms var(--ease-out);
+    will-change: transform;
+  }
+  .work-folder__front b { color: var(--color-purple); font: italic 700 1.35rem/1 var(--font-mono); }
+  .work-folder__name { font: 500 .66rem/1.35 var(--font-mono); }
+  .work-folder:hover .work-folder__front, .work-folder[aria-expanded="true"] .work-folder__front { transform: perspective(42rem) rotateX(-68deg); }
+  .work-folder:focus-visible { outline: 3px solid var(--color-yellow); outline-offset: .35rem; }
+  .works-panel__detail { position: absolute; z-index: 2; inset: auto 1.25rem 1.25rem; display: grid; gap: .65rem; padding: 1.5rem; border: .2rem solid var(--color-purple); border-radius: 1rem; color: var(--color-ink); background: var(--color-surface); box-shadow: .5rem .5rem 0 var(--color-mint); animation: detail-enter 320ms var(--ease-out); }
+  .works-panel__detail button { position: absolute; top: .35rem; right: .65rem; border: 0; color: var(--color-purple); background: transparent; font-size: 1.35rem; cursor: pointer; }
+  .works-panel__detail p { color: var(--color-purple); font: 600 .65rem/1 var(--font-mono); text-transform: uppercase; }
+  .works-panel__detail h3 { font-size: 1.5rem; }
+  .works-panel__detail span { color: var(--color-muted); font: .75rem/1.5 var(--font-mono); }
+  @keyframes detail-enter { from { opacity: 0; translate: 0 .75rem; } }
+  @media (max-width: 48rem) { .works-panel__grid { grid-template-columns: repeat(2, minmax(7rem, 1fr)); gap: 2rem 1.5rem; padding: 1rem 0; } }
+  @media (prefers-reduced-motion: reduce) { .work-folder__front { transition-duration: 1ms; } .works-panel__detail { animation-duration: 1ms; } }
+</style>

@@ -1,6 +1,8 @@
 ---
 import BrandMark from "../ui/BrandMark.astro";
+import ContactPanel from "../contact/ContactPanel.astro";
 import DesktopWindow from "./DesktopWindow.astro";
+import WorksPanel from "../works/WorksPanel.astro";
 ---
 
 <main class="desktop" id="play" data-desktop>
@@ -10,13 +12,14 @@ import DesktopWindow from "./DesktopWindow.astro";
     <div class="desktop__sticker desktop__sticker--eyes" data-draggable aria-hidden="true">●●</div>
 
     <DesktopWindow id="about" title="About me">
-      <p class="eyebrow">Hello, I’m Eiter.</p>
-      <h1>A playful space for thoughtful visual work.</h1>
-      <p class="lede">This is the structural base. Final portfolio copy and project content will be connected in the next phase.</p>
+      <div slot="about">
+        <p class="eyebrow">Hello, I’m Eiter.</p>
+        <h1>A playful space for thoughtful visual work.</h1>
+        <p class="lede">This is the structural base. Final portfolio copy and project content will be connected in the next phase.</p>
+      </div>
+      <WorksPanel slot="works" />
+      <ContactPanel slot="contact" />
     </DesktopWindow>
-
-    <section id="works" hidden aria-label="Works"></section>
-    <section id="contact" hidden aria-label="Contact"></section>
   </div>
 </main>
 
