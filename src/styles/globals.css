@@ -1,0 +1,6 @@
+body { overflow: hidden; color: var(--color-ink); background: var(--color-canvas); font-family: var(--font-sans); text-rendering: optimizeLegibility; }
+button, a { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid var(--color-yellow); outline-offset: 3px; }
+[hidden] { display: none !important; }
+.portfolio__app[aria-hidden="true"] { visibility: hidden; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }

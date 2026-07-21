@@ -1,0 +1,76 @@
+---
+import BrandMark from "../ui/BrandMark.astro";
+---
+
+<section class="loader" data-loader aria-label="Loading portfolio">
+  <div class="loader__window">
+    <div class="loader__chrome" aria-hidden="true">
+      <span></span><span></span><span></span>
+      <i></i>
+    </div>
+
+    <div class="loader__content">
+      <p class="loader__title" data-loader-title>Loading…</p>
+      <div class="loader__track" aria-hidden="true">
+        <div class="loader__mascot" data-loader-mascot><BrandMark compact /></div>
+        <div class="loader__progress" data-loader-progress></div>
+      </div>
+      <p class="loader__status" data-loader-status>Wait a sec…</p>
+    </div>
+  </div>
+
+  <button class="loader__enter" type="button" data-loader-enter hidden>
+    Scroll or click to enter
+  </button>
+</section>
+
+<style>
+  .loader {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-loader);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    padding: var(--space-5);
+    background: var(--color-ink);
+    transition: translate 700ms var(--ease-out), visibility 700ms;
+  }
+
+  .loader[data-state="leaving"] { translate: 0 -100%; }
+  .loader[data-state="hidden"] { visibility: hidden; }
+
+  .loader__window {
+    width: min(40rem, 90vw);
+    overflow: hidden;
+    border-radius: var(--radius-window);
+    background: var(--color-surface);
+  }
+
+  .loader__chrome {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    height: 3.5rem;
+    padding-inline: 1.5rem;
+    background: var(--color-purple);
+  }
+
+  .loader__chrome span { width: 1rem; aspect-ratio: 1; border-radius: 50%; background: var(--color-pink); }
+  .loader__chrome span:nth-child(2) { background: var(--color-yellow); }
+  .loader__chrome span:nth-child(3) { background: var(--color-mint); }
+  .loader__chrome i { flex: 1; height: .65rem; margin-left: 1rem; border-radius: 99px; background: var(--color-yellow); }
+
+  .loader__content { padding: clamp(3rem, 8vw, 7rem) clamp(2rem, 8vw, 6rem) 3rem; }
+  .loader__title { margin-bottom: 2.5rem; font: 900 clamp(2.25rem, 6vw, 4rem)/1 var(--font-sans); text-align: center; text-transform: uppercase; }
+  .loader__track { position: relative; height: 1rem; border-radius: 99px; background: var(--color-chrome); }
+  .loader__progress { width: 0; height: 100%; border-radius: inherit; background: var(--color-mint); transition: width 160ms linear; }
+  .loader__mascot { position: absolute; z-index: 1; left: 0; top: 50%; translate: -40% -50%; transition: left 160ms linear; }
+  .loader__status { margin-top: 3rem; font: 500 .75rem/1 var(--font-mono); text-align: center; }
+  .loader__enter { position: absolute; bottom: 2rem; border: 0; color: var(--color-surface); background: transparent; font: 500 .75rem/1 var(--font-mono); cursor: pointer; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .loader { transition-duration: 1ms; }
+    .loader__progress, .loader__mascot { transition: none; }
+  }
+</style>

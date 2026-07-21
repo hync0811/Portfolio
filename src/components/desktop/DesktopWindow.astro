@@ -1,0 +1,38 @@
+---
+interface Props { id: string; title: string; }
+const { id, title } = Astro.props;
+---
+
+<article class="window" id={id} data-draggable data-window>
+  <header class="window__titlebar" data-drag-handle>
+    <span>{title}</span>
+    <button type="button" aria-label={`Close ${title}`} data-window-close>×</button>
+  </header>
+  <div class="window__toolbar" aria-hidden="true">
+    <span>←</span><span>→</span><span>↑</span><span>⟳</span>
+    <div>ei&nbsp; &gt;&nbsp; {title}</div>
+    <div>Searching&nbsp;⌕</div>
+  </div>
+  <div class="window__body">
+    <aside aria-label="Sections">
+      <a href="#about" data-window-target="about">&gt;&nbsp; About me</a>
+      <a href="#works" data-window-target="works">&gt;&nbsp; Works</a>
+      <a href="#contact" data-window-target="contact">&gt;&nbsp; Contact</a>
+    </aside>
+    <section class="window__content"><slot /></section>
+  </div>
+</article>
+
+<style>
+  .window { position: absolute; top: 13%; left: 50%; width: min(58rem, 72vw); min-width: 40rem; height: min(34rem, 64vh); overflow: hidden; translate: -50% 0; border-radius: var(--radius-window); background: var(--color-surface); box-shadow: 1rem 1rem 0 var(--color-purple); touch-action: none; }
+  .window__titlebar { display: flex; align-items: center; justify-content: space-between; height: 2.25rem; padding: 0 1.25rem 0 3rem; color: var(--color-purple); background: linear-gradient(90deg, var(--color-mint) 19%, var(--color-purple) 19%); font: 600 .8rem/1 var(--font-mono); cursor: grab; }
+  .window__titlebar:active { cursor: grabbing; }
+  button { border: 0; color: var(--color-mint); background: transparent; font-size: 1.25rem; cursor: pointer; }
+  .window__toolbar { display: grid; grid-template-columns: repeat(4, auto) minmax(14rem, 1fr) 13rem; align-items: center; gap: 1.25rem; min-height: 4.25rem; padding: .75rem 1.5rem; color: var(--color-purple); background: var(--color-mint); font: 600 1rem/1 var(--font-mono); }
+  .window__toolbar div { overflow: hidden; padding: .75rem; border-radius: .65rem; color: var(--color-purple); background: var(--color-chrome); font-size: .72rem; white-space: nowrap; }
+  .window__body { display: grid; grid-template-columns: 11rem 1fr; height: calc(100% - 6.5rem); }
+  aside { display: flex; flex-direction: column; gap: 2rem; padding: 4rem 1.25rem; background: var(--color-mint); }
+  aside a { color: var(--color-purple); font: 600 .82rem/1 var(--font-mono); text-decoration: none; }
+  .window__content { overflow: auto; padding: clamp(2rem, 5vw, 5rem); }
+  @media (max-width: 48rem) { .window { top: 5%; width: calc(100vw - 2rem); min-width: 0; height: calc(100% - 2rem); } .window__toolbar { grid-template-columns: repeat(4, auto) 1fr; } .window__toolbar div:last-child { display: none; } .window__body { grid-template-columns: 1fr; } aside { display: none; } }
+</style>

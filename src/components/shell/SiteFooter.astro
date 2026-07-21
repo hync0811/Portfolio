@@ -1,0 +1,18 @@
+---
+const items = ["eiter", "graphic designer", "based in Vietnam", "let’s explore my work"];
+---
+
+<footer class="site-footer" aria-label="Portfolio information">
+  <div class="site-footer__track">
+    {[...items, ...items].map((item) => <><span>{item}</span><i aria-hidden="true">+</i></>)}
+  </div>
+</footer>
+
+<style>
+  .site-footer { position: fixed; z-index: var(--z-shell); inset: auto 0 0; height: var(--footer-height); overflow: hidden; color: var(--color-mint); background: var(--color-purple); font: 600 .65rem/var(--footer-height) var(--font-mono); text-transform: lowercase; }
+  .site-footer__track { display: flex; width: max-content; animation: marquee 24s linear infinite; }
+  span { min-width: 13rem; text-align: center; }
+  i { color: var(--color-yellow); font-style: normal; }
+  @keyframes marquee { to { translate: -50% 0; } }
+  @media (prefers-reduced-motion: reduce) { .site-footer__track { animation-play-state: paused; } }
+</style>

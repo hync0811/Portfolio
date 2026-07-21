@@ -1,0 +1,23 @@
+---
+import Desktop from "../components/desktop/Desktop.astro";
+import LoadingScreen from "../components/loading/LoadingScreen.astro";
+import SiteFooter from "../components/shell/SiteFooter.astro";
+import SiteHeader from "../components/shell/SiteHeader.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="portfolio" data-portfolio>
+    <LoadingScreen />
+
+    <div class="portfolio__app" data-app-shell aria-hidden="true">
+      <SiteHeader />
+      <Desktop />
+      <SiteFooter />
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import "../scripts/portfolio";
+</script>

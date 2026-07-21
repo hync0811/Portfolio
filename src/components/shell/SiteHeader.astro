@@ -1,0 +1,33 @@
+---
+import BrandMark from "../ui/BrandMark.astro";
+
+const navigation = [
+  { label: "Play", target: "play" },
+  { label: "About", target: "about" },
+  { label: "Works", target: "works" },
+  { label: "Contact", target: "contact" },
+];
+---
+
+<header class="site-header">
+  <a class="site-header__brand" href="#play" aria-label="Eiter home"><BrandMark /></a>
+  <nav aria-label="Primary navigation">
+    <ul>
+      {navigation.map(({ label, target }) => <li><a href={`#${target}`} data-window-target={target}>{label}</a></li>)}
+    </ul>
+  </nav>
+  <div class="site-header__clock" aria-label="Current local date and time">
+    <time data-current-date>--/--/----</time>
+    <time data-current-time>--:--</time>
+  </div>
+</header>
+
+<style>
+  .site-header { position: fixed; z-index: var(--z-shell); top: var(--shell-gap); left: var(--shell-gap); right: var(--shell-gap); display: flex; align-items: center; min-height: var(--header-height); padding: .75rem 2rem; border-radius: var(--radius-pill); background: var(--color-chrome); }
+  .site-header__brand { display: grid; width: 2.5rem; text-decoration: none; }
+  ul { display: flex; gap: clamp(1.25rem, 3vw, 2.5rem); margin-left: 2.25rem; padding: 0; list-style: none; }
+  a { color: var(--color-purple); font: 600 .8rem/1 var(--font-mono); text-decoration: none; }
+  a:hover, a:focus-visible { color: var(--color-ink); }
+  .site-header__clock { display: flex; gap: 2.5rem; margin-left: auto; color: var(--color-purple); font: 600 .8rem/1 var(--font-mono); }
+  @media (max-width: 44rem) { .site-header { padding-inline: 1.25rem; } nav li:first-child { display: none; } ul { gap: 1rem; margin-left: 1rem; } .site-header__clock { display: none; } }
+</style>

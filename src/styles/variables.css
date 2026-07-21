@@ -1,0 +1,23 @@
+:root {
+  --color-ink: #050505;
+  --color-surface: #ffffff;
+  --color-canvas: #fdfdfd;
+  --color-chrome: #eeeeef;
+  --color-muted: #626269;
+  --color-mint: #08dcb8;
+  --color-purple: #9747ff;
+  --color-yellow: #edff00;
+  --color-pink: #e76aff;
+
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: "Courier New", Courier, monospace;
+  --header-height: 4.25rem;
+  --footer-height: 1.75rem;
+  --shell-gap: clamp(1rem, 3vw, 3rem);
+  --space-5: 1.25rem;
+  --radius-window: 1.5rem;
+  --radius-pill: 999px;
+  --z-shell: 20;
+  --z-loader: 100;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+}
