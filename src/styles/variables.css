@@ -9,8 +9,8 @@
   --color-yellow: #edff00;
   --color-pink: #e76aff;
 
-  --font-sans: Arial, Helvetica, sans-serif;
-  --font-mono: "Courier New", Courier, monospace;
+  --font-sans: "TT Norms Pro", "TT Norms", Arial, Helvetica, sans-serif;
+  --font-mono: "JetBrains Mono", "Courier New", Courier, monospace;
   --header-height: 4.25rem;
   --footer-height: 1.75rem;
   --shell-gap: clamp(1rem, 3vw, 3rem);

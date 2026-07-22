@@ -7,7 +7,7 @@ const { id, title } = Astro.props;
 
 <article class="window" id={id} data-draggable data-window>
   <header class="window__titlebar" data-drag-handle>
-    <span>{title}</span>
+    <span>eiter</span>
     <button type="button" aria-label={`Close ${title}`} data-window-close>×</button>
   </header>
   <div class="window__toolbar" aria-hidden="true">
@@ -49,6 +49,6 @@ const { id, title } = Astro.props;
     background: var(--color-purple) !important;
   }
   aside a:hover .window__nav-label, aside a:focus-visible .window__nav-label { color: var(--color-surface); background: color-mix(in srgb, var(--color-purple) 78%, transparent); }
-  .window__content { overflow: auto; padding: clamp(2rem, 5vw, 5rem); }
+  .window__content { overflow: auto; padding: 0; }
   @media (max-width: 48rem) { .window { top: 5%; width: calc(100vw - 2rem); min-width: 0; height: calc(100% - 2rem); } .window__toolbar { grid-template-columns: repeat(4, auto) 1fr; } .window__toolbar div:last-child { display: none; } .window__body { grid-template-columns: 1fr; } aside { display: none; } }
 </style>

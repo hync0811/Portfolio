@@ -1,21 +1,21 @@
 ---
 import BrandMark from "../ui/BrandMark.astro";
+import AboutPanel from "../about/AboutPanel.astro";
 import ContactPanel from "../contact/ContactPanel.astro";
 import DesktopWindow from "./DesktopWindow.astro";
 import WorksPanel from "../works/WorksPanel.astro";
+import eyesMid from "../../assets/ic-eyes-mid.svg?url";
 ---
 
 <main class="desktop" id="play" data-desktop>
   <div class="desktop__stage">
     <div class="desktop__placeholder" aria-hidden="true"></div>
     <div class="desktop__sticker desktop__sticker--brand" data-draggable><BrandMark compact /></div>
-    <div class="desktop__sticker desktop__sticker--eyes" data-draggable aria-hidden="true">●●</div>
+    <div class="desktop__sticker desktop__sticker--eyes" data-draggable aria-hidden="true"><img src={eyesMid} alt="" draggable="false" /></div>
 
     <DesktopWindow id="about" title="About me">
       <div slot="about">
-        <p class="eyebrow">Hello, I’m Eiter.</p>
-        <h1>A playful space for thoughtful visual work.</h1>
-        <p class="lede">This is the structural base. Final portfolio copy and project content will be connected in the next phase.</p>
+        <AboutPanel />
       </div>
       <WorksPanel slot="works" />
       <ContactPanel slot="contact" />
@@ -29,9 +29,6 @@ import WorksPanel from "../works/WorksPanel.astro";
   .desktop__placeholder { position: absolute; top: 13%; left: 3%; width: 18%; aspect-ratio: 1.4; border-radius: 1.25rem; background: var(--color-chrome); }
   .desktop__sticker { position: absolute; z-index: 2; user-select: none; touch-action: none; cursor: grab; }
   .desktop__sticker--brand { left: 8%; bottom: 18%; scale: 1.2; rotate: -12deg; }
-  .desktop__sticker--eyes { right: 6%; top: 35%; display: grid; place-items: center; width: 4.5rem; aspect-ratio: 1; border-radius: .5rem; color: var(--color-ink); background: var(--color-mint); letter-spacing: -.35rem; rotate: 20deg; }
-  .eyebrow { margin-bottom: 1rem; color: var(--color-purple); font: 600 .8rem/1 var(--font-mono); }
-  h1 { max-width: 12ch; font: 900 clamp(2rem, 4vw, 4.25rem)/.98 var(--font-sans); letter-spacing: -.05em; }
-  .lede { max-width: 38rem; margin-top: 2rem; color: var(--color-muted); font-size: 1rem; line-height: 1.65; }
+  .desktop__sticker--eyes { right: 6%; top: 35%; width: 6.5rem; rotate: 20deg; }
   @media (max-width: 48rem) { .desktop__placeholder, .desktop__sticker { display: none; } }
 </style>

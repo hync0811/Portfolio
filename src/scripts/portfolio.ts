@@ -7,13 +7,13 @@ if (root) {
   const mascot = root.querySelector<HTMLElement>("[data-loader-mascot]");
   const bloom = root.querySelector<HTMLElement>("[data-loader-bloom]");
   const status = root.querySelector<HTMLElement>("[data-loader-status]");
-  const welcomeEnter = root.querySelector<HTMLButtonElement>("[data-welcome-enter]");
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const bloomDuration = reduceMotion ? 1 : 1400;
+  const welcomeDuration = reduceMotion ? 0 : 1400;
 
   const revealApp = () => {
-    if (!loader || !appShell || loader.dataset.state === "leaving") return;
-    loader.dataset.state = "leaving";
+    if (!loader || !appShell || loader.dataset.state === "dropping") return;
+    loader.dataset.state = "dropping";
     appShell.ariaHidden = "false";
     sessionStorage.setItem("portfolio-intro-seen", "true");
     window.setTimeout(() => { loader.dataset.state = "hidden"; }, reduceMotion ? 0 : 700);
@@ -29,8 +29,7 @@ if (root) {
     loader.dataset.state = "blooming";
     window.setTimeout(() => {
       loader.dataset.state = "welcome";
-      welcomeEnter?.focus({ preventScroll: true });
-      window.setTimeout(() => { loader.dataset.welcomeReady = "true"; }, reduceMotion ? 0 : 750);
+      window.setTimeout(revealApp, welcomeDuration);
     }, bloomDuration);
   };
 
@@ -52,11 +51,6 @@ if (root) {
       }
     }, reduceMotion ? 20 : 120);
   }
-
-  welcomeEnter?.addEventListener("click", revealApp);
-  window.addEventListener("wheel", () => {
-    if (loader?.dataset.state === "welcome" && loader.dataset.welcomeReady === "true") revealApp();
-  }, { passive: true });
 
   const date = root.querySelector<HTMLTimeElement>("[data-current-date]");
   const time = root.querySelector<HTMLTimeElement>("[data-current-time]");
@@ -106,14 +100,12 @@ if (root) {
     });
   });
 
-  const windowTitle = root.querySelector<HTMLElement>(".window__titlebar span");
   const windowAddressTitle = root.querySelector<HTMLElement>("[data-window-address-title]");
   const panels = root.querySelectorAll<HTMLElement>("[data-panel]");
   const selectPanel = (target: string) => {
     if (target !== "about" && target !== "works" && target !== "contact") return;
     panels.forEach((panel) => { panel.hidden = panel.dataset.panel !== target; });
     const title = target === "works" ? "Works" : target === "contact" ? "Contact" : "About me";
-    if (windowTitle) windowTitle.textContent = title;
     if (windowAddressTitle) windowAddressTitle.textContent = title;
     root.querySelectorAll<HTMLAnchorElement>("aside [data-window-target]").forEach((link) => {
       const isActive = link.dataset.windowTarget === target;
@@ -132,20 +124,103 @@ if (root) {
     });
   });
 
-  const detail = root.querySelector<HTMLElement>("[data-work-detail]");
-  const detailTitle = root.querySelector<HTMLElement>("[data-work-detail-title]");
-  root.querySelectorAll<HTMLButtonElement>("[data-folder]").forEach((folder) => {
+  const workModal = root.querySelector<HTMLElement>("[data-work-modal]");
+  // The work dialog belongs to the viewport, not to the scrollable DesktopWindow.
+  // Moving it to body prevents the window's overflow from clipping its backdrop.
+  if (workModal && workModal.parentElement !== document.body) {
+    document.body.append(workModal);
+  }
+  const modalPanels = workModal?.querySelectorAll<HTMLElement>("[data-work-modal-panel]") ?? [];
+  let modalTrigger: HTMLButtonElement | null = null;
+  const closeWorkModal = () => {
+    if (!workModal) return;
+    workModal.hidden = true;
+    workModal.setAttribute("aria-hidden", "true");
+    modalPanels.forEach((panel) => { panel.hidden = true; });
+    root.querySelectorAll<HTMLElement>("[data-folder]").forEach((item) => item.setAttribute("aria-expanded", "false"));
+    modalTrigger?.focus();
+    modalTrigger = null;
+  };
+
+  root.querySelectorAll<HTMLButtonElement>("[data-work-modal-trigger]").forEach((folder) => {
     folder.addEventListener("click", () => {
+      const project = folder.dataset.workModalTrigger;
+      if (!project || !workModal) return;
+      modalTrigger = folder;
       root.querySelectorAll<HTMLElement>("[data-folder]").forEach((item) => item.setAttribute("aria-expanded", "false"));
       folder.setAttribute("aria-expanded", "true");
-      if (detail && detailTitle) {
-        detailTitle.textContent = folder.dataset.project ?? "Project";
-        detail.hidden = false;
-      }
+      modalPanels.forEach((panel) => { panel.hidden = panel.dataset.workModalPanel !== project; });
+      workModal.hidden = false;
+      workModal.setAttribute("aria-hidden", "false");
+      workModal.querySelector<HTMLButtonElement>("[data-work-modal-close]")?.focus();
     });
   });
-  root.querySelector<HTMLButtonElement>("[data-work-detail-close]")?.addEventListener("click", () => {
-    detail?.setAttribute("hidden", "");
-    root.querySelectorAll<HTMLElement>("[data-folder]").forEach((item) => item.setAttribute("aria-expanded", "false"));
+  workModal?.querySelectorAll<HTMLButtonElement>("[data-work-modal-close]").forEach((button) => button.addEventListener("click", closeWorkModal));
+  workModal?.querySelectorAll<HTMLButtonElement>("[data-work-modal-top]").forEach((button) => {
+    button.addEventListener("click", () => {
+      button.closest<HTMLElement>(".work-modal__body")?.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
+  workModal?.querySelectorAll<HTMLButtonElement>("[data-work-modal-next]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const nextTrigger = root.querySelector<HTMLButtonElement>('[data-work-modal-trigger="2"]');
+      nextTrigger?.click();
+    });
+  });
+  workModal?.querySelectorAll<HTMLElement>("[data-work2-gallery]").forEach((gallery) => {
+    const image = gallery.querySelector<HTMLImageElement>("[data-work2-gallery-image]");
+    const sources = JSON.parse(gallery.dataset.work2GallerySources ?? "[]") as string[];
+    let current = 0;
+    const setImage = (direction: number) => {
+      if (!image || sources.length === 0) return;
+      current = (current + direction + sources.length) % sources.length;
+      image.src = sources[current];
+    };
+    gallery.querySelector<HTMLButtonElement>("[data-work2-gallery-previous]")?.addEventListener("click", () => setImage(-1));
+    gallery.querySelector<HTMLButtonElement>("[data-work2-gallery-next]")?.addEventListener("click", () => setImage(1));
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && workModal && !workModal.hidden) closeWorkModal();
+  });
+
+  workModal?.querySelectorAll<HTMLElement>("[data-modal-draggable]").forEach((item) => {
+    item.addEventListener("dragstart", (event) => event.preventDefault());
+    item.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0) return;
+      event.preventDefault();
+      const parent = item.parentElement;
+      if (!parent) return;
+      const bounds = item.getBoundingClientRect();
+      const parentBounds = parent.getBoundingClientRect();
+      const startX = event.clientX;
+      const startY = event.clientY;
+      const startLeft = bounds.left - parentBounds.left;
+      const startTop = bounds.top - parentBounds.top;
+      item.setPointerCapture(event.pointerId);
+      item.style.right = "auto";
+      item.style.left = `${startLeft}px`;
+      item.style.top = `${startTop}px`;
+      const move = (moveEvent: PointerEvent) => {
+        const left = Math.min(parentBounds.width - bounds.width, Math.max(0, startLeft + moveEvent.clientX - startX));
+        const top = Math.min(parentBounds.height - bounds.height, Math.max(0, startTop + moveEvent.clientY - startY));
+        item.style.left = `${left}px`;
+        item.style.top = `${top}px`;
+      };
+      const end = () => {
+        if (item.hasPointerCapture(event.pointerId)) item.releasePointerCapture(event.pointerId);
+        item.removeEventListener("pointermove", move);
+        item.removeEventListener("pointerup", end);
+        item.removeEventListener("pointercancel", end);
+      };
+      item.addEventListener("pointermove", move);
+      item.addEventListener("pointerup", end);
+      item.addEventListener("pointercancel", end);
+    });
+  });
+
+  root.querySelectorAll<HTMLButtonElement>("[data-scroll-top]").forEach((button) => {
+    button.addEventListener("click", () => {
+      button.closest(".window__content")?.scrollTo({ top: 0, behavior: "smooth" });
+    });
   });
 }

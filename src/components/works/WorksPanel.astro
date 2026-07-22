@@ -1,30 +1,45 @@
 ---
+import work1 from "../../assets/works/work-1.svg?url";
+import work2 from "../../assets/works/work-2.svg?url";
+import work3 from "../../assets/works/work-3.svg?url";
+import work4 from "../../assets/works/work-4.svg?url";
+import work5 from "../../assets/works/work-5.svg?url";
+import eiterLogo from "../../assets/ei-main.svg?url";
+import work2Pic1 from "../../assets/works/work-2/pic1.png?url";
+import work2Pic2 from "../../assets/works/work-2/pic2.png?url";
+import work2Pic3 from "../../assets/works/work-2/pic3.png?url";
+import work2Pic4 from "../../assets/works/work-2/pic4.png?url";
+import work2Pic5 from "../../assets/works/work-2/pic5.png?url";
+import work2Pic6 from "../../assets/works/work-2/pic6.png?url";
+import work2Drag1 from "../../assets/works/work-2/drag1.png?url";
+import work2Drag2 from "../../assets/works/work-2/drag2.png?url";
+import work2Drag3 from "../../assets/works/work-2/drag3.png?url";
+
 const projects = [
-  "Lotus Water Puppet",
-  "Crescent",
-  "Holiday Inn",
-  "Rong Vang Hoang Gia",
-  "Antibiotic Abuse",
+  { name: "Lotus Water Puppet", preview: work1 },
+  { name: "Crescent", preview: work2, type: "Branding and identity", client: "Crescent scented candles", year: "2025", heading: "Crescent", statement: "“Scent the Moment”", copy: "Crescent is a scented-candle identity built around the crescent moon: a timeless symbol of calm, ritual and a moment held just for yourself." },
+  { name: "Holiday Inn", preview: work3, type: "Campaign", client: "Holiday Inn", year: "2024", heading: "Holiday Inn", statement: "“A second. A perfect stay”", copy: "A digital campaign that makes every small moment of a stay feel effortless, welcoming and ready when guests need it." },
+  { name: "Rong Vang Hoang Gia", preview: work4, type: "Packaging", client: "Rong Vang Hoang Gia", year: "2024", heading: "Rong Vang Hoang Gia", statement: "“The Moon of Hope — The Moments of Longing”", copy: "A mooncake packaging system that turns the Mid-Autumn reunion into a bright, contemporary collection of stories." },
+  { name: "Antibiotic Abuse", preview: work5, type: "Campaign", client: "Antibiotics are not the answer", year: "2024", heading: "Antibiotics Are Not the Answer", statement: "Antibiotic Resistance", copy: "A public-awareness campaign about the risks of unnecessary antibiotic use and the everyday choices that help protect public health." },
 ];
 ---
 
 <section class="works-panel" data-panel="works" hidden aria-labelledby="works-heading">
   <h2 id="works-heading" class="sr-only">Works</h2>
   <div class="works-panel__grid" role="list">
-    {projects.map((project, index) => (
-      <button class="work-folder" type="button" data-folder data-project={project} aria-expanded="false" role="listitem">
+    {projects.map(({ name, preview }, index) => (
+      <button class="work-folder" type="button" data-folder data-project={name} data-work-modal-trigger={index || undefined} aria-haspopup={index ? "dialog" : undefined} aria-expanded="false" role="listitem">
         <span class="work-folder__art" aria-hidden="true">
           <span class="work-folder__back">
             <span class="work-folder__paper">
               <span class="work-folder__preview">
-                <i>{project}</i>
-                <strong>{String(index + 1).padStart(2, "0")}</strong>
+                <img src={preview} alt="" />
               </span>
               <span class="work-folder__front"><b>{String(index + 1).padStart(2, "0")}</b></span>
             </span>
           </span>
         </span>
-        <span class="work-folder__name">{project}</span>
+        <span class="work-folder__name">{name}</span>
       </button>
     ))}
   </div>
@@ -35,12 +50,112 @@ const projects = [
     <h3 data-work-detail-title></h3>
     <span>Artwork and project details will be added here.</span>
   </aside>
+
+  <div class="work-modal" data-work-modal hidden aria-hidden="true">
+    <button class="work-modal__backdrop" type="button" data-work-modal-close aria-label="Close project detail"></button>
+    <article class="work-modal__window work-modal--crescent" data-work-modal-panel="1" role="dialog" aria-modal="true" aria-labelledby="work-modal-title-1" hidden>
+      <header class="work-modal__bar">
+        <span>Works</span>
+        <button type="button" data-work-modal-close aria-label="Close Crescent">×</button>
+      </header>
+      <div class="work-modal__body">
+        <section class="crescent-intro">
+          <div class="crescent-intro__meta">
+            <p class="work-modal__number">02</p>
+            <h3 id="work-modal-title-1">Crescent</h3>
+            <dl>
+              <div><dt>Type of work:</dt><dd>Branding and identity</dd></div>
+              <div><dt>Client:</dt><dd>Crescent scented candles</dd></div>
+              <div><dt>Year:</dt><dd>2025</dd></div>
+              <div><dt>Participants:</dt><dd>Chu Phuong Anh</dd></div>
+            </dl>
+          </div>
+          <img class="crescent-intro__eiter" src={eiterLogo} alt="Eiter" />
+          <div class="crescent-drag-area" aria-label="Crescent image previews">
+            {[work2Drag1, work2Drag2, work2Drag3].map((image, card) => (
+              <figure class:list={["work-modal__card", `crescent-drag-card crescent-drag-card--${card + 1}`]} data-modal-draggable>
+                <figcaption>crescent.png</figcaption>
+                <img src={image} alt="" draggable="false" />
+              </figure>
+            ))}
+          </div>
+        </section>
+
+        <section class="crescent-copy">
+          <span class="work-modal__pixel" aria-hidden="true"></span>
+          <span class="work-modal__pixel work-modal__pixel--right" aria-hidden="true"></span>
+          <h4>Crescent</h4>
+          <div class="work-modal__columns">
+            <p>The brand name was selected to capture the serene essence of a crescent moon, a timeless global symbol for peace, gradual renewal, and understated beauty. In a modern landscape dominated by constant rush and noise, this identity serves as a quiet reminder to pause.</p>
+            <p>On a deeper, structural level, the word itself holds a beautiful linguistic coincidence. Nested right within “Crescent” is the word “scent”, seamlessly anchoring the brand to its aromatic purpose and the calm of nighttime rituals.</p>
+          </div>
+          <div class="crescent-logo"><img src={work2} alt="Crescent logo" /></div>
+          <h4 class="crescent-copy__statement">“Scent the Moment”</h4>
+          <div class="work-modal__columns">
+            <p>Our core tagline functions as a philosophy rather than a commercial slogan. It was designed to transform how users interact with their environments and to make small routines feel personal and restorative.</p>
+            <p>This statement highlights a commitment to holistic emotional healing and design-forward wellness. A natural scent becomes a physical ritual: easing tension, uplifting moods, and reframing everyday self-care.</p>
+          </div>
+        </section>
+
+        <section class="crescent-gallery" aria-label="Crescent project gallery" data-work2-gallery data-work2-gallery-sources={JSON.stringify([work2Pic1, work2Pic2, work2Pic3, work2Pic4, work2Pic5, work2Pic6])}>
+          <button type="button" class="crescent-gallery__arrow" data-work2-gallery-previous aria-label="Previous image">←</button>
+          <img src={work2Pic1} alt="Crescent project artwork" data-work2-gallery-image />
+          <button type="button" class="crescent-gallery__arrow" data-work2-gallery-next aria-label="Next image">→</button>
+        </section>
+        <footer class="crescent-footer">
+          <button type="button" data-work-modal-top aria-label="Back to top">↑</button>
+          <button type="button" data-work-modal-next>Next Project <span>→</span></button>
+        </footer>
+      </div>
+    </article>
+
+    {projects.slice(2).map((project, index) => (
+      <article class="work-modal__window" data-work-modal-panel={index + 2} role="dialog" aria-modal="true" aria-labelledby={`work-modal-title-${index + 2}`} hidden>
+        <header class="work-modal__bar">
+          <span>Works</span>
+          <button type="button" data-work-modal-close aria-label={`Close ${project.name}`}>×</button>
+        </header>
+        <div class="work-modal__body">
+          <section class="work-modal__intro">
+            <div class="work-modal__meta">
+              <p class="work-modal__number">0{index + 3}</p>
+              <h3 id={`work-modal-title-${index + 2}`}>{project.heading}</h3>
+              <dl>
+                <div><dt>Type of work:</dt><dd>{project.type}</dd></div>
+                <div><dt>Client:</dt><dd>{project.client}</dd></div>
+                <div><dt>Year:</dt><dd>{project.year}</dd></div>
+                <div><dt>Participants:</dt><dd>Chu Phuong Anh</dd></div>
+              </dl>
+            </div>
+            <div class="work-modal__cards" aria-label={`${project.name} previews`}>
+              {[0, 1, 2].map((card) => (
+                <figure class:list={["work-modal__card", `work-modal__card--${card + 1}`]} data-modal-draggable>
+                  <figcaption>{project.name.toLowerCase().replaceAll(" ", "-")}.png</figcaption>
+                  <img src={project.preview} alt="" draggable="false" />
+                </figure>
+              ))}
+            </div>
+          </section>
+          <section class="work-modal__story">
+            <span class="work-modal__pixel" aria-hidden="true"></span>
+            <span class="work-modal__pixel work-modal__pixel--right" aria-hidden="true"></span>
+            <h4>{project.statement}</h4>
+            <div class="work-modal__columns">
+              <p>{project.copy}</p>
+              <p>The selected pieces bring the visual language across print, digital and campaign touchpoints, with a clear idea and a lively, tactile point of view.</p>
+            </div>
+            <figure class="work-modal__feature"><img src={project.preview} alt="" /></figure>
+          </section>
+        </div>
+      </article>
+    ))}
+  </div>
 </section>
 
 <style>
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .works-panel { position: relative; min-height: 100%; }
-  .works-panel__grid { display: grid; grid-template-columns: repeat(3, minmax(7.5rem, 1fr)); gap: clamp(2rem, 5vw, 5rem) clamp(1.5rem, 6vw, 5rem); padding: 1rem 1.25rem; }
+  .works-panel__grid { display: grid; grid-template-columns: repeat(3, minmax(7.5rem, 1fr)); gap: clamp(2rem, 5vw, 5rem) clamp(1.5rem, 6vw, 5rem); padding: 3.75em clamp(2.5rem, 6vw, 5rem) 1.5rem; }
   .work-folder { display: grid; gap: .85rem; padding: 0; border: 0; color: var(--color-ink); background: transparent; text-align: left; cursor: pointer; }
   .work-folder__art { position: relative; display: block; width: min(8.25rem, 100%); aspect-ratio: 1.34; perspective: 42rem; }
   .work-folder__back {
@@ -75,21 +190,27 @@ const projects = [
     position: absolute;
     z-index: 1;
     inset: 15% 15% 18% 17%;
-    display: grid;
-    align-content: center;
-    gap: .35rem;
-    color: #29449a;
+    overflow: visible;
+    clip-path: inset(-200% -100% 0 -100%);
   }
-  .work-folder__preview::before { content: "✦"; font: 700 2rem/1 var(--font-sans); }
-  .work-folder__preview i { font: 600 .5rem/1.15 var(--font-mono); font-style: normal; text-transform: uppercase; }
-  .work-folder__preview strong { font: 700 .9rem/1 var(--font-mono); }
+  .work-folder__preview img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: contain;
+    transform: translateY(0) scale(1);
+    transform-origin: center bottom;
+    transition: transform 380ms var(--ease-out);
+    will-change: transform;
+  }
   .work-folder__front {
     position: absolute;
     z-index: 2;
     inset: 12% -7% 0 -3%;
     display: grid;
     place-items: end end;
-    padding: .5rem .7rem;
+    padding: .5rem 1.35rem .7rem .7rem;
     background: var(--color-mint);
     clip-path: polygon(17% 0, 100% 0, 82% 100%, 0 100%);
     transform-origin: center bottom;
@@ -100,13 +221,68 @@ const projects = [
   .work-folder__front b { color: var(--color-purple); font: italic 700 1.35rem/1 var(--font-mono); }
   .work-folder__name { font: 500 .66rem/1.35 var(--font-mono); }
   .work-folder:hover .work-folder__front, .work-folder[aria-expanded="true"] .work-folder__front { transform: perspective(42rem) rotateX(-68deg); }
+  .work-folder:hover .work-folder__preview img { transform: translateY(-3.1rem) scale(1.6); }
   .work-folder:focus-visible { outline: 3px solid var(--color-yellow); outline-offset: .35rem; }
   .works-panel__detail { position: absolute; z-index: 2; inset: auto 1.25rem 1.25rem; display: grid; gap: .65rem; padding: 1.5rem; border: .2rem solid var(--color-purple); border-radius: 1rem; color: var(--color-ink); background: var(--color-surface); box-shadow: .5rem .5rem 0 var(--color-mint); animation: detail-enter 320ms var(--ease-out); }
   .works-panel__detail button { position: absolute; top: .35rem; right: .65rem; border: 0; color: var(--color-purple); background: transparent; font-size: 1.35rem; cursor: pointer; }
   .works-panel__detail p { color: var(--color-purple); font: 600 .65rem/1 var(--font-mono); text-transform: uppercase; }
   .works-panel__detail h3 { font-size: 1.5rem; }
   .works-panel__detail span { color: var(--color-muted); font: .75rem/1.5 var(--font-mono); }
+  .work-modal { position: fixed; z-index: 50; inset: 0; display: grid; place-items: center; padding: clamp(.75rem, 2vw, 2rem); }
+  .work-modal[hidden], .work-modal__window[hidden] { display: none; }
+  .work-modal__backdrop { position: absolute; inset: 0; border: 0; background: rgb(20 15 30 / .48); backdrop-filter: blur(9px); }
+  .work-modal__window { position: relative; display: flex; flex-direction: column; width: min(100%, 56.5rem); height: min(100%, 52rem); overflow: hidden; color: var(--color-ink); background: var(--color-surface); box-shadow: 0 1.25rem 4rem rgb(20 15 30 / .38); animation: work-modal-enter 420ms var(--ease-out); }
+  .work-modal__bar { position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; min-height: 1.9rem; padding: 0 .55rem; color: var(--color-mint); background: var(--color-purple); font: 500 .57rem/1 var(--font-mono); }
+  .work-modal__bar button { display: grid; place-items: center; width: 1.4rem; height: 1.4rem; border: 0; color: var(--color-mint); background: transparent; font: 400 1rem/1 var(--font-mono); cursor: pointer; }
+  .work-modal__body { overflow: auto; }
+  .work-modal__intro { position: relative; display: grid; grid-template-columns: minmax(13rem, .75fr) minmax(18rem, 1.25fr); min-height: 20.5rem; padding: 1.35rem clamp(1.4rem, 4vw, 3.5rem) 1.75rem; }
+  .work-modal__number { margin: 0 0 .5rem; color: var(--color-mint); font: 700 1.35rem/1 var(--font-mono); }
+  .work-modal__meta h3 { max-width: 15rem; margin: 0 0 1.15rem; color: var(--color-purple); font: 700 clamp(1.05rem, 2vw, 1.42rem)/1.08 var(--font-mono); }
+  .work-modal__meta dl { margin: 0; font: 500 .53rem/1.38 var(--font-mono); }
+  .work-modal__meta dl div { display: flex; gap: .28rem; }
+  .work-modal__meta dt, .work-modal__meta dd { margin: 0; }
+  .work-modal__cards { position: relative; min-height: 18rem; }
+  .work-modal__card { position: absolute; z-index: 1; width: min(11rem, 46%); margin: 0; overflow: hidden; border-right: .22rem solid var(--color-mint); border-bottom: .22rem solid var(--color-mint); background: var(--color-surface); box-shadow: 0 0 0 .08rem var(--color-purple); cursor: grab; touch-action: none; user-select: none; }
+  .work-modal__card:active { cursor: grabbing; }
+  .work-modal__card--1 { top: 1rem; left: 24%; }
+  .work-modal__card--2 { top: 6.8rem; left: 3%; }
+  .work-modal__card--3 { top: 8rem; right: 4%; }
+  .work-modal__card figcaption { height: .75rem; padding: .16rem .3rem; overflow: hidden; color: var(--color-surface); background: var(--color-purple); font: 400 .34rem/1 var(--font-mono); white-space: nowrap; }
+  .work-modal__card img { display: block; width: 100%; aspect-ratio: 1.42; object-fit: cover; pointer-events: none; }
+  .work-modal__story { position: relative; padding: 1rem clamp(1.4rem, 5vw, 4.5rem) 3rem; }
+  .work-modal__pixel { display: block; width: .62rem; height: .62rem; margin: 0 0 1.65rem; background: var(--color-mint); }
+  .work-modal__pixel--right { position: absolute; top: 1rem; right: clamp(1.4rem, 5vw, 4.5rem); }
+  .work-modal__story h4 { margin: 0 0 1.25rem; font: 500 clamp(.8rem, 1.5vw, 1rem)/1.25 var(--font-mono); }
+  .work-modal__columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 5vw, 4rem); }
+  .work-modal__columns p { margin: 0; font: 400 .58rem/1.4 var(--font-sans); }
+  .work-modal__feature { display: grid; place-items: center; min-height: 12rem; margin: 2.7rem auto 0; padding: 1.5rem; background: var(--color-purple); }
+  .work-modal__feature img { display: block; width: min(100%, 21rem); max-height: 17rem; object-fit: contain; }
+  .work-modal--crescent .work-modal__body { scroll-behavior: smooth; }
+  .crescent-intro { position: relative; min-height: 38rem; padding: 1.35rem clamp(1.4rem, 6vw, 3.6rem) 1.75rem; }
+  .crescent-intro__meta { position: relative; z-index: 2; width: 19rem; }
+  .crescent-intro__meta h3 { max-width: 15rem; margin: 0 0 1.15rem; color: var(--color-purple); font: 700 clamp(1.05rem, 2vw, 1.42rem)/1.08 var(--font-mono); }
+  .crescent-intro__meta dl { margin: 0; font: 500 .53rem/1.38 var(--font-mono); }
+  .crescent-intro__meta dl div { display: flex; gap: .28rem; }
+  .crescent-intro__meta dt, .crescent-intro__meta dd { margin: 0; }
+  .crescent-intro__eiter { position: absolute; top: 2rem; right: clamp(1.4rem, 6vw, 3.6rem); width: clamp(5rem, 11vw, 8.7rem); rotate: 13deg; }
+  .crescent-drag-area { position: absolute; inset: 12rem clamp(1.4rem, 6vw, 3.6rem) 1.75rem; min-height: 22rem; }
+  .crescent-drag-card--1 { top: 0; left: 43%; }
+  .crescent-drag-card--2 { top: 11rem; left: 4%; }
+  .crescent-drag-card--3 { top: 12rem; right: 4%; }
+  .crescent-copy { position: relative; padding: 1rem clamp(1.4rem, 6vw, 3.6rem) 3rem; }
+  .crescent-copy h4 { margin: 0 0 1.25rem; font: 500 clamp(.8rem, 1.5vw, 1rem)/1.25 var(--font-mono); }
+  .crescent-logo { display: grid; place-items: center; min-height: 14rem; padding: 2.5rem 1rem; }
+  .crescent-logo img { width: min(100%, 22rem); }
+  .crescent-copy__statement { margin-left: auto !important; width: fit-content; }
+  .crescent-gallery { display: grid; grid-template-columns: 3rem minmax(0, 1fr) 3rem; align-items: center; gap: 1rem; width: min(100% - 3rem, 38rem); min-height: 21rem; margin: 0 auto 2.5rem; padding: 1.5rem; background: var(--color-purple); }
+  .crescent-gallery img { display: block; width: 100%; max-height: 17rem; object-fit: contain; }
+  .crescent-gallery__arrow { border: 0; color: var(--color-mint); background: transparent; font: 400 2rem/1 var(--font-mono); cursor: pointer; }
+  .crescent-footer { display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(1.4rem, 6vw, 3.6rem) 2.4rem; }
+  .crescent-footer button { min-height: 2rem; border: 0; padding: .35rem .8rem; color: var(--color-purple); background: var(--color-mint); font: 600 .62rem/1 var(--font-mono); cursor: pointer; }
+  .crescent-footer button:first-child { width: 2rem; padding: .35rem; }
   @keyframes detail-enter { from { opacity: 0; translate: 0 .75rem; } }
-  @media (max-width: 48rem) { .works-panel__grid { grid-template-columns: repeat(2, minmax(7rem, 1fr)); gap: 2rem 1.5rem; padding: 1rem 0; } }
-  @media (prefers-reduced-motion: reduce) { .work-folder__front { transition-duration: 1ms; } .works-panel__detail { animation-duration: 1ms; } }
+  @keyframes work-modal-enter { from { opacity: 0; transform: scale(.92); } }
+  @media (max-width: 48rem) { .works-panel__grid { grid-template-columns: repeat(2, minmax(7rem, 1fr)); gap: 2rem 1.5rem; padding: 2rem 1.5rem 1.5rem; } .work-modal { padding: .45rem; } .work-modal__window { height: min(100%, 48rem); } .work-modal__intro { grid-template-columns: 1fr; } .work-modal__cards { min-height: 14rem; } .work-modal__card { width: 9rem; } .work-modal__card--1 { left: 25%; } .work-modal__card--2 { top: 5rem; } .work-modal__card--3 { top: 6.2rem; } .crescent-intro { min-height: 32rem; } .crescent-drag-area { inset: 11.5rem 1rem 1rem; min-height: 18rem; } .crescent-drag-card--1 { left: 29%; } .crescent-drag-card--2 { top: 8rem; left: 0; } .crescent-drag-card--3 { top: 9rem; right: 0; } }
+  @media (max-width: 28rem) { .work-modal__intro, .work-modal__story { padding-inline: 1rem; } .work-modal__pixel--right { right: 1rem; } .work-modal__columns { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { .work-folder__front, .work-folder__preview img { transition-duration: 1ms; } .works-panel__detail, .work-modal__window { animation-duration: 1ms; } }
 </style>
