@@ -40,7 +40,7 @@ const { id, title } = Astro.props;
 </article>
 
 <style>
-  .window { position: absolute; top: 13%; left: 50%; width: calc(903px + 11rem); max-width: calc(100vw - 2rem); min-width: 0; height: calc(515px + 6.5rem); max-height: calc(100% - 2rem); overflow: hidden; translate: -50% 0; border-radius: var(--radius-window); background: var(--color-surface); box-shadow: 1rem 1rem 0 var(--color-purple); touch-action: none; }
+  .window { position: absolute; top: 13%; left: 50%; width: calc(903px + 11rem); max-width: calc(100vw - 2rem); min-width: 0; height: calc(515px + 6.5rem); max-height: calc(100% - 2rem); overflow: hidden; translate: -50% 0; border-radius: var(--radius-window); background: var(--color-surface); box-shadow: 1rem 1rem 0 var(--color-purple); cursor: default; touch-action: none; }
   .window__titlebar { position: relative; display: flex; align-items: center; justify-content: space-between; height: 2.25rem; padding: 0 1.25rem 0 3rem; color: var(--color-purple); background: var(--color-purple); font: 600 .8rem/1 var(--font-mono); cursor: grab; }
   .window__titlebar::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 19%; border-top-left-radius: var(--radius-window); border-top-right-radius: var(--radius-window); background: var(--color-mint); }
   .window__titlebar > * { position: relative; z-index: 1; }
