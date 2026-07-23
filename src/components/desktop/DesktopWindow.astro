@@ -1,5 +1,12 @@
 ---
 import icEi from "../../assets/ic-ei.svg?url";
+import arrowLeft from "../../assets/arrow-left.svg?url";
+import arrowRight from "../../assets/arrow-right.svg?url";
+import arrowUp from "../../assets/arrow-up.svg?url";
+import refreshButton from "../../assets/refresh-btn.svg?url";
+import searchIcon from "../../assets/ic-search.svg?url";
+import closeIcon from "../../assets/ic-close.svg?url";
+import pointRight from "../../assets/ic-point-right.svg?url";
 
 interface Props { id: string; title: string; }
 const { id, title } = Astro.props;
@@ -8,18 +15,21 @@ const { id, title } = Astro.props;
 <article class="window" id={id} data-draggable data-window>
   <header class="window__titlebar" data-drag-handle>
     <span>eiter</span>
-    <button type="button" aria-label={`Close ${title}`} data-window-close>×</button>
+    <button type="button" aria-label={`Close ${title}`} data-window-close><img src={closeIcon} alt="" /></button>
   </header>
   <div class="window__toolbar" aria-hidden="true">
-    <span>←</span><span>→</span><span>↑</span><span>⟳</span>
-    <div class="window__address"><img src={icEi} alt="" /><span>&gt;</span><span data-window-address-title>{title}</span></div>
-    <div>Searching&nbsp;⌕</div>
+    <span class="window__toolbar-icon"><img src={arrowLeft} alt="" /></span>
+    <span class="window__toolbar-icon"><img src={arrowRight} alt="" /></span>
+    <span class="window__toolbar-icon window__toolbar-icon--up"><img src={arrowUp} alt="" /></span>
+    <span class="window__toolbar-icon"><img src={refreshButton} alt="" /></span>
+    <div class="window__address"><img src={icEi} alt="" /><img class="window__point-icon" src={pointRight} alt="" /><span data-window-address-title>{title}</span></div>
+    <div class="window__search"><span>Searching</span><img src={searchIcon} alt="" /></div>
   </div>
   <div class="window__body">
     <aside aria-label="Sections">
-      <a href="#about" data-window-target="about" class="is-active" aria-current="page"><span aria-hidden="true">&gt;</span><span class="window__nav-label">About me</span></a>
-      <a href="#works" data-window-target="works"><span aria-hidden="true">&gt;</span><span class="window__nav-label">Works</span></a>
-      <a href="#contact" data-window-target="contact"><span aria-hidden="true">&gt;</span><span class="window__nav-label">Contact</span></a>
+      <a href="#about" data-window-target="about" class="is-active" aria-current="page"><img class="window__point-icon" src={pointRight} alt="" /><span class="window__nav-label">About me</span></a>
+      <a href="#works" data-window-target="works"><img class="window__point-icon" src={pointRight} alt="" /><span class="window__nav-label">Works</span></a>
+      <a href="#contact" data-window-target="contact"><img class="window__point-icon" src={pointRight} alt="" /><span class="window__nav-label">Contact</span></a>
     </aside>
     <section class="window__content">
       <div data-panel="about"><slot name="about" /></div>
@@ -34,10 +44,17 @@ const { id, title } = Astro.props;
   .window__titlebar { display: flex; align-items: center; justify-content: space-between; height: 2.25rem; padding: 0 1.25rem 0 3rem; color: var(--color-purple); background: linear-gradient(90deg, var(--color-mint) 19%, var(--color-purple) 19%); font: 600 .8rem/1 var(--font-mono); cursor: grab; }
   .window__titlebar:active { cursor: grabbing; }
   button { border: 0; color: var(--color-mint); background: transparent; font-size: 1.25rem; cursor: pointer; }
+  button img { display: block; width: .85rem; height: .85rem; }
   .window__toolbar { display: grid; grid-template-columns: repeat(4, auto) minmax(14rem, 1fr) 13rem; align-items: center; gap: 1.25rem; min-height: 4.25rem; padding: .75rem 1.5rem; color: var(--color-purple); background: var(--color-mint); font: 600 1rem/1 var(--font-mono); }
+  .window__toolbar-icon { display: grid; place-items: center; width: 1rem; height: 1rem; }
+  .window__toolbar-icon img { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .window__toolbar-icon--up img { width: 1rem; height: 1rem; }
   .window__toolbar div { overflow: hidden; padding: .75rem; border-radius: .65rem; color: var(--color-purple); background: var(--color-chrome); font-size: .72rem; white-space: nowrap; }
-  .window__toolbar .window__address { display: flex; align-items: baseline; gap: .35rem; }
+  .window__toolbar .window__address { display: flex; align-items: center; justify-content: left; gap: .55rem; }
+  .window__toolbar .window__search { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding-inline: 2rem; }
+  .window__search img { width: .8rem; height: .8rem; object-fit: contain; }
   .window__address img { width: .72rem; height: .72rem; flex: 0 0 auto; object-fit: contain; }
+  .window__address .window__point-icon, aside .window__point-icon { width: .55rem; height: .55rem; }
   .window__body { display: grid; grid-template-columns: 11rem 1fr; height: calc(100% - 6.5rem); }
   aside { display: flex; flex-direction: column; gap: 2rem; padding: 4rem 1.25rem; background: var(--color-mint); }
   aside a { display: flex; align-items: center; gap: .75rem; color: var(--color-purple); font: 600 .82rem/1 var(--font-mono); text-decoration: none; }
