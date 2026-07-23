@@ -163,21 +163,23 @@ if (root) {
   });
   workModal?.querySelectorAll<HTMLButtonElement>("[data-work-modal-next]").forEach((button) => {
     button.addEventListener("click", () => {
-      const nextTrigger = root.querySelector<HTMLButtonElement>('[data-work-modal-trigger="2"]');
+      const currentPanel = Array.from(modalPanels).find((panel) => !panel.hidden);
+      const currentProject = Number(currentPanel?.dataset.workModalPanel ?? "0");
+      const nextTrigger = root.querySelector<HTMLButtonElement>(`[data-work-modal-trigger="${currentProject + 1}"]`);
       nextTrigger?.click();
     });
   });
-  workModal?.querySelectorAll<HTMLElement>("[data-work2-gallery]").forEach((gallery) => {
-    const image = gallery.querySelector<HTMLImageElement>("[data-work2-gallery-image]");
-    const sources = JSON.parse(gallery.dataset.work2GallerySources ?? "[]") as string[];
+  workModal?.querySelectorAll<HTMLElement>("[data-work-gallery]").forEach((gallery) => {
+    const image = gallery.querySelector<HTMLImageElement>("[data-work-gallery-image]");
+    const sources = JSON.parse(gallery.dataset.workGallerySources ?? "[]") as string[];
     let current = 0;
     const setImage = (direction: number) => {
       if (!image || sources.length === 0) return;
       current = (current + direction + sources.length) % sources.length;
       image.src = sources[current];
     };
-    gallery.querySelector<HTMLButtonElement>("[data-work2-gallery-previous]")?.addEventListener("click", () => setImage(-1));
-    gallery.querySelector<HTMLButtonElement>("[data-work2-gallery-next]")?.addEventListener("click", () => setImage(1));
+    gallery.querySelector<HTMLButtonElement>("[data-work-gallery-previous]")?.addEventListener("click", () => setImage(-1));
+    gallery.querySelector<HTMLButtonElement>("[data-work-gallery-next]")?.addEventListener("click", () => setImage(1));
   });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && workModal && !workModal.hidden) closeWorkModal();

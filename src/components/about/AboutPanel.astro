@@ -1,6 +1,7 @@
 ---
 import brandMark from "../../assets/ei-main.svg?url";
 import eyesLeft from "../../assets/ei-eyes-left.svg?url";
+import arrowUp from "../../assets/arrow-up.svg?url";
 import work1 from "../../assets/works/work-1.svg?url";
 import work2 from "../../assets/works/work-2.svg?url";
 import work3 from "../../assets/works/work-3.svg?url";
@@ -24,7 +25,7 @@ const projects = [
     </div>
     <div class="about-panel__brand">
       <img src={brandMark} alt="Eiter" />
-      <p><b>↑</b><br />(or you can call me)</p>
+      <p><img class="about-panel__brand-arrow" src={arrowUp} alt="" /><br />(or you can call me)</p>
     </div>
   </div>
 
@@ -38,7 +39,7 @@ const projects = [
   <div class="about-panel__story">
     <img src={eyesLeft} alt="" aria-hidden="true" />
     <p>As a graphic designer, I bring equal parts passion and critical thinking to design. Always eager to evolve, I refine my craft by diving headfirst into new experiences, analyzing what works, and constantly pushing for better results.</p>
-    <p>I design with an open mind and a strong desire to explore new possibilities. While I’m still early in my journey, I treat every project as a chance to push my limits and bring bold ideas to life — always giving 100% to help a concept reach its full potential.</p>
+    <p>I design with an open mind and a strong desire to explore new possibilities. While I’m still early in my journey, I treat every project as a chance to push my limits and bring bold ideas to life - always giving 100% to help a concept reach its full potential.</p>
   </div>
 
   <div class="about-panel__actions">
@@ -63,7 +64,7 @@ const projects = [
     ))}
   </div>
 
-  <button class="about-panel__back-top" type="button" data-scroll-top aria-label="Back to top">↑</button>
+  <button class="about-panel__back-top" type="button" data-scroll-top aria-label="Back to top"><img src={arrowUp} alt="" /></button>
 </section>
 
 <style>
@@ -72,9 +73,9 @@ const projects = [
   .about-panel__greeting { margin-bottom: .5rem; font: 800 41px/1 var(--font-mono); }
   h1 { color: var(--color-purple); font: 800 58px/.95 var(--font-mono); letter-spacing: -.08em; }
   .about-panel__brand { display: grid; justify-items: center; gap: .35rem; width: clamp(8rem, 21vw, 13rem); margin-right: 2rem; text-align: center; }
-  .about-panel__brand img { width: 100%; height: auto; }
+  .about-panel__brand > img { width: 100%; height: auto; }
   .about-panel__brand p { font: .68rem/1.3 var(--font-sans); }
-  .about-panel__brand b { color: var(--color-purple); font: 900 1.5rem/1 var(--font-sans); }
+  .about-panel__brand-arrow { display: inline-block; width: 20px; height: 20px; margin-bottom: .2rem; object-fit: contain; }
   .about-panel__markers, .about-panel__bottom-markers { display: flex; justify-content: space-between; }
   .about-panel__markers i, .about-panel__bottom-markers i { width: 1.5rem; aspect-ratio: 1; background: var(--color-mint); }
   .about-panel__markers i:nth-child(2), .about-panel__bottom-markers i:nth-child(2) { margin-left: auto; }
@@ -104,7 +105,7 @@ const projects = [
   .about-folder small { margin-left: .7rem; font: 700 .62rem/1.3 var(--font-mono); }
   .about-folder:hover .about-folder__front { transform: perspective(42rem) rotateX(-68deg); }
   .about-folder:hover .about-folder__preview img { transform: translateY(-3.1rem) scale(1.6); }
-  .about-panel__back-top { position: absolute; right: clamp(1.25rem, 3vw, 2.5rem); bottom: 1.5rem; display: grid; width: 3rem; aspect-ratio: 1; place-items: center; padding: 0; border: 0; color: var(--color-purple); background: var(--color-mint); font: 800 1.55rem/1 var(--font-mono); cursor: pointer; }
-  .about-panel__back-top:hover, .about-panel__back-top:focus-visible { color: var(--color-surface); background: var(--color-purple); }
+  .about-panel__back-top { position: absolute; right: clamp(1.25rem, 3vw, 2.5rem); bottom: 1.5rem; display: grid; width: 2.5rem; height: 2.5rem; place-items: center; padding: 0; border: 0; background: var(--color-mint); cursor: pointer; }
+  .about-panel__back-top img { display: block; width: 16px; height: 16px; object-fit: contain; }
   @media (max-width: 40rem) { .about-panel__intro, .about-panel__skills, .about-panel__story { grid-template-columns: 1fr; } .about-panel__intro { align-items: start; } .about-panel__story { grid-template-areas: "icon" "copy" "bio"; } .about-panel__projects { grid-template-columns: repeat(2, minmax(6rem, 1fr)); } }
 </style>

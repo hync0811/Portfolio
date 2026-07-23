@@ -14,6 +14,15 @@ import work2Pic6 from "../../assets/works/work-2/pic6.png?url";
 import work2Drag1 from "../../assets/works/work-2/drag1.svg?url";
 import work2Drag2 from "../../assets/works/work-2/drag2.svg?url";
 import work2Drag3 from "../../assets/works/work-2/drag3.svg?url";
+import work3Drag1 from "../../assets/works/work-3/drag1.svg?url";
+import work3Drag2 from "../../assets/works/work-3/drag2.svg?url";
+import work3Drag3 from "../../assets/works/work-3/drag3.svg?url";
+import work3Drag4 from "../../assets/works/work-3/drag4.svg?url";
+import work3Img1 from "../../assets/works/work-3/img1.svg?url";
+import work3Img2 from "../../assets/works/work-3/img2.svg?url";
+import work3Img3 from "../../assets/works/work-3/img3.svg?url";
+import work3Img4 from "../../assets/works/work-3/img4.svg?url";
+import work3Img5 from "../../assets/works/work-3/img5.svg?url";
 import triangleLeft from "../../assets/triangle-left.svg?url";
 import triangleRight from "../../assets/triangle-right.svg?url";
 import arrowRight from "../../assets/arrow-right.svg?url";
@@ -33,13 +42,20 @@ const crescentDragItems = [
   { image: work2Drag2, position: "top: 11rem; left: 4%;" },
   { image: work2Drag3, position: "top: 12rem; right: 4%;" },
 ];
+
+const holidayDragItems = [
+  { image: work3Drag1, position: "top: 0; left: 39%;" },
+  { image: work3Drag2, position: "top: 9rem; left: 1%;" },
+  { image: work3Drag3, position: "top: 11rem; right: 1%;" },
+  { image: work3Drag4, position: "top: 21rem; left: 32%;" },
+];
 ---
 
 <section class="works-panel" data-panel="works" hidden aria-labelledby="works-heading">
   <h2 id="works-heading" class="sr-only">Works</h2>
   <div class="works-panel__grid" role="list">
     {projects.map(({ name, preview }, index) => (
-      <button class="work-folder" type="button" data-folder data-project={name} data-work-modal-trigger={index || undefined} aria-haspopup={index ? "dialog" : undefined} aria-expanded="false" role="listitem">
+      <button class="work-folder" type="button" data-folder data-project={name} data-work-modal-trigger={index === 1 || index === 2 ? index : undefined} aria-haspopup={index === 1 || index === 2 ? "dialog" : undefined} aria-expanded="false" disabled={index !== 1 && index !== 2} role="listitem">
         <span class="work-folder__art" aria-hidden="true">
           <span class="work-folder__back">
             <span class="work-folder__paper">
@@ -105,11 +121,11 @@ const crescentDragItems = [
           </div>
         </section>
 
-        <section class="crescent-gallery" aria-label="Crescent project gallery" data-work2-gallery data-work2-gallery-sources={JSON.stringify([work2Pic1, work2Pic2, work2Pic3, work2Pic4, work2Pic5, work2Pic6])}>
+        <section class="crescent-gallery" aria-label="Crescent project gallery" data-work-gallery data-work-gallery-sources={JSON.stringify([work2Pic1, work2Pic2, work2Pic3, work2Pic4, work2Pic5, work2Pic6])}>
           <span class="crescent-gallery__chrome" aria-hidden="true"><i></i><i></i><i></i><b></b></span>
-          <button type="button" class="crescent-gallery__arrow crescent-gallery__arrow--previous" data-work2-gallery-previous aria-label="Previous image"><img src={triangleLeft} alt="" /></button>
-          <img class="crescent-gallery__image" src={work2Pic1} alt="Crescent project artwork" data-work2-gallery-image />
-          <button type="button" class="crescent-gallery__arrow crescent-gallery__arrow--next" data-work2-gallery-next aria-label="Next image"><img src={triangleRight} alt="" /></button>
+          <button type="button" class="crescent-gallery__arrow crescent-gallery__arrow--previous" data-work-gallery-previous aria-label="Previous image"><img src={triangleLeft} alt="" /></button>
+          <img class="crescent-gallery__image" src={work2Pic1} alt="Crescent project artwork" data-work-gallery-image />
+          <button type="button" class="crescent-gallery__arrow crescent-gallery__arrow--next" data-work-gallery-next aria-label="Next image"><img src={triangleRight} alt="" /></button>
         </section>
         <footer class="crescent-footer">
           <button class="crescent-footer__top" type="button" data-work-modal-top aria-label="Back to top"><img src={arrowUp} alt="" /></button>
@@ -118,8 +134,71 @@ const crescentDragItems = [
       </div>
     </article>
 
-    {projects.slice(2).map((project, index) => (
-      <article class="work-modal__window" data-work-modal-panel={index + 2} role="dialog" aria-modal="true" aria-labelledby={`work-modal-title-${index + 2}`} hidden>
+    <article class="work-modal__window work-modal--crescent work-modal--holiday" data-work-modal-panel="2" role="dialog" aria-modal="true" aria-labelledby="work-modal-title-2" hidden>
+      <header class="work-modal__bar">
+        <span>Works</span>
+        <button type="button" data-work-modal-close aria-label="Close Holiday Inn"><img src={closeIcon} alt="" /></button>
+      </header>
+      <div class="work-modal__body">
+        <section class="crescent-intro holiday-intro">
+          <div class="crescent-intro__meta">
+            <p class="work-modal__number">03</p>
+            <h3 id="work-modal-title-2">Holiday Inn</h3>
+            <dl>
+              <div><dt>Type of work:</dt><dd>Campaign</dd></div>
+              <div><dt>Client:</dt><dd>Holiday Inn</dd></div>
+              <div><dt>Year:</dt><dd>2024</dd></div>
+              <div><dt>Participants:</dt><dd>Chu Phuong Anh, Cao Phuong Uyen, Hoang Trung Kien, Bui Tuan Thanh</dd></div>
+            </dl>
+          </div>
+          <img class="crescent-intro__eiter" src={eiterLogo} alt="Eiter" />
+          <div class="crescent-drag-area" aria-label="Holiday Inn image previews">
+            {holidayDragItems.map(({ image, position }, card) => (
+              <img class:list={["crescent-drag-card", "holiday-drag-card", `holiday-drag-card--${card + 1}`]} style={`position: absolute; ${position}`} src={image} alt="" draggable="false" data-modal-draggable />
+            ))}
+          </div>
+        </section>
+
+        <section class="crescent-copy">
+          <span class="crescent-copy__marker" aria-hidden="true" style="display: block; width: 31px; height: 31px; margin: 0 0 26px; background: var(--color-mint);"></span>
+          <span class="crescent-copy__markers crescent-copy__markers--right" aria-hidden="true" style="display: flex; gap: 35px; position: absolute; top: 16px; right: clamp(1.4rem, 6vw, 3.6rem);"><span class="crescent-copy__marker" style="display: block; flex: 0 0 31px; width: 31px; height: 31px; background: var(--color-mint);"></span><span class="crescent-copy__marker" style="display: block; flex: 0 0 31px; width: 31px; height: 31px; background: var(--color-mint);"></span></span>
+          <h4>"A second A perfect stay"</h4>
+          <div class="work-modal__columns">
+            <p>Holiday Inn is a chain of hotels based in Atlanta, Georgia and a brand of IHG Hotels & Resorts. The chain was founded in 1952 by Kemmons Wilson, who opened the first location in Memphis, Tenessee. As of 2018, Holiday Inn has hotels at over 1,100 locations.
+                <br>
+                <br>
+                The Holiday Inn brand wants people to enjoy every
+                part of staying in their hotel even from smallest such as check-in experience through online. We ran a social advertising campaign designed to increase awareness and engagement for Holiday Inn online booking application.  The challenge was to communicate the convenience of booking accommodations through a simple and engaging digital experience.</p>
+            <p>The campaign highlights key app features, including easy reservations, exclusive deals, and a seamless user journey. The visual direction combines vibrant imagery, dynamic layouts, and clear call-to-action messaging to attract both leisure and business travelers. Social media content was designed for multiple platforms to maximize reach and user interaction.
+                <br>
+                <br>
+                The goal was to strengthen brand visibility, encourage app downloads, and position Holiday Inn as a convenient travel companion for modern travelers.</p>
+          </div>
+          <div class="crescent-logo"><img src={work3} alt="Holiday Inn logo" /></div>
+          <h4 class="crescent-copy__statement">TVC Storyboard</h4>
+          <div class="work-modal__columns">
+            <p>The Holiday Inn brand wants people to enjoy every
+                part of staying in their hotel even from smallest such as check-in experience through online. We ran a social advertising campaign designed to increase awareness and engagement for Holiday Inn online booking application.  The challenge was to communicate the convenience of booking accommodations through a simple and engaging digital experience.</p>
+            <p>The Holiday Inn brand wants people to enjoy every
+                part of staying in their hotel even from smallest such as check-in experience through online. We ran a social advertising campaign designed to increase awareness and engagement for Holiday Inn online booking application.  The challenge was to communicate the convenience of booking accommodations through a simple and engaging digital experience.</p>
+          </div>
+        </section>
+
+        <section class="crescent-gallery" aria-label="Holiday Inn project gallery" data-work-gallery data-work-gallery-sources={JSON.stringify([work3Img1, work3Img2, work3Img3, work3Img4, work3Img5])}>
+          <span class="crescent-gallery__chrome" aria-hidden="true"><i></i><i></i><i></i><b></b></span>
+          <button type="button" class="crescent-gallery__arrow crescent-gallery__arrow--previous" data-work-gallery-previous aria-label="Previous image"><img src={triangleLeft} alt="" /></button>
+          <img class="crescent-gallery__image" src={work3Img1} alt="Holiday Inn project artwork" data-work-gallery-image />
+          <button type="button" class="crescent-gallery__arrow crescent-gallery__arrow--next" data-work-gallery-next aria-label="Next image"><img src={triangleRight} alt="" /></button>
+        </section>
+        <footer class="crescent-footer">
+          <button class="crescent-footer__top" type="button" data-work-modal-top aria-label="Back to top"><img src={arrowUp} alt="" /></button>
+          <button type="button" data-work-modal-next>Next Project <img src={arrowRight} alt="" /></button>
+        </footer>
+      </div>
+    </article>
+
+    {projects.slice(3).map((project, index) => (
+      <article class="work-modal__window" data-work-modal-panel={index + 3} role="dialog" aria-modal="true" aria-labelledby={`work-modal-title-${index + 3}`} hidden>
         <header class="work-modal__bar">
           <span>Works</span>
           <button type="button" data-work-modal-close aria-label={`Close ${project.name}`}><img src={closeIcon} alt="" /></button>
@@ -127,8 +206,8 @@ const crescentDragItems = [
         <div class="work-modal__body">
           <section class="work-modal__intro">
             <div class="work-modal__meta">
-              <p class="work-modal__number">0{index + 3}</p>
-              <h3 id={`work-modal-title-${index + 2}`}>{project.heading}</h3>
+              <p class="work-modal__number">0{index + 4}</p>
+              <h3 id={`work-modal-title-${index + 3}`}>{project.heading}</h3>
               <dl>
                 <div><dt>Type of work:</dt><dd>{project.type}</dd></div>
                 <div><dt>Client:</dt><dd>{project.client}</dd></div>
@@ -166,6 +245,7 @@ const crescentDragItems = [
   .works-panel { position: relative; min-height: 100%; }
   .works-panel__grid { display: grid; grid-template-columns: repeat(3, minmax(7.5rem, 1fr)); gap: clamp(2rem, 5vw, 5rem) clamp(1.5rem, 6vw, 5rem); padding: 3.75em clamp(2.5rem, 6vw, 5rem) 1.5rem; }
   .work-folder { display: grid; gap: .85rem; padding: 0; border: 0; color: var(--color-ink); background: transparent; text-align: left; cursor: pointer; }
+  .work-folder:disabled { opacity: 1; cursor: default; }
   .work-folder__art { position: relative; display: block; width: min(8.25rem, 100%); aspect-ratio: 1.34; perspective: 42rem; }
   .work-folder__back {
     position: absolute;
@@ -279,6 +359,7 @@ const crescentDragItems = [
   .crescent-intro__meta dt, .crescent-intro__meta dd { margin: 0; }
   .crescent-intro__meta dt { font-size: 18px; font-weight: 700; line-height: 1.3; }
   .crescent-intro__meta dd { font-size: 18px; font-weight: 500; line-height: 1.3; }
+  .work-modal__meta dd, .crescent-intro__meta dd { font-weight: 400; }
   .crescent-intro__eiter { position: absolute; top: 2rem; right: clamp(1.4rem, 6vw, 3.6rem); width: clamp(5rem, 11vw, 8.7rem); rotate: 13deg; }
   .crescent-drag-area { position: absolute; inset: 16.5rem 1.5rem 1.75rem; min-height: 30rem; }
   .crescent-drag-card { position: absolute; z-index: 1; display: block; width: clamp(12rem, 30vw, 17rem); height: auto; cursor: grab; touch-action: none; user-select: none; }
@@ -287,6 +368,12 @@ const crescentDragItems = [
   .crescent-drag-card--2 { top: 11rem; left: 4%; }
   .crescent-drag-card--3 { top: 12rem; right: 4%; }
   .crescent-drag-card--3 { width: clamp(9.5rem, 22vw, 12.5rem); }
+  .work-modal--holiday .crescent-intro { min-height: 61rem; }
+  .work-modal--holiday .crescent-drag-area { min-height: 36rem; }
+  .work-modal--holiday .holiday-drag-card { width: clamp(9rem, 22vw, 13rem); }
+  .work-modal--holiday .holiday-drag-card--3 { width: clamp(9rem, 22vw, 13rem); }
+  .work-modal--holiday .holiday-drag-card--4 { width: clamp(8rem, 19vw, 11rem); }
+  .work-modal--holiday .crescent-logo img { width: min(100%, 28rem); }
   .crescent-copy { position: relative; padding: 1rem clamp(1.4rem, 6vw, 3.6rem) 3rem; }
   .crescent-copy__markers { position: relative; z-index: 1; display: flex; gap: .5rem; margin: 0 0 1.65rem; }
   .crescent-copy__marker, .crescent-copy .work-modal__pixel--right { display: block; width: 31px; height: 31px; background: var(--color-mint); }
