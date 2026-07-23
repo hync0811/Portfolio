@@ -103,7 +103,7 @@ import icLoading from "../../assets/ic-loading.svg?url";
   }
 
   .loader__welcome-message {
-    font: 900 clamp(3rem, 7vw, 6.5rem)/1.05 var(--font-mono);
+    font: 800 80px/1.05 var(--font-mono);
     letter-spacing: -.08em;
     text-align: center;
     text-transform: uppercase;
@@ -141,12 +141,12 @@ import icLoading from "../../assets/ic-loading.svg?url";
   .loader__chrome i { flex: 1; height: .65rem; margin-left: 1rem; border-radius: 99px; background: var(--color-yellow); }
 
   .loader__content { padding: clamp(3rem, 8vw, 7rem) clamp(2rem, 8vw, 6rem) 3rem; }
-  .loader__title { margin-bottom: 2.5rem; font: 900 clamp(2.25rem, 6vw, 4rem)/1 var(--font-mono); text-align: center; text-transform: uppercase; }
+  .loader__title { margin-bottom: 2.5rem; font: 900 clamp(2.25rem, 6vw, 4rem)/1 "Montserrat", sans-serif; text-align: center; text-transform: uppercase; }
   .loader__track { position: relative; height: 1rem; border-radius: 99px; background: var(--color-chrome); }
   .loader__progress { width: 0; height: 100%; border-radius: inherit; background: var(--color-mint); transition: width 160ms linear; }
   .loader__mascot { position: absolute; z-index: 1; left: 0; top: 50%; width: 4rem; height: 4rem; flex: 0 0 4rem; translate: -40% -50%; transition: left 160ms linear; }
   .loader__mascot img { display: block; width: 100%; height: 100%; max-width: none; object-fit: contain; user-select: none; -webkit-user-drag: none; }
-  .loader__status { margin-top: 3rem; font: 500 .75rem/1 var(--font-mono); text-align: center; }
+  .loader__status { margin-top: 3rem; font: 500 18px/1 var(--font-mono); text-align: center; }
   @keyframes loader-bloom {
     0% { border-radius: .6rem; scale: 1; }
     35% { border-radius: 45%; scale: 8; }

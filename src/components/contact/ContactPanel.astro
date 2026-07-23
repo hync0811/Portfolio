@@ -1,12 +1,83 @@
+---
+import eyesMid from "../../assets/ei-eyes-left.svg?url";
+---
+
 <section class="contact-panel" data-panel="contact" hidden aria-labelledby="contact-heading">
-  <p>Let’s make something memorable.</p>
-  <h2 id="contact-heading">Get in touch</h2>
-  <a href="mailto:hello@example.com">hello@example.com</a>
+  <div class="contact-panel__intro">
+    <h2 id="contact-heading">Let’s work<br />together!</h2>
+    <img src={eyesMid} alt="" aria-hidden="true" />
+  </div>
+
+  <div class="contact-panel__details">
+    <p>Keep in touch</p>
+    <address>
+      <a>cphuonganh1909@gmail.com</a>
+      <a>0965754678</a>
+      <a target="_blank" rel="noreferrer">behance.net/phuonganhchu</a>
+    </address>
+  </div>
+
+  <form class="contact-form" data-contact-form>
+    <div class="contact-form__chrome" aria-hidden="true"><i></i><i></i><i></i><b></b></div>
+    <div class="contact-form__fields">
+      <label><span>Name</span><input name="name" autocomplete="name" placeholder="Name" /></label>
+      <label><span>Email</span><input name="email" type="email" autocomplete="email" placeholder="Email" /></label>
+      <label class="contact-form__message"><span>Message</span><textarea name="message" placeholder="Message"></textarea></label>
+    </div>
+    <button type="submit">Send</button>
+  </form>
 </section>
 
 <style>
-  .contact-panel { min-height: 100%; padding: clamp(2rem, 5vw, 5rem); }
-  p { margin-bottom: 1rem; color: var(--color-purple); font: 600 .8rem/1 var(--font-mono); }
-  h2 { max-width: 9ch; font: 900 clamp(2.5rem, 5vw, 5rem)/.95 var(--font-mono); letter-spacing: -.05em; }
-  a { display: inline-block; margin-top: 2rem; color: var(--color-purple); font: 600 1rem/1.3 var(--font-mono); }
+  .contact-panel { position: relative; min-height: 61.5rem; padding: 7rem clamp(2rem, 8.5vw, 4.9rem) 6rem; color: var(--color-ink); }
+  .contact-panel__intro { display: flex; align-items: end; justify-content: space-between; }
+  h2 { margin: 0; color: var(--color-purple); font: 800 48px/1.2 var(--font-mono); letter-spacing: -.06em; }
+  .contact-panel__intro img { width: 85.61px; height: 85.61px; margin: 0 4.6rem -2.25rem 0; rotate: 20deg; }
+  .contact-panel__details { display: grid; grid-template-columns: 10rem 1fr; gap: 2.1rem; margin-top: 3.5rem; font: 400 18px/1.2 var(--font-sans); }
+  .contact-panel__details p { margin: 0; color: var(--color-purple); }
+  address { display: grid; gap: .35rem; font-style: normal; }
+  address a { width: fit-content; color: var(--color-ink); text-decoration: none; }
+  address a:hover, address a:focus-visible { color: var(--color-purple); }
+  .contact-form { position: relative; width: min(100%, 612px); min-height: 413px; margin: 6.8rem auto 0; padding: 4.55rem 2.65rem 1.7rem; border-radius: 1rem; background: var(--color-purple); }
+  .contact-form__chrome { position: absolute; top: 20px; right: 17px; left: 22px; display: flex; align-items: center; gap: 7px; }
+  .contact-form__chrome i { display: block; width: 9px; height: 9px; border-radius: 50%; background: var(--color-pink); }
+  .contact-form__chrome i:nth-child(2) { background: var(--color-yellow); }
+  .contact-form__chrome i:nth-child(3) { background: var(--color-mint); }
+  .contact-form__chrome b { position: relative; display: block; width: 17px; height: 17px; margin-left: auto; }
+  .contact-form__chrome b::before, .contact-form__chrome b::after { position: absolute; top: 50%; left: 50%; width: 17px; height: 1.3px; content: ""; background: var(--color-mint); translate: -50% -50%; }
+  .contact-form__chrome b::before { rotate: 45deg; }
+  .contact-form__chrome b::after { rotate: -45deg; }
+  .contact-form__fields { display: grid; grid-template-columns: 1fr 1.15fr; gap: .85rem; }
+  label { position: relative; display: block; color: var(--color-muted); font: 400 18px/1.2 var(--font-sans); }
+  label > span { position: absolute; z-index: 1; top: 50%; left: .9rem; pointer-events: none; color: var(--color-muted); translate: 0 -50%; transition: top 220ms var(--ease-out), translate 220ms var(--ease-out), font-size 220ms var(--ease-out), color 220ms var(--ease-out); }
+  input, textarea { width: 100%; border: 0; border-radius: .7rem; outline: 0; color: var(--color-ink); background: var(--color-surface); font: 400 18px/1.2 var(--font-sans); }
+  input::placeholder, textarea::placeholder { color: transparent; }
+  input { height: 47px; padding: 1.15rem .9rem .35rem; }
+  .contact-form__message { grid-column: 1 / -1; margin-top: 1rem; }
+  textarea { height: 204px; resize: vertical; padding: 1.5rem .9rem .7rem; }
+  .contact-form__message > span { top: 1.5rem; translate: 0 -50%; }
+  label:hover > span, label:focus-within > span, label.is-filled > span, label:has(input:not(:placeholder-shown)) > span, label:has(textarea:not(:placeholder-shown)) > span { top: -1.25rem; left: 0; color: var(--color-mint); font-size: 13px; translate: 0 0; }
+  .contact-form button { display: grid; place-items: center; min-width: 99px; min-height: 38px; margin: 1.25rem 0 0 auto; border: 0; color: #231F20; background: var(--color-mint); font: 700 18px/1 var(--font-mono); cursor: pointer; }
+  .contact-form button:hover, .contact-form button:focus-visible { color: var(--color-surface); background: var(--color-ink); }
+  @media (max-width: 40rem) { .contact-panel { min-height: auto; padding: 3rem 1.5rem 5rem; } .contact-panel__intro img { margin-right: 0; } .contact-panel__details { grid-template-columns: 1fr; gap: 1rem; } .contact-form { margin-top: 4rem; padding-inline: 1.25rem; } .contact-form__fields { grid-template-columns: 1fr; } .contact-form__message { grid-column: auto; } }
 </style>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>("[data-contact-form]").forEach((form) => {
+    const fields = form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input, textarea");
+    const syncLabel = (field: HTMLInputElement | HTMLTextAreaElement) => {
+      field.closest("label")?.classList.toggle("is-filled", field.value.trim().length > 0);
+    };
+
+    fields.forEach((field) => {
+      syncLabel(field);
+      field.addEventListener("input", () => syncLabel(field));
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      form.reset();
+      fields.forEach(syncLabel);
+    });
+  });
+</script>
