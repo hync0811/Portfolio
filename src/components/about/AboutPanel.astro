@@ -1,6 +1,6 @@
 ---
 import brandMark from "../../assets/ei-main.svg?url";
-import loadingIcon from "../../assets/ic-loading.svg?url";
+import eyesLeft from "../../assets/ei-eyes-left.svg?url";
 import work1 from "../../assets/works/work-1.svg?url";
 import work2 from "../../assets/works/work-2.svg?url";
 import work3 from "../../assets/works/work-3.svg?url";
@@ -36,13 +36,14 @@ const projects = [
   </div>
 
   <div class="about-panel__story">
-    <img src={loadingIcon} alt="" aria-hidden="true" />
+    <img src={eyesLeft} alt="" aria-hidden="true" />
     <p>As a graphic designer, I bring equal parts passion and critical thinking to design. Always eager to evolve, I refine my craft by diving headfirst into new experiences, analyzing what works, and constantly pushing for better results.</p>
     <p>I design with an open mind and a strong desire to explore new possibilities. While I’m still early in my journey, I treat every project as a chance to push my limits and bring bold ideas to life — always giving 100% to help a concept reach its full potential.</p>
   </div>
 
   <div class="about-panel__actions">
     <a href="#cv">Click here for my CV</a>
+    <div class="about-panel__bottom-markers" aria-hidden="true"><i></i><i></i><i></i></div>
     <a class="about-panel__projects-link" href="#works" data-window-target="works">See my Projects</a>
   </div>
 
@@ -62,16 +63,15 @@ const projects = [
     ))}
   </div>
 
-  <div class="about-panel__bottom-markers" aria-hidden="true"><i></i><i></i><i></i></div>
   <button class="about-panel__back-top" type="button" data-scroll-top aria-label="Back to top">↑</button>
 </section>
 
 <style>
-  .about-panel { position: relative; display: grid; gap: clamp(2.5rem, 5vw, 4.5rem); padding: clamp(1.25rem, 3vw, 2.5rem); padding-bottom: 5rem; color: var(--color-ink); }
+  .about-panel { position: relative; display: grid; gap: clamp(2.5rem, 5vw, 4.5rem); padding: clamp(1.25rem, 3vw, 2.5rem) 80px; padding-bottom: 5rem; color: var(--color-ink); }
   .about-panel__intro { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
   .about-panel__greeting { margin-bottom: .5rem; font: 800 41px/1 var(--font-mono); }
   h1 { color: var(--color-purple); font: 800 58px/.95 var(--font-mono); letter-spacing: -.08em; }
-  .about-panel__brand { display: grid; justify-items: center; gap: .35rem; width: clamp(8rem, 21vw, 13rem); text-align: center; }
+  .about-panel__brand { display: grid; justify-items: center; gap: .35rem; width: clamp(8rem, 21vw, 13rem); margin-right: 2rem; text-align: center; }
   .about-panel__brand img { width: 100%; height: auto; }
   .about-panel__brand p { font: .68rem/1.3 var(--font-sans); }
   .about-panel__brand b { color: var(--color-purple); font: 900 1.5rem/1 var(--font-sans); }
@@ -79,14 +79,15 @@ const projects = [
   .about-panel__markers i, .about-panel__bottom-markers i { width: 1.5rem; aspect-ratio: 1; background: var(--color-mint); }
   .about-panel__markers i:nth-child(2), .about-panel__bottom-markers i:nth-child(2) { margin-left: auto; }
   .about-panel__markers i:nth-child(3), .about-panel__bottom-markers i:nth-child(3) { margin-left: 1.75rem; }
-  .about-panel__skills { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; color: var(--color-purple); font: 700 clamp(1rem, 2vw, 1.55rem)/1.15 var(--font-mono); }
+  .about-panel__skills { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; color: var(--color-purple); font: 800 clamp(1rem, 2vw, 1.55rem)/1.15 var(--font-mono); }
   .about-panel__skills p:last-child { align-self: end; }
-  .about-panel__story { display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "icon copy" "bio bio"; gap: 2.5rem 4rem; align-items: center; }
-  .about-panel__story img { grid-area: icon; width: 6rem; justify-self: center; rotate: 23deg; }
+  .about-panel__story { display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "icon copy" "bio ."; gap: 2.5rem 4rem; align-items: center; }
+  .about-panel__story img { grid-area: icon; width: 86px; aspect-ratio: 1; justify-self: center; }
   .about-panel__story p { font: .8rem/1.35 var(--font-sans); }
   .about-panel__story p:first-of-type { grid-area: copy; }
   .about-panel__story p:last-of-type { grid-area: bio; max-width: 28rem; }
-  .about-panel__actions { display: grid; justify-items: end; gap: 4rem; }
+  .about-panel__actions { display: grid; justify-items: end; gap: 2rem; }
+  .about-panel__actions .about-panel__bottom-markers { width: 100%; justify-self: stretch; }
   .about-panel__actions a { color: var(--color-purple); font: 700 clamp(1rem, 2vw, 1.55rem)/1 var(--font-mono); text-decoration: none; }
   .about-panel__projects-link { padding: .75rem 1rem; color: var(--color-ink) !important; background: var(--color-mint); }
   .about-panel__projects { display: grid; grid-template-columns: repeat(3, minmax(6rem, 1fr)); gap: 2.5rem 3.5rem; }
