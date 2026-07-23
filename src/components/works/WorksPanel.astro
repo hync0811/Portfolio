@@ -11,9 +11,12 @@ import work2Pic3 from "../../assets/works/work-2/pic3.png?url";
 import work2Pic4 from "../../assets/works/work-2/pic4.png?url";
 import work2Pic5 from "../../assets/works/work-2/pic5.png?url";
 import work2Pic6 from "../../assets/works/work-2/pic6.png?url";
-import work2Drag1 from "../../assets/works/work-2/drag1.png?url";
-import work2Drag2 from "../../assets/works/work-2/drag2.png?url";
-import work2Drag3 from "../../assets/works/work-2/drag3.png?url";
+import work2Drag1 from "../../assets/works/work-2/drag1.svg?url";
+import work2Drag2 from "../../assets/works/work-2/drag2.svg?url";
+import work2Drag3 from "../../assets/works/work-2/drag3.svg?url";
+import triangleLeft from "../../assets/triangle-left.svg?url";
+import triangleRight from "../../assets/triangle-right.svg?url";
+import arrowRight from "../../assets/arrow-right.svg?url";
 import arrowUp from "../../assets/arrow-up.svg?url";
 import closeIcon from "../../assets/ic-close.svg?url";
 
@@ -23,6 +26,12 @@ const projects = [
   { name: "Holiday Inn", preview: work3, type: "Campaign", client: "Holiday Inn", year: "2024", heading: "Holiday Inn", statement: "“A second. A perfect stay”", copy: "A digital campaign that makes every small moment of a stay feel effortless, welcoming and ready when guests need it." },
   { name: "Rong Vang Hoang Gia", preview: work4, type: "Packaging", client: "Rong Vang Hoang Gia", year: "2024", heading: "Rong Vang Hoang Gia", statement: "“The Moon of Hope — The Moments of Longing”", copy: "A mooncake packaging system that turns the Mid-Autumn reunion into a bright, contemporary collection of stories." },
   { name: "Antibiotic Abuse", preview: work5, type: "Campaign", client: "Antibiotics are not the answer", year: "2024", heading: "Antibiotics Are Not the Answer", statement: "Antibiotic Resistance", copy: "A public-awareness campaign about the risks of unnecessary antibiotic use and the everyday choices that help protect public health." },
+];
+
+const crescentDragItems = [
+  { image: work2Drag1, position: "top: 0; left: 43%;" },
+  { image: work2Drag2, position: "top: 11rem; left: 4%;" },
+  { image: work2Drag3, position: "top: 12rem; right: 4%;" },
 ];
 ---
 
@@ -74,18 +83,15 @@ const projects = [
           </div>
           <img class="crescent-intro__eiter" src={eiterLogo} alt="Eiter" />
           <div class="crescent-drag-area" aria-label="Crescent image previews">
-            {[work2Drag1, work2Drag2, work2Drag3].map((image, card) => (
-              <figure class:list={["work-modal__card", `crescent-drag-card crescent-drag-card--${card + 1}`]} data-modal-draggable>
-                <figcaption>crescent.png</figcaption>
-                <img src={image} alt="" draggable="false" />
-              </figure>
+            {crescentDragItems.map(({ image, position }, card) => (
+              <img class:list={["crescent-drag-card", `crescent-drag-card--${card + 1}`]} style={`position: absolute; ${position}`} src={image} alt="" draggable="false" data-modal-draggable />
             ))}
           </div>
         </section>
 
         <section class="crescent-copy">
-          <span class="work-modal__pixel" aria-hidden="true"></span>
-          <span class="work-modal__pixel work-modal__pixel--right" aria-hidden="true"></span>
+          <span class="crescent-copy__marker" aria-hidden="true" style="display: block; width: 31px; height: 31px; margin: 0 0 26px; background: var(--color-mint);"></span>
+          <span class="crescent-copy__markers crescent-copy__markers--right" aria-hidden="true" style="display: flex; gap: 35px; position: absolute; top: 16px; right: clamp(1.4rem, 6vw, 3.6rem);"><span class="crescent-copy__marker" style="display: block; flex: 0 0 31px; width: 31px; height: 31px; background: var(--color-mint);"></span><span class="crescent-copy__marker" style="display: block; flex: 0 0 31px; width: 31px; height: 31px; background: var(--color-mint);"></span></span>
           <h4>Crescent</h4>
           <div class="work-modal__columns">
             <p>The brand name was selected to capture the serene essence of a crescent moon, a timeless global symbol for peace, gradual renewal, and understated beauty. In a modern landscape dominated by constant rush and noise, this identity serves as a quiet reminder to pause.</p>
@@ -100,13 +106,14 @@ const projects = [
         </section>
 
         <section class="crescent-gallery" aria-label="Crescent project gallery" data-work2-gallery data-work2-gallery-sources={JSON.stringify([work2Pic1, work2Pic2, work2Pic3, work2Pic4, work2Pic5, work2Pic6])}>
-          <button type="button" class="crescent-gallery__arrow" data-work2-gallery-previous aria-label="Previous image">←</button>
-          <img src={work2Pic1} alt="Crescent project artwork" data-work2-gallery-image />
-          <button type="button" class="crescent-gallery__arrow" data-work2-gallery-next aria-label="Next image">→</button>
+          <span class="crescent-gallery__chrome" aria-hidden="true"><i></i><i></i><i></i><b></b></span>
+          <button type="button" class="crescent-gallery__arrow crescent-gallery__arrow--previous" data-work2-gallery-previous aria-label="Previous image"><img src={triangleLeft} alt="" /></button>
+          <img class="crescent-gallery__image" src={work2Pic1} alt="Crescent project artwork" data-work2-gallery-image />
+          <button type="button" class="crescent-gallery__arrow crescent-gallery__arrow--next" data-work2-gallery-next aria-label="Next image"><img src={triangleRight} alt="" /></button>
         </section>
         <footer class="crescent-footer">
           <button class="crescent-footer__top" type="button" data-work-modal-top aria-label="Back to top"><img src={arrowUp} alt="" /></button>
-          <button type="button" data-work-modal-next>Next Project <span>→</span></button>
+          <button type="button" data-work-modal-next>Next Project <img src={arrowRight} alt="" /></button>
         </footer>
       </div>
     </article>
@@ -221,7 +228,7 @@ const projects = [
     will-change: transform;
   }
   .work-folder__front b { color: var(--color-purple); font: italic 700 1.35rem/1 var(--font-mono); }
-  .work-folder__name { font: 500 .66rem/1.35 var(--font-mono); }
+  .work-folder__name { margin-left: .7rem; font: 700 13px/1.35 var(--font-mono); }
   .work-folder:hover .work-folder__front, .work-folder[aria-expanded="true"] .work-folder__front { transform: perspective(42rem) rotateX(-68deg); }
   .work-folder:hover .work-folder__preview img { transform: translateY(-3.1rem) scale(1.6); }
   .work-folder:focus-visible { outline: 3px solid var(--color-yellow); outline-offset: .35rem; }
@@ -233,10 +240,12 @@ const projects = [
   .work-modal { position: fixed; z-index: 50; inset: 0; display: grid; place-items: center; padding: clamp(.75rem, 2vw, 2rem); }
   .work-modal[hidden], .work-modal__window[hidden] { display: none; }
   .work-modal__backdrop { position: absolute; inset: 0; border: 0; background: rgb(20 15 30 / .48); backdrop-filter: blur(9px); }
-  .work-modal__window { position: relative; display: flex; flex-direction: column; width: min(100%, 56.5rem); height: min(100%, 52rem); overflow: hidden; color: var(--color-ink); background: var(--color-surface); box-shadow: 0 1.25rem 4rem rgb(20 15 30 / .38); animation: work-modal-enter 420ms var(--ease-out); }
-  .work-modal__bar { position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; min-height: 1.9rem; padding: 0 .55rem; color: var(--color-mint); background: var(--color-purple); font: 500 .57rem/1 var(--font-mono); }
+  .work-modal__window { position: relative; display: flex; flex-direction: column; width: min(100%, 56.5rem); height: min(100%, 58rem); overflow: hidden; color: var(--color-ink); background: var(--color-surface); box-shadow: 0 1.25rem 4rem rgb(20 15 30 / .38); animation: work-modal-enter 420ms var(--ease-out); }
+  .work-modal__bar { position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; min-height: 3.25rem; padding: 0 1rem; color: var(--color-mint); background: var(--color-purple); }
+  .work-modal__bar > span { font: 700 24px/1 var(--font-mono); }
   .work-modal__bar button { display: grid; place-items: center; width: 1.4rem; height: 1.4rem; border: 0; color: var(--color-mint); background: transparent; font: 400 1rem/1 var(--font-mono); cursor: pointer; }
   .work-modal__bar button img { display: block; width: .72rem; height: .72rem; object-fit: contain; }
+  :global(.site-footer) { z-index: 60 !important; }
   .work-modal__body { overflow: auto; }
   .work-modal__intro { position: relative; display: grid; grid-template-columns: minmax(13rem, .75fr) minmax(18rem, 1.25fr); min-height: 20.5rem; padding: 1.35rem clamp(1.4rem, 4vw, 3.5rem) 1.75rem; }
   .work-modal__number { margin: 0 0 .5rem; color: var(--color-mint); font: 700 1.35rem/1 var(--font-mono); }
@@ -261,29 +270,51 @@ const projects = [
   .work-modal__feature { display: grid; place-items: center; min-height: 12rem; margin: 2.7rem auto 0; padding: 1.5rem; background: var(--color-purple); }
   .work-modal__feature img { display: block; width: min(100%, 21rem); max-height: 17rem; object-fit: contain; }
   .work-modal--crescent .work-modal__body { scroll-behavior: smooth; }
-  .crescent-intro { position: relative; min-height: 38rem; padding: 1.35rem clamp(1.4rem, 6vw, 3.6rem) 1.75rem; }
-  .crescent-intro__meta { position: relative; z-index: 2; width: 19rem; }
-  .crescent-intro__meta h3 { max-width: 15rem; margin: 0 0 1.15rem; color: var(--color-purple); font: 700 clamp(1.05rem, 2vw, 1.42rem)/1.08 var(--font-mono); }
-  .crescent-intro__meta dl { margin: 0; font: 500 .53rem/1.38 var(--font-mono); }
-  .crescent-intro__meta dl div { display: flex; gap: .28rem; }
+  .crescent-intro { position: relative; min-height: 55rem; padding: 1.35rem clamp(1.4rem, 6vw, 3.6rem) 1.75rem; }
+  .crescent-intro__meta { position: relative; z-index: 2; width: min(100%, 34rem); }
+  .crescent-intro__meta .work-modal__number { font-size: 60px; font-weight: 700; }
+  .crescent-intro__meta h3 { max-width: 15rem; margin: 0 0 1.15rem; color: var(--color-purple); font: 700 35px/1.08 var(--font-mono); }
+  .crescent-intro__meta dl { margin: 0; font-family: var(--font-mono); }
+  .crescent-intro__meta dl div { display: grid; grid-template-columns: max-content minmax(0, 1fr); align-items: baseline; gap: .65rem; }
   .crescent-intro__meta dt, .crescent-intro__meta dd { margin: 0; }
+  .crescent-intro__meta dt { font-size: 18px; font-weight: 700; line-height: 1.3; }
+  .crescent-intro__meta dd { font-size: 18px; font-weight: 500; line-height: 1.3; }
   .crescent-intro__eiter { position: absolute; top: 2rem; right: clamp(1.4rem, 6vw, 3.6rem); width: clamp(5rem, 11vw, 8.7rem); rotate: 13deg; }
-  .crescent-drag-area { position: absolute; inset: 12rem clamp(1.4rem, 6vw, 3.6rem) 1.75rem; min-height: 22rem; }
+  .crescent-drag-area { position: absolute; inset: 16.5rem 1.5rem 1.75rem; min-height: 30rem; }
+  .crescent-drag-card { position: absolute; z-index: 1; display: block; width: clamp(12rem, 30vw, 17rem); height: auto; cursor: grab; touch-action: none; user-select: none; }
+  .crescent-drag-card:active { cursor: grabbing; }
   .crescent-drag-card--1 { top: 0; left: 43%; }
   .crescent-drag-card--2 { top: 11rem; left: 4%; }
   .crescent-drag-card--3 { top: 12rem; right: 4%; }
+  .crescent-drag-card--3 { width: clamp(9.5rem, 22vw, 12.5rem); }
   .crescent-copy { position: relative; padding: 1rem clamp(1.4rem, 6vw, 3.6rem) 3rem; }
-  .crescent-copy h4 { margin: 0 0 1.25rem; font: 500 clamp(.8rem, 1.5vw, 1rem)/1.25 var(--font-mono); }
+  .crescent-copy__markers { position: relative; z-index: 1; display: flex; gap: .5rem; margin: 0 0 1.65rem; }
+  .crescent-copy__marker, .crescent-copy .work-modal__pixel--right { display: block; width: 31px; height: 31px; background: var(--color-mint); }
+  .crescent-copy h4 { margin: 0 0 1.25rem; font: 500 24px/1.25 var(--font-mono); }
+  .crescent-copy .work-modal__columns p { font-size: 14px; }
   .crescent-logo { display: grid; place-items: center; min-height: 14rem; padding: 2.5rem 1rem; }
   .crescent-logo img { width: min(100%, 22rem); }
-  .crescent-copy__statement { margin-left: auto !important; width: fit-content; }
-  .crescent-gallery { display: grid; grid-template-columns: 3rem minmax(0, 1fr) 3rem; align-items: center; gap: 1rem; width: min(100% - 3rem, 38rem); min-height: 21rem; margin: 0 auto 2.5rem; padding: 1.5rem; background: var(--color-purple); }
-  .crescent-gallery img { display: block; width: 100%; max-height: 17rem; object-fit: contain; }
-  .crescent-gallery__arrow { border: 0; color: var(--color-mint); background: transparent; font: 400 2rem/1 var(--font-mono); cursor: pointer; }
+  .crescent-copy__statement { width: fit-content; margin-left: auto !important; font-size: 24px !important; font-weight: 500 !important; }
+  .crescent-gallery { position: relative; display: grid; place-items: center; width: min(calc(100% - 3rem), 612px); aspect-ratio: 612 / 458; margin: 0 auto 2.5rem; overflow: hidden; border-radius: 1rem; background: var(--color-purple); }
+  .crescent-gallery__chrome { position: absolute; z-index: 1; top: 20px; right: 17px; left: 22px; display: flex; align-items: center; gap: 7px; }
+  .crescent-gallery__chrome i { display: block; width: 9px; height: 9px; border-radius: 50%; background: var(--color-pink); }
+  .crescent-gallery__chrome i:nth-child(2) { background: var(--color-yellow); }
+  .crescent-gallery__chrome i:nth-child(3) { background: var(--color-mint); }
+  .crescent-gallery__chrome b { position: relative; display: block; width: 17px; height: 17px; margin-left: auto; }
+  .crescent-gallery__chrome b::before, .crescent-gallery__chrome b::after { position: absolute; top: 50%; left: 50%; width: 17px; height: 1.3px; content: ""; background: var(--color-mint); translate: -50% -50%; }
+  .crescent-gallery__chrome b::before { rotate: 45deg; }
+  .crescent-gallery__chrome b::after { rotate: -45deg; }
+  .crescent-gallery__image { z-index: 0; display: block; width: min(421px, 68.84%); max-height: 61.32%; object-fit: contain; }
+  .crescent-gallery__arrow { position: absolute; z-index: 1; top: 50%; display: grid; place-items: center; width: 30px; height: 36px; padding: 0; border: 0; background: transparent; cursor: pointer; transform: translateY(-50%); }
+  .crescent-gallery__arrow img { display: block; width: 100%; height: 100%; }
+  .crescent-gallery__arrow--previous { left: 22px; }
+  .crescent-gallery__arrow--next { right: 20px; }
   .crescent-footer { display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(1.4rem, 6vw, 3.6rem) 2.4rem; }
   .crescent-footer button { min-height: 2rem; border: 0; padding: .35rem .8rem; color: var(--color-purple); background: var(--color-mint); font: 600 .62rem/1 var(--font-mono); cursor: pointer; }
-  .crescent-footer__top { width: 2rem; padding: .35rem !important; }
-  .crescent-footer__top img { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .crescent-footer__top { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; min-height: 0 !important; padding: 0 !important; }
+  .crescent-footer__top img { display: block; width: 16px; height: 16px; max-width: none; object-fit: contain; }
+  .crescent-footer [data-work-modal-next] { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; gap: .75rem; min-height: 2.5rem; padding-inline: 1rem; color: #231F20; white-space: nowrap; font: 700 23px/1 var(--font-mono); }
+  .crescent-footer [data-work-modal-next] img { display: block; flex: 0 0 20px; width: 20px; height: 20px; max-width: none; object-fit: contain; }
   @keyframes detail-enter { from { opacity: 0; translate: 0 .75rem; } }
   @keyframes work-modal-enter { from { opacity: 0; transform: scale(.92); } }
   @media (max-width: 48rem) { .works-panel__grid { grid-template-columns: repeat(2, minmax(7rem, 1fr)); gap: 2rem 1.5rem; padding: 2rem 1.5rem 1.5rem; } .work-modal { padding: .45rem; } .work-modal__window { height: min(100%, 48rem); } .work-modal__intro { grid-template-columns: 1fr; } .work-modal__cards { min-height: 14rem; } .work-modal__card { width: 9rem; } .work-modal__card--1 { left: 25%; } .work-modal__card--2 { top: 5rem; } .work-modal__card--3 { top: 6.2rem; } .crescent-intro { min-height: 32rem; } .crescent-drag-area { inset: 11.5rem 1rem 1rem; min-height: 18rem; } .crescent-drag-card--1 { left: 29%; } .crescent-drag-card--2 { top: 8rem; left: 0; } .crescent-drag-card--3 { top: 9rem; right: 0; } }

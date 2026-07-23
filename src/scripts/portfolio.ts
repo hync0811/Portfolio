@@ -183,40 +183,28 @@ if (root) {
     if (event.key === "Escape" && workModal && !workModal.hidden) closeWorkModal();
   });
 
-  workModal?.querySelectorAll<HTMLElement>("[data-modal-draggable]").forEach((item) => {
-    item.addEventListener("dragstart", (event) => event.preventDefault());
-    item.addEventListener("pointerdown", (event) => {
-      if (event.button !== 0) return;
-      event.preventDefault();
-      const parent = item.parentElement;
-      if (!parent) return;
-      const bounds = item.getBoundingClientRect();
-      const parentBounds = parent.getBoundingClientRect();
-      const startX = event.clientX;
-      const startY = event.clientY;
-      const startLeft = bounds.left - parentBounds.left;
-      const startTop = bounds.top - parentBounds.top;
-      item.setPointerCapture(event.pointerId);
-      item.style.right = "auto";
-      item.style.left = `${startLeft}px`;
-      item.style.top = `${startTop}px`;
-      const move = (moveEvent: PointerEvent) => {
-        const left = Math.min(parentBounds.width - bounds.width, Math.max(0, startLeft + moveEvent.clientX - startX));
-        const top = Math.min(parentBounds.height - bounds.height, Math.max(0, startTop + moveEvent.clientY - startY));
-        item.style.left = `${left}px`;
-        item.style.top = `${top}px`;
-      };
-      const end = () => {
-        if (item.hasPointerCapture(event.pointerId)) item.releasePointerCapture(event.pointerId);
-        item.removeEventListener("pointermove", move);
-        item.removeEventListener("pointerup", end);
-        item.removeEventListener("pointercancel", end);
-      };
-      item.addEventListener("pointermove", move);
-      item.addEventListener("pointerup", end);
-      item.addEventListener("pointercancel", end);
-    });
+  let modalDrag: { item: HTMLElement; parentBounds: DOMRect; bounds: DOMRect; startX: number; startY: number; startLeft: number; startTop: number } | null = null;
+  document.addEventListener("pointerdown", (event) => {
+    const item = (event.target as Element).closest<HTMLElement>("[data-modal-draggable]");
+    if (event.button !== 0 || !item || !workModal?.contains(item)) return;
+    const parent = item.parentElement;
+    if (!parent) return;
+    event.preventDefault();
+    const bounds = item.getBoundingClientRect();
+    const parentBounds = parent.getBoundingClientRect();
+    modalDrag = { item, parentBounds, bounds, startX: event.clientX, startY: event.clientY, startLeft: bounds.left - parentBounds.left, startTop: bounds.top - parentBounds.top };
+    item.style.right = "auto";
+    item.style.left = `${modalDrag.startLeft}px`;
+    item.style.top = `${modalDrag.startTop}px`;
   });
+  document.addEventListener("pointermove", (event) => {
+    if (!modalDrag) return;
+    const { item, parentBounds, bounds, startX, startY, startLeft, startTop } = modalDrag;
+    item.style.left = `${Math.min(parentBounds.width - bounds.width, Math.max(0, startLeft + event.clientX - startX))}px`;
+    item.style.top = `${Math.min(parentBounds.height - bounds.height, Math.max(0, startTop + event.clientY - startY))}px`;
+  });
+  document.addEventListener("pointerup", () => { modalDrag = null; });
+  document.addEventListener("pointercancel", () => { modalDrag = null; });
 
   root.querySelectorAll<HTMLButtonElement>("[data-scroll-top]").forEach((button) => {
     button.addEventListener("click", () => {
