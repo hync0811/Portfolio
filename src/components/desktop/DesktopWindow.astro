@@ -40,12 +40,14 @@ const { id, title } = Astro.props;
 </article>
 
 <style>
-  .window { position: absolute; top: 13%; left: 50%; width: min(58rem, 72vw); min-width: 40rem; height: min(34rem, 64vh); overflow: hidden; translate: -50% 0; border-radius: var(--radius-window); background: var(--color-surface); box-shadow: 1rem 1rem 0 var(--color-purple); touch-action: none; }
-  .window__titlebar { display: flex; align-items: center; justify-content: space-between; height: 2.25rem; padding: 0 1.25rem 0 3rem; color: var(--color-purple); background: linear-gradient(90deg, var(--color-mint) 19%, var(--color-purple) 19%); font: 600 .8rem/1 var(--font-mono); cursor: grab; }
+  .window { position: absolute; top: 13%; left: 50%; width: calc(903px + 11rem); max-width: calc(100vw - 2rem); min-width: 0; height: calc(515px + 6.5rem); max-height: calc(100% - 2rem); overflow: hidden; translate: -50% 0; border-radius: var(--radius-window); background: var(--color-surface); box-shadow: 1rem 1rem 0 var(--color-purple); touch-action: none; }
+  .window__titlebar { position: relative; display: flex; align-items: center; justify-content: space-between; height: 2.25rem; padding: 0 1.25rem 0 3rem; color: var(--color-purple); background: var(--color-purple); font: 600 .8rem/1 var(--font-mono); cursor: grab; }
+  .window__titlebar::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 19%; border-top-left-radius: var(--radius-window); border-top-right-radius: var(--radius-window); background: var(--color-mint); }
+  .window__titlebar > * { position: relative; z-index: 1; }
   .window__titlebar:active { cursor: grabbing; }
   button { border: 0; color: var(--color-mint); background: transparent; font-size: 1.25rem; cursor: pointer; }
   button img { display: block; width: .85rem; height: .85rem; }
-  .window__toolbar { display: grid; grid-template-columns: repeat(4, auto) minmax(14rem, 1fr) 13rem; align-items: center; gap: 1.25rem; min-height: 4.25rem; padding: .75rem 1.5rem; color: var(--color-purple); background: var(--color-mint); font: 600 1rem/1 var(--font-mono); }
+  .window__toolbar { display: grid; grid-template-columns: repeat(4, auto) minmax(14rem, 1fr) 13rem; align-items: center; gap: 1.25rem; min-height: 4.25rem; padding: .75rem 1.5rem; border-bottom: 1px solid #9853E8; color: var(--color-purple); background: var(--color-mint); font: 600 1rem/1 var(--font-mono); }
   .window__toolbar-icon { display: grid; place-items: center; width: 1rem; height: 1rem; }
   .window__toolbar-icon img { display: block; width: 100%; height: 100%; object-fit: contain; }
   .window__toolbar-icon--up img { width: 1rem; height: 1rem; }
@@ -55,9 +57,9 @@ const { id, title } = Astro.props;
   .window__search img { width: .8rem; height: .8rem; object-fit: contain; }
   .window__address img { width: .72rem; height: .72rem; flex: 0 0 auto; object-fit: contain; }
   .window__address .window__point-icon, aside .window__point-icon { width: .55rem; height: .55rem; }
-  .window__body { display: grid; grid-template-columns: 11rem 1fr; height: calc(100% - 6.5rem); }
+  .window__body { display: grid; grid-template-columns: 11rem 903px; height: 515px; }
   aside { display: flex; flex-direction: column; gap: 2rem; padding: 4rem 1.25rem; background: var(--color-mint); }
-  aside a { display: flex; align-items: center; gap: .75rem; color: var(--color-purple); font: 600 .82rem/1 var(--font-mono); text-decoration: none; }
+  aside a { display: flex; align-items: center; gap: .75rem; color: var(--color-purple); font: 700 .82rem/1 var(--font-mono); text-decoration: none; }
   .window__nav-label { padding: .35rem .5rem; border-radius: .3rem; }
   .window__body > aside > a[aria-current="page"] .window__nav-label {
     display: inline-block;
@@ -66,6 +68,6 @@ const { id, title } = Astro.props;
     background: var(--color-purple) !important;
   }
   aside a:hover .window__nav-label, aside a:focus-visible .window__nav-label { color: var(--color-surface); background: color-mix(in srgb, var(--color-purple) 78%, transparent); }
-  .window__content { overflow: auto; padding: 0; }
-  @media (max-width: 48rem) { .window { top: 5%; width: calc(100vw - 2rem); min-width: 0; height: calc(100% - 2rem); } .window__toolbar { grid-template-columns: repeat(4, auto) 1fr; } .window__toolbar div:last-child { display: none; } .window__body { grid-template-columns: 1fr; } aside { display: none; } }
+  .window__content { width: 903px; height: 515px; overflow: auto; padding: 0; border-left: 1px solid #9853E8; }
+  @media (max-width: 48rem) { .window { top: 5%; width: calc(100vw - 2rem); min-width: 0; height: calc(100% - 2rem); } .window__toolbar { grid-template-columns: repeat(4, auto) 1fr; } .window__toolbar div:last-child { display: none; } .window__body { grid-template-columns: 1fr; height: calc(100% - 6.5rem); } .window__content { width: 100%; height: auto; } aside { display: none; } }
 </style>
