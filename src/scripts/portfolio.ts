@@ -72,7 +72,7 @@ if (root) {
     const handle = item.querySelector<HTMLElement>("[data-drag-handle]") ?? item;
     item.addEventListener("dragstart", (event) => event.preventDefault());
     handle.addEventListener("pointerdown", (event) => {
-      if ((event.target as HTMLElement).closest("button, a")) return;
+      if ((event.target as HTMLElement).closest("button, a, [data-no-drag]")) return;
       const bounds = item.getBoundingClientRect();
       const parentBounds = item.parentElement?.getBoundingClientRect();
       if (!parentBounds) return;

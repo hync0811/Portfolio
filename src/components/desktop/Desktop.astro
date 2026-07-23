@@ -5,11 +5,37 @@ import ContactPanel from "../contact/ContactPanel.astro";
 import DesktopWindow from "./DesktopWindow.astro";
 import WorksPanel from "../works/WorksPanel.astro";
 import eyesMid from "../../assets/ic-eyes-mid.svg?url";
+
+const playlist = [
+  ["Life Is Inexhaustible", "HOYO-MiX"],
+  ["Tomorrow Never Came", "Lana Del Rey"],
+  ["Hampstead", "Ariana Grande"],
+  ["DtMF", "Bad Bunny"],
+  ["The Complete Knock", "Blood Orange"],
+  ["My Moon My Man", "Feist"],
+  ["Tan Du", "Humm"],
+  ["My Lucky Stars", "Tupperwave"],
+  ["YM45 ITOSHIITOHOSHI", "Inko Saito"],
+  ["PINKY UP", "KATSEYE"],
+];
 ---
 
 <main class="desktop" id="play" data-desktop>
   <div class="desktop__stage">
-    <div class="desktop__placeholder" aria-hidden="true"></div>
+    <section class="desktop__playlist" aria-label="Now playing playlist" data-draggable>
+      <div class="desktop__playlist-card" data-drag-handle>
+        <header class="desktop__playlist-header"><span>now playing</span><b aria-hidden="true"></b></header>
+        <div class="desktop__playlist-record" aria-hidden="true"><i></i></div>
+        <h2>eiter.exe //<br />tracklist</h2>
+        <ol class="desktop__playlist-list" data-no-drag>
+          {playlist.map(([title, artist], index) => (
+            <li><b>{index + 1}</b><span>{title}</span><em>{artist}</em></li>
+          ))}
+        </ol>
+        <footer class="desktop__playlist-controls" aria-hidden="true"><span class="desktop__playlist-previous"><i></i><i></i></span><b><i></i></b><span class="desktop__playlist-next"><i></i><i></i></span></footer>
+        <i class="desktop__playlist-corner" aria-hidden="true"></i>
+      </div>
+    </section>
     <div class="desktop__sticker desktop__sticker--brand" data-draggable><BrandMark compact /></div>
     <div class="desktop__sticker desktop__sticker--eyes" data-draggable aria-hidden="true"><img src={eyesMid} alt="" draggable="false" /></div>
 
@@ -26,9 +52,34 @@ import eyesMid from "../../assets/ic-eyes-mid.svg?url";
 <style>
   .desktop { position: fixed; inset: calc(var(--shell-gap) + var(--header-height)) 0 var(--footer-height); overflow: hidden; background: var(--color-canvas); }
   .desktop__stage { position: relative; width: 100%; height: 100%; }
-  .desktop__placeholder { position: absolute; top: 13%; left: 3%; width: 18%; aspect-ratio: 1.4; border-radius: 1.25rem; background: var(--color-chrome); }
+  .desktop__playlist { position: absolute; top: 16%; left: 1%; z-index: 1; width: min(20.45vw, 392.581px); min-width: 16rem; aspect-ratio: 392.581 / 260.426; user-select: none; }
+  .desktop__playlist::before { position: absolute; inset: 9.562% 1.102% 1.91% 10.585%; border-radius: 14.247px; content: ""; background: var(--color-mint); }
+  .desktop__playlist-card { position: absolute; inset: 1.909% 4.481% 8.068% 5.564%; overflow: hidden; border-radius: 14.247px; color: var(--color-purple); background: var(--color-purple); cursor: grab; touch-action: none; }
+  .desktop__playlist-card:active { cursor: grabbing; }
+  .desktop__playlist-header { position: absolute; z-index: 3; top: 6.567%; right: 4.656%; display: flex; align-items: center; gap: 16.27px; color: var(--color-mint); font: 700 8px/1 var(--font-mono); cursor: grab; touch-action: none; }
+  .desktop__playlist-header:active { cursor: grabbing; }
+  .desktop__playlist-header b { display: block; width: 13.959px; aspect-ratio: 1; background: var(--color-mint); }
+  .desktop__playlist-record { position: absolute; z-index: 1; top: 12.383%; left: -20.91%; width: 51.735%; aspect-ratio: 1; border: 0; border-radius: 50%; background: var(--color-ink); box-shadow: 0 0 0 4px var(--color-purple), 0 0 0 6px var(--color-mint); }
+  .desktop__playlist-record::after { position: absolute; z-index: 1; top: 5.78%; left: 78.74%; width: 5.15px; aspect-ratio: 1; border-radius: 50%; content: ""; background: var(--color-mint); translate: -50% -50%; }
+  .desktop__playlist-record i { position: absolute; top: 50%; left: 50%; width: 27.415%; aspect-ratio: 1; border-radius: 50%; background: var(--color-mint); translate: -50% -50%; }
+  .desktop__playlist h2 { position: absolute; z-index: 2; top: 16.5%; left: 38.1%; margin: 0; color: var(--color-mint); font: 700 clamp(.8rem, 1vw, 1.15rem)/1.22 var(--font-mono); letter-spacing: .02em; }
+  .desktop__playlist-list { position: absolute; z-index: 2; top: 41%; left: 38.5%; width: 48.1%; height: 34.6%; margin: 0; padding: 0; overflow-y: auto; list-style: none; scrollbar-width: none; cursor: auto; touch-action: pan-y; }
+  .desktop__playlist-list::-webkit-scrollbar { display: none; }
+  .desktop__playlist-list li { display: grid; grid-template-columns: 24px max-content minmax(0, 1fr); align-items: center; column-gap: 0; height: 20%; min-height: 16px; color: var(--color-ink); font: 400 9px/1 var(--font-sans); white-space: nowrap; }
+  .desktop__playlist-list li > b { color: var(--color-mint); font: 700 9px/1 var(--font-mono); }
+  .desktop__playlist-list li > span { overflow: hidden; text-overflow: ellipsis; }
+  .desktop__playlist-list li > span::after { content: " ·"; color: #C9A4FC; font-size: 12px; }
+  .desktop__playlist-list li > em { min-width: 0; margin-left: 6px; overflow: hidden; color: #C9A4FC; font-style: normal; text-overflow: ellipsis; }
+  .desktop__playlist-controls { position: absolute; z-index: 2; right: 12.78%; bottom: 11.67%; left: 39.13%; display: flex; align-items: center; justify-content: space-between; }
+  .desktop__playlist-controls > span { display: flex; gap: -1px; }
+  .desktop__playlist-controls > span i { display: block; width: 0; height: 0; }
+  .desktop__playlist-previous i { border-top: 5.36px solid transparent; border-right: 8.93px solid var(--color-mint); border-bottom: 5.36px solid transparent; }
+  .desktop__playlist-next i { border-top: 5.36px solid transparent; border-bottom: 5.36px solid transparent; border-left: 8.93px solid var(--color-mint); }
+  .desktop__playlist-controls > b { display: grid; place-items: center; width: 19.14px; aspect-ratio: 1; border-radius: 50%; background: var(--color-mint); }
+  .desktop__playlist-controls > b i { width: 0; height: 0; margin-left: 1px; border-top: 3.27px solid transparent; border-bottom: 3.27px solid transparent; border-left: 5.46px solid var(--color-purple); }
+  .desktop__playlist-corner { position: absolute; right: 4.656%; bottom: 6.13%; width: 13.959px; aspect-ratio: 1; background: var(--color-mint); }
   .desktop__sticker { position: absolute; z-index: 2; user-select: none; touch-action: none; cursor: grab; }
   .desktop__sticker--brand { left: 8%; bottom: 18%; scale: 1.2; rotate: -12deg; }
   .desktop__sticker--eyes { right: 6%; top: 35%; width: 6.5rem; rotate: 20deg; }
-  @media (max-width: 48rem) { .desktop__placeholder, .desktop__sticker { display: none; } }
+  @media (max-width: 48rem) { .desktop__playlist, .desktop__sticker { display: none; } }
 </style>

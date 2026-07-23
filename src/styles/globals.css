@@ -2,6 +2,8 @@
 
 body { overflow: hidden; color: var(--color-ink); background: var(--color-canvas); font-family: var(--font-sans); text-rendering: optimizeLegibility; }
 button, a { -webkit-tap-highlight-color: transparent; }
+[data-draggable], [data-drag-handle], [data-modal-draggable] { cursor: grab; }
+[data-draggable]:active, [data-drag-handle]:active, [data-modal-draggable]:active { cursor: grabbing; }
 :focus-visible { outline: 3px solid var(--color-yellow); outline-offset: 3px; }
 [hidden] { display: none !important; }
 .portfolio__app[aria-hidden="true"] { visibility: hidden; }
