@@ -7,6 +7,7 @@ import work2 from "../../assets/works/work-2.svg?url";
 import work3 from "../../assets/works/work-3.svg?url";
 import work4 from "../../assets/works/work-4.svg?url";
 import work5 from "../../assets/works/work-5.svg?url";
+import work6 from "../../assets/works/work-6.svg?url";
 
 const projects = [
   { name: "Lotus Water Puppet", preview: work1 },
@@ -14,6 +15,7 @@ const projects = [
   { name: "Holiday Inn", preview: work3 },
   { name: "Rong Vang Hoang Gia", preview: work4 },
   { name: "Antibiotic Abuse", preview: work5 },
+  { name: "Dog Out!", preview: work6 },
 ];
 ---
 
@@ -93,7 +95,7 @@ const projects = [
   .about-panel__projects-link { padding: .75rem 1rem; color: var(--color-ink) !important; background: var(--color-mint); }
   .about-panel__projects { display: grid; grid-template-columns: repeat(3, minmax(6rem, 1fr)); gap: 2.5rem 3.5rem; }
   .about-folder { display: grid; gap: .65rem; color: var(--color-ink); }
-  .about-folder__art { position: relative; display: block; width: min(8rem, 100%); aspect-ratio: 1.34; perspective: 42rem; }
+  .about-folder__art { position: relative; display: block; width: min(10rem, 100%); aspect-ratio: 1.34; perspective: 42rem; }
   .about-folder__back { position: absolute; inset: 6% 12% 4% 6%; display: block; }
   .about-folder__back::before { content: ""; position: absolute; inset: 0; background: var(--color-purple); clip-path: polygon(4% 0, 28% 0, 31% 7%, 100% 7%, 100% 15%, 13% 15%, 0 100%, 0 8%); }
   .about-folder__paper { position: absolute; z-index: 1; inset: 15% -11% 0 3%; display: block; overflow: visible; }

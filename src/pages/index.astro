@@ -1,5 +1,6 @@
 ---
 import Desktop from "../components/desktop/Desktop.astro";
+import HomePage from "../components/home/HomePage.astro";
 import LoadingScreen from "../components/loading/LoadingScreen.astro";
 import SiteFooter from "../components/shell/SiteFooter.astro";
 import SiteHeader from "../components/shell/SiteHeader.astro";
@@ -9,12 +10,13 @@ import Layout from "../layouts/Layout.astro";
 <Layout>
   <div class="portfolio" data-portfolio>
     <LoadingScreen />
+    <HomePage />
 
     <div class="portfolio__app" data-app-shell aria-hidden="true">
       <SiteHeader />
       <Desktop />
-      <SiteFooter />
     </div>
+    <SiteFooter />
   </div>
 </Layout>
 

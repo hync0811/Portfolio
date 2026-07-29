@@ -22,7 +22,7 @@ const playlist = [
 
 <main class="desktop" id="play" data-desktop>
   <div class="desktop__stage">
-    <section class="desktop__playlist" aria-label="Now playing playlist" data-draggable>
+    <section class="desktop__playlist" aria-label="Now playing playlist" data-playlist data-draggable>
       <div class="desktop__playlist-card" data-drag-handle>
         <header class="desktop__playlist-header"><span>now playing</span><b aria-hidden="true"></b></header>
         <div class="desktop__playlist-record" aria-hidden="true"><i></i></div>
@@ -37,7 +37,6 @@ const playlist = [
       </div>
     </section>
     <div class="desktop__sticker desktop__sticker--brand" data-draggable><BrandMark compact /></div>
-    <div class="desktop__sticker desktop__sticker--eyes" data-draggable aria-hidden="true"><img src={eyesMid} alt="" draggable="false" /></div>
 
     <DesktopWindow id="about" title="About me">
       <div slot="about">
@@ -50,7 +49,7 @@ const playlist = [
 </main>
 
 <style>
-  .desktop { position: fixed; inset: calc(var(--shell-gap) + var(--header-height)) 0 var(--footer-height); overflow: hidden; background: var(--color-canvas); }
+  .desktop { position: fixed; inset: 0 0 var(--footer-height); overflow: hidden; background: var(--color-canvas); }
   .desktop__stage { position: relative; width: 100%; height: 100%; }
   .desktop__playlist { position: absolute; top: 16%; left: 1%; z-index: 1; width: min(20.45vw, 392.581px); min-width: 16rem; aspect-ratio: 392.581 / 260.426; user-select: none; }
   .desktop__playlist::before { position: absolute; inset: 9.562% 1.102% 1.91% 10.585%; border-radius: 14.247px; content: ""; background: var(--color-mint); }

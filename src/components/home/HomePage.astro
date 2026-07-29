@@ -1,0 +1,31 @@
+---
+import SiteHeader from "../shell/SiteHeader.astro";
+import eiterMark from "../../assets/ei-main.svg?url";
+import eyesMid from "../../assets/ic-eyes-mid.svg?url";
+import eyesPurple from "../../assets/ic-eyes-left-purple.svg?url";
+import arrowUp from "../../assets/arrow-up.svg?url";
+---
+
+<section class="homepage" data-homepage hidden aria-hidden="true" aria-label="Eiter homepage">
+  <SiteHeader />
+  <img class="homepage__eyes homepage__eyes--purple" src={eyesPurple} alt="" aria-hidden="true" />
+  <button class="homepage__mark" type="button" data-homepage-enter aria-label="Enter portfolio"><img src={eiterMark} alt="Eiter" /></button>
+  <img class="homepage__eyes homepage__eyes--mint" src={eyesMid} alt="" aria-hidden="true" />
+  <button class="homepage__enter" type="button" data-homepage-enter>
+    <img src={arrowUp} alt="" aria-hidden="true" />
+    <span>Get to know me</span>
+  </button>
+</section>
+
+<style>
+  .homepage { position: fixed; z-index: var(--z-shell); inset: 0; overflow: hidden; background: var(--color-canvas); }
+  .homepage__mark { position: absolute; top: 46.5%; left: 50%; width: clamp(10rem, 15vw, 14.25rem); padding: 0; border: 0; background: transparent; cursor: pointer; translate: -50% -50%; rotate: 14deg; }
+  .homepage__mark img { display: block; width: 100%; height: auto; }
+  .homepage__eyes { position: absolute; height: auto; user-select: none; }
+  .homepage__eyes--purple { top: 35.9%; left: 12.15%; width: clamp(6rem, 10vw, 9.5rem); rotate: 21deg; }
+  .homepage__eyes--mint { right: 10.75%; bottom: 19.5%; width: clamp(5rem, 8vw, 7.3rem); rotate: 22deg; }
+  .homepage__enter { position: absolute; top: 61.6%; left: 50%; display: grid; justify-items: center; gap: .5rem; padding: 0; border: 0; color: var(--color-purple); background: transparent; font: 700 clamp(.75rem, 1.2vw, 1rem)/1 var(--font-mono); cursor: pointer; translate: -50% 0; }
+  .homepage__enter img { width: 18px; height: 24px; object-fit: contain; }
+  .homepage__enter:hover, .homepage__enter:focus-visible { color: var(--color-ink); }
+  @media (max-width: 48rem) { .homepage__eyes--purple { left: 8%; } .homepage__eyes--mint { right: 7%; } }
+</style>

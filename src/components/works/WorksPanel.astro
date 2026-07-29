@@ -4,6 +4,7 @@ import work2 from "../../assets/works/work-2.svg?url";
 import work3 from "../../assets/works/work-3.svg?url";
 import work4 from "../../assets/works/work-4.svg?url";
 import work5 from "../../assets/works/work-5.svg?url";
+import work6 from "../../assets/works/work-6.svg?url";
 import eiterLogo from "../../assets/ei-main.svg?url";
 import work2Pic1 from "../../assets/works/work-2/pic1.png?url";
 import work2Pic2 from "../../assets/works/work-2/pic2.png?url";
@@ -35,6 +36,7 @@ const projects = [
   { name: "Holiday Inn", preview: work3, type: "Campaign", client: "Holiday Inn", year: "2024", heading: "Holiday Inn", statement: "“A second. A perfect stay”", copy: "A digital campaign that makes every small moment of a stay feel effortless, welcoming and ready when guests need it." },
   { name: "Rong Vang Hoang Gia", preview: work4, type: "Packaging", client: "Rong Vang Hoang Gia", year: "2024", heading: "Rong Vang Hoang Gia", statement: "“The Moon of Hope — The Moments of Longing”", copy: "A mooncake packaging system that turns the Mid-Autumn reunion into a bright, contemporary collection of stories." },
   { name: "Antibiotic Abuse", preview: work5, type: "Campaign", client: "Antibiotics are not the answer", year: "2024", heading: "Antibiotics Are Not the Answer", statement: "Antibiotic Resistance", copy: "A public-awareness campaign about the risks of unnecessary antibiotic use and the everyday choices that help protect public health." },
+  { name: "Dog Out!", preview: work6 },
 ];
 
 const crescentDragItems = [
@@ -243,10 +245,10 @@ const holidayDragItems = [
 <style>
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .works-panel { position: relative; min-height: 100%; }
-  .works-panel__grid { display: grid; grid-template-columns: repeat(3, minmax(7.5rem, 1fr)); gap: clamp(2rem, 5vw, 5rem) clamp(1.5rem, 6vw, 5rem); padding: 3.75em clamp(2.5rem, 6vw, 5rem) 1.5rem; }
+  .works-panel__grid { display: grid; grid-template-columns: repeat(3, minmax(7.5rem, 1fr)); gap: clamp(2rem, 5vw, 5rem) clamp(1.5rem, 6vw, 5rem); padding: 11rem clamp(3rem, 7vw, 6rem) 1.5rem clamp(4rem, 8vw, 7rem); }
   .work-folder { display: grid; gap: .85rem; padding: 0; border: 0; color: var(--color-ink); background: transparent; text-align: left; cursor: pointer; }
   .work-folder:disabled { opacity: 1; cursor: default; }
-  .work-folder__art { position: relative; display: block; width: min(8.25rem, 100%); aspect-ratio: 1.34; perspective: 42rem; }
+  .work-folder__art { position: relative; display: block; width: min(10rem, 100%); aspect-ratio: 1.34; perspective: 42rem; }
   .work-folder__back {
     position: absolute;
     inset: 6% 12% 4% 6%;

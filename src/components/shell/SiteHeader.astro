@@ -1,21 +1,12 @@
 ---
+import playButton from "../../assets/btn-play.svg?url";
 import icEi from "../../assets/ic-ei.svg?url";
 
-const navigation = [
-  { label: "Play", target: "play" },
-  { label: "About", target: "about" },
-  { label: "Works", target: "works" },
-  { label: "Contact", target: "contact" },
-];
 ---
 
 <header class="site-header">
-  <a class="site-header__brand" href="#play" aria-label="Eiter home"><img src={icEi} alt="" /></a>
-  <nav aria-label="Primary navigation">
-    <ul>
-      {navigation.map(({ label, target }) => <li><a href={`#${target}`} data-window-target={target}>{label}</a></li>)}
-    </ul>
-  </nav>
+  <a class="site-header__brand" href="#homepage" data-homepage-target aria-label="Eiter homepage"><img src={icEi} alt="" /></a>
+  <button class="site-header__status" type="button" data-playlist-toggle aria-label="Show playlist" aria-pressed="true"><img src={playButton} alt="" /></button>
   <div class="site-header__clock" aria-label="Current local date and time">
     <time data-current-date>--/--/----</time>
     <time data-current-time>--:--</time>
@@ -23,12 +14,11 @@ const navigation = [
 </header>
 
 <style>
-  .site-header { position: fixed; z-index: var(--z-shell); top: var(--shell-gap); left: var(--shell-gap); right: var(--shell-gap); display: flex; align-items: center; min-height: var(--header-height); padding: .75rem 2rem; border-radius: var(--radius-pill); background: var(--color-chrome); }
-  .site-header__brand { display: grid; width: 2.5rem; text-decoration: none; }
-  .site-header__brand img { width: 100%; height: 100%; object-fit: contain; }
-  ul { display: flex; gap: clamp(1.25rem, 3vw, 2.5rem); margin-left: 2.25rem; padding: 0; list-style: none; }
-  a { color: var(--color-purple); font: 600 .8rem/1 var(--font-mono); text-decoration: none; }
-  a:hover, a:focus-visible { color: var(--color-ink); }
-  .site-header__clock { display: flex; gap: 2.5rem; margin-left: auto; color: var(--color-purple); font: 600 .8rem/1 var(--font-mono); }
-  @media (max-width: 44rem) { .site-header { padding-inline: 1.25rem; } nav li:first-child { display: none; } ul { gap: 1rem; margin-left: 1rem; } .site-header__clock { display: none; } }
+  .site-header { position: fixed; z-index: var(--z-shell); top: var(--shell-gap); left: var(--shell-gap); display: flex; align-items: center; width: min(350px, calc(100vw - (var(--shell-gap) * 2))); min-height: var(--header-height); padding: .75rem 1.25rem; border-radius: .5rem; background: var(--color-chrome); }
+  .site-header__brand { display: grid; flex: 0 0 32px; width: 32px; height: 28px; place-items: center; text-decoration: none; }
+  .site-header__brand img { width: 32px; height: 28px; max-width: none; object-fit: contain; }
+  .site-header__status { display: grid; flex: 0 0 28px; width: 28px; height: 28px; margin-left: 1.25rem; padding: 0; border: 0; place-items: center; background: transparent; cursor: pointer; }
+  .site-header__status img { display: block; width: 28px; height: 28px; max-width: none; object-fit: contain; }
+  .site-header__clock { display: flex; gap: 1.25rem; margin-left: auto; color: var(--color-purple); font: 700 .7rem/1 var(--font-mono); white-space: nowrap; }
+  @media (max-width: 28rem) { .site-header__clock { gap: .5rem; font-size: .6rem; } }
 </style>

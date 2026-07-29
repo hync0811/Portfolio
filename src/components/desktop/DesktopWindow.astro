@@ -40,27 +40,30 @@ const { id, title } = Astro.props;
 </article>
 
 <style>
-  .window { position: absolute; top: 13%; left: 50%; width: calc(903px + 11rem); max-width: calc(100vw - 2rem); min-width: 0; height: calc(515px + 6.5rem); max-height: calc(100% - 2rem); overflow: hidden; translate: -50% 0; border-radius: var(--radius-window); background: var(--color-surface); box-shadow: 1rem 1rem 0 var(--color-purple); cursor: default; touch-action: none; }
-  .window__titlebar { position: relative; display: flex; align-items: center; justify-content: space-between; height: 2.25rem; padding: 0 1.25rem 0 3rem; color: var(--color-purple); background: var(--color-purple); font: 600 .8rem/1 var(--font-mono); cursor: grab; }
-  .window__titlebar::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 19%; border-top-left-radius: var(--radius-window); border-top-right-radius: var(--radius-window); background: var(--color-mint); }
+  .window { --sidebar-width: clamp(11rem, 12vw, 230px); --chrome-height: 140px; --window-height: min(862px, calc(100vh - 5rem)); --content-height: calc(var(--window-height) - var(--chrome-height)); position: absolute; top: clamp(1.5rem, 4vh, 3rem); left: calc(100% - 2rem); width: min(1331px, calc(100vw - clamp(15rem, 25vw, 29rem))); min-width: 0; height: var(--window-height); max-height: calc(100% - 2rem); overflow: hidden; translate: -100% 0; border-radius: var(--radius-window); background: var(--color-surface); box-shadow: 1rem 1rem 0 var(--color-purple); cursor: default; touch-action: none; }
+  .window__titlebar { position: relative; display: flex; align-items: center; justify-content: space-between; height: 50px; padding: 0 1.25rem 0 3rem; color: var(--color-purple); background: var(--color-purple); font: 600 .8rem/1 var(--font-mono); cursor: grab; }
+  .window__titlebar > span { position: absolute; z-index: 1; inset: 0 auto 0 0; display: grid; width: var(--sidebar-width); place-items: center; font-size: 26px; font-weight: 600; }
+  .window__titlebar::before { content: ""; position: absolute; inset: 0 auto 0 0; width: var(--sidebar-width); border-top-left-radius: var(--radius-window); border-top-right-radius: var(--radius-window); background: var(--color-mint); }
   .window__titlebar > * { position: relative; z-index: 1; }
   .window__titlebar:active { cursor: grabbing; }
   button { border: 0; color: var(--color-mint); background: transparent; font-size: 1.25rem; cursor: pointer; }
   button img { display: block; width: .85rem; height: .85rem; }
-  .window__toolbar { display: grid; grid-template-columns: repeat(4, auto) minmax(14rem, 1fr) 13rem; align-items: center; gap: 1.25rem; min-height: 4.25rem; padding: .75rem 1.5rem; border-bottom: 1px solid #9853E8; color: var(--color-purple); background: var(--color-mint); font: 600 1rem/1 var(--font-mono); }
-  .window__toolbar-icon { display: grid; place-items: center; width: 1rem; height: 1rem; }
+  .window__toolbar { display: grid; grid-template-columns: repeat(4, auto) minmax(14rem, 1fr) 13rem; align-items: center; gap: 1.25rem; height: 90px; padding: .75rem 1.5rem; border-bottom: 1px solid #9853E8; color: var(--color-purple); background: var(--color-mint); font: 600 1rem/1 var(--font-mono); }
+  .window__toolbar-icon { display: grid; place-items: center; width: 24px; height: 24px; }
   .window__toolbar-icon img { display: block; width: 100%; height: 100%; object-fit: contain; }
-  .window__toolbar-icon--up img { width: 1rem; height: 1rem; }
+  .window__toolbar-icon--up img { width: 24px; height: 24px; }
   .window__toolbar div { overflow: hidden; padding: .75rem; border-radius: .65rem; color: var(--color-purple); background: var(--color-chrome); font-size: .72rem; white-space: nowrap; }
-  .window__toolbar .window__address { display: flex; align-items: center; justify-content: left; gap: .55rem; }
-  .window__toolbar .window__search { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding-inline: 2rem; }
-  .window__search img { width: .8rem; height: .8rem; object-fit: contain; }
-  .window__address img { width: .72rem; height: .72rem; flex: 0 0 auto; object-fit: contain; }
-  .window__address .window__point-icon, aside .window__point-icon { width: .55rem; height: .55rem; }
-  .window__body { display: grid; grid-template-columns: 11rem 903px; height: 515px; }
-  aside { display: flex; flex-direction: column; gap: 2rem; padding: 4rem 1.25rem; background: var(--color-mint); }
-  aside a { display: flex; align-items: center; gap: .75rem; color: var(--color-purple); font: 700 .82rem/1 var(--font-mono); text-decoration: none; }
-  .window__nav-label { padding: .35rem .5rem; border-radius: .3rem; }
+  .window__toolbar .window__address { display: flex; align-items: center; justify-content: left; gap: 1rem; min-height: 40px; margin-left: 3rem; font-size: 19px; }
+  .window__toolbar .window__search { display: flex; align-items: center; justify-content: space-between; min-height: 40px; font-size: 19px; }
+  .window__search span { opacity: .5; font-weight: 400; }
+  .window__search img { width: 14px; height: 14px; object-fit: contain; }
+  .window__address img, .window__address .window__point-icon { width: 14px; height: 14px; flex: 0 0 auto; object-fit: contain; }
+  .window__address img:first-child { width: 18px; height: 18px; }
+  aside .window__point-icon { width: 14px; height: 14px; }
+  .window__body { display: grid; grid-template-columns: var(--sidebar-width) minmax(0, 1fr); height: var(--content-height); }
+  aside { display: flex; flex-direction: column; gap: 2rem; padding: 7rem 1.25rem 4rem; background: var(--color-mint); }
+  aside a { display: flex; align-items: center; gap: .75rem; color: var(--color-purple); font: 700 24px/1 var(--font-mono); text-decoration: none; }
+  .window__nav-label { padding: .35rem .5rem; border-radius: .3rem; margin-left: 20px; }
   .window__body > aside > a[aria-current="page"] .window__nav-label {
     display: inline-block;
     min-width: 5.65rem;
@@ -68,6 +71,6 @@ const { id, title } = Astro.props;
     background: var(--color-purple) !important;
   }
   aside a:hover .window__nav-label, aside a:focus-visible .window__nav-label { color: var(--color-surface); background: color-mix(in srgb, var(--color-purple) 78%, transparent); }
-  .window__content { width: 903px; height: 515px; overflow: auto; padding: 0; border-left: 1px solid #9853E8; }
-  @media (max-width: 48rem) { .window { top: 5%; width: calc(100vw - 2rem); min-width: 0; height: calc(100% - 2rem); } .window__toolbar { grid-template-columns: repeat(4, auto) 1fr; } .window__toolbar div:last-child { display: none; } .window__body { grid-template-columns: 1fr; height: calc(100% - 6.5rem); } .window__content { width: 100%; height: auto; } aside { display: none; } }
+  .window__content { width: auto; height: 100%; overflow: auto; padding: 0; border-left: 1px solid #9853E8; }
+  @media (max-width: 48rem) { .window { top: 5%; width: calc(100vw - 2rem); min-width: 0; height: calc(100% - 2rem); } .window__toolbar { grid-template-columns: repeat(4, auto) 1fr; } .window__toolbar div:last-child { display: none; } .window__body { grid-template-columns: 1fr; height: calc(100% - 140px); } .window__content { width: 100%; height: auto; } aside { display: none; } }
 </style>

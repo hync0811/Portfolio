@@ -2,6 +2,7 @@ const root = document.querySelector<HTMLElement>("[data-portfolio]");
 
 if (root) {
   const loader = root.querySelector<HTMLElement>("[data-loader]");
+  const homepage = root.querySelector<HTMLElement>("[data-homepage]");
   const appShell = root.querySelector<HTMLElement>("[data-app-shell]");
   const progress = root.querySelector<HTMLElement>("[data-loader-progress]");
   const mascot = root.querySelector<HTMLElement>("[data-loader-mascot]");
@@ -12,11 +13,26 @@ if (root) {
   const welcomeDuration = reduceMotion ? 0 : 1400;
 
   const revealApp = () => {
-    if (!loader || !appShell || loader.dataset.state === "dropping") return;
-    loader.dataset.state = "dropping";
+    if (!appShell) return;
+    homepage?.setAttribute("aria-hidden", "true");
+    if (homepage) homepage.hidden = true;
     appShell.ariaHidden = "false";
     sessionStorage.setItem("portfolio-intro-seen", "true");
+  };
+
+  const revealHomepage = () => {
+    if (!loader || !homepage || loader.dataset.state === "dropping") return;
+    homepage.hidden = false;
+    homepage.setAttribute("aria-hidden", "false");
+    loader.dataset.state = "dropping";
     window.setTimeout(() => { loader.dataset.state = "hidden"; }, reduceMotion ? 0 : 700);
+  };
+
+  const returnToHomepage = () => {
+    if (!homepage || !appShell) return;
+    appShell.ariaHidden = "true";
+    homepage.hidden = false;
+    homepage.setAttribute("aria-hidden", "false");
   };
 
   const showWelcome = () => {
@@ -29,7 +45,7 @@ if (root) {
     loader.dataset.state = "blooming";
     window.setTimeout(() => {
       loader.dataset.state = "welcome";
-      window.setTimeout(revealApp, welcomeDuration);
+      window.setTimeout(revealHomepage, welcomeDuration);
     }, bloomDuration);
   };
 
@@ -52,18 +68,45 @@ if (root) {
     }, reduceMotion ? 20 : 120);
   }
 
-  const date = root.querySelector<HTMLTimeElement>("[data-current-date]");
-  const time = root.querySelector<HTMLTimeElement>("[data-current-time]");
+  homepage?.querySelectorAll<HTMLButtonElement>("[data-homepage-enter]").forEach((button) => button.addEventListener("click", revealApp));
+  root.querySelectorAll<HTMLAnchorElement>("[data-homepage-target]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      returnToHomepage();
+    });
+  });
+
+  const playlist = root.querySelector<HTMLElement>("[data-playlist]");
+  root.querySelectorAll<HTMLButtonElement>("[data-playlist-toggle]").forEach((button) => {
+    const syncPlaylistButton = () => {
+      const isVisible = !!playlist && !playlist.hidden;
+      button.setAttribute("aria-pressed", String(isVisible));
+      button.setAttribute("aria-label", isVisible ? "Hide playlist" : "Show playlist");
+    };
+    syncPlaylistButton();
+    button.addEventListener("click", () => {
+      if (!playlist) return;
+      playlist.hidden = !playlist.hidden;
+      root.querySelectorAll<HTMLButtonElement>("[data-playlist-toggle]").forEach((toggle) => {
+        const isVisible = !playlist.hidden;
+        toggle.setAttribute("aria-pressed", String(isVisible));
+        toggle.setAttribute("aria-label", isVisible ? "Hide playlist" : "Show playlist");
+      });
+    });
+  });
+
+  const dates = root.querySelectorAll<HTMLTimeElement>("[data-current-date]");
+  const times = root.querySelectorAll<HTMLTimeElement>("[data-current-time]");
   const updateClock = () => {
     const now = new Date();
-    if (date) {
+    dates.forEach((date) => {
       date.dateTime = now.toISOString().slice(0, 10);
       date.textContent = new Intl.DateTimeFormat(undefined, { day: "2-digit", month: "2-digit", year: "numeric" }).format(now);
-    }
-    if (time) {
+    });
+    times.forEach((time) => {
       time.dateTime = now.toISOString();
       time.textContent = new Intl.DateTimeFormat(undefined, { hour: "2-digit", minute: "2-digit" }).format(now);
-    }
+    });
   };
   updateClock();
   window.setInterval(updateClock, 30_000);
