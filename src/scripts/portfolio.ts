@@ -202,9 +202,19 @@ if (root) {
   });
 
   const windowAddressTitle = root.querySelector<HTMLElement>("[data-window-address-title]");
+  const windowContent = root.querySelector<HTMLElement>(".window__content");
   const panels = root.querySelectorAll<HTMLElement>("[data-panel]");
-  const selectPanel = (target: string) => {
+  const panelHistory = ["about"];
+  let panelHistoryIndex = 0;
+  let currentPanel = "about";
+  const selectPanel = (target: string, recordHistory = true) => {
     if (target !== "about" && target !== "works" && target !== "contact") return;
+    if (recordHistory && target !== currentPanel) {
+      panelHistory.splice(panelHistoryIndex + 1);
+      panelHistory.push(target);
+      panelHistoryIndex = panelHistory.length - 1;
+    }
+    currentPanel = target;
     panels.forEach((panel) => { panel.hidden = panel.dataset.panel !== target; });
     const title = target === "works" ? "Works" : target === "contact" ? "Contact" : "About me";
     if (windowAddressTitle) windowAddressTitle.textContent = title;
@@ -223,6 +233,21 @@ if (root) {
       event.preventDefault();
       selectPanel(target);
     });
+  });
+  root.querySelector<HTMLButtonElement>("[data-window-back]")?.addEventListener("click", () => {
+    if (panelHistoryIndex === 0) return;
+    panelHistoryIndex -= 1;
+    selectPanel(panelHistory[panelHistoryIndex], false);
+  });
+  root.querySelector<HTMLButtonElement>("[data-window-forward]")?.addEventListener("click", () => {
+    if (panelHistoryIndex >= panelHistory.length - 1) return;
+    panelHistoryIndex += 1;
+    selectPanel(panelHistory[panelHistoryIndex], false);
+  });
+  root.querySelector<HTMLButtonElement>("[data-window-up]")?.addEventListener("click", () => windowContent?.scrollTo({ top: 0, behavior: "smooth" }));
+  root.querySelector<HTMLButtonElement>("[data-window-refresh]")?.addEventListener("click", () => {
+    selectPanel(currentPanel, false);
+    windowContent?.scrollTo({ top: 0, behavior: "smooth" });
   });
   root.querySelectorAll<HTMLButtonElement>("[data-window-close]").forEach((button) => {
     button.addEventListener("click", returnToHomepage);
