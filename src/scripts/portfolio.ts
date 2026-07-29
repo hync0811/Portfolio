@@ -180,6 +180,8 @@ if (root) {
       const startLeft = bounds.left - parentBounds.left;
       const startTop = bounds.top - parentBounds.top;
       item.style.translate = "0 0";
+      item.style.left = `${startLeft}px`;
+      item.style.top = `${startTop}px`;
       handle.setPointerCapture(event.pointerId);
 
       const move = (moveEvent: PointerEvent) => {
@@ -221,6 +223,9 @@ if (root) {
       event.preventDefault();
       selectPanel(target);
     });
+  });
+  root.querySelectorAll<HTMLButtonElement>("[data-window-close]").forEach((button) => {
+    button.addEventListener("click", returnToHomepage);
   });
 
   const workModal = root.querySelector<HTMLElement>("[data-work-modal]");
