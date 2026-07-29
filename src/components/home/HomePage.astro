@@ -22,10 +22,22 @@ import arrowUp from "../../assets/arrow-up.svg?url";
   .homepage__mark { position: absolute; top: 46.5%; left: 50%; width: clamp(10rem, 15vw, 14.25rem); padding: 0; border: 0; background: transparent; cursor: pointer; translate: -50% -50%; rotate: 14deg; }
   .homepage__mark img { display: block; width: 100%; height: auto; }
   .homepage__eyes { position: absolute; height: auto; user-select: none; }
-  .homepage__eyes--purple { top: 35.9%; left: 12.15%; width: clamp(6rem, 10vw, 9.5rem); rotate: 21deg; }
-  .homepage__eyes--mint { right: 10.75%; bottom: 19.5%; width: clamp(5rem, 8vw, 7.3rem); rotate: 22deg; }
+  .homepage__eyes--purple { top: 35.9%; left: 12.15%; width: clamp(6rem, 10vw, 9.5rem); rotate: 21deg; animation: homepage-purple-dvd 19s linear infinite; }
+  .homepage__eyes--mint { right: 10.75%; bottom: 19.5%; width: clamp(5rem, 8vw, 7.3rem); rotate: 22deg; animation: homepage-mint-dvd 23s linear infinite; }
   .homepage__enter { position: absolute; top: 61.6%; left: 50%; display: grid; justify-items: center; gap: .5rem; padding: 0; border: 0; color: var(--color-purple); background: transparent; font: 700 clamp(.75rem, 1.2vw, 1rem)/1 var(--font-mono); cursor: pointer; translate: -50% 0; }
   .homepage__enter img { width: 18px; height: 24px; object-fit: contain; }
   .homepage__enter:hover, .homepage__enter:focus-visible { color: var(--color-ink); }
+  @keyframes homepage-purple-dvd {
+    0%, 100% { top: 2%; left: 2%; }
+    25% { top: 78%; left: 88%; }
+    50% { top: 2%; left: 75%; }
+    75% { top: 76%; left: 1%; }
+  }
+  @keyframes homepage-mint-dvd {
+    0%, 100% { right: 2%; bottom: 2%; }
+    25% { right: 86%; bottom: 78%; }
+    50% { right: 2%; bottom: 80%; }
+    75% { right: 88%; bottom: 5%; }
+  }
   @media (max-width: 48rem) { .homepage__eyes--purple { left: 8%; } .homepage__eyes--mint { right: 7%; } }
 </style>
