@@ -77,6 +77,8 @@ if (root) {
   });
 
   const playlist = root.querySelector<HTMLElement>("[data-playlist]");
+  const audioPlayer = playlist?.querySelector<HTMLAudioElement>("[data-audio-player]");
+  let resumePlaylistAudio = false;
   root.querySelectorAll<HTMLButtonElement>("[data-playlist-toggle]").forEach((button) => {
     const syncPlaylistButton = () => {
       const isVisible = !!playlist && !playlist.hidden;
@@ -86,7 +88,15 @@ if (root) {
     syncPlaylistButton();
     button.addEventListener("click", () => {
       if (!playlist) return;
-      playlist.hidden = !playlist.hidden;
+      const willShow = playlist.hidden;
+      if (willShow) {
+        playlist.hidden = false;
+        if (resumePlaylistAudio) audioPlayer?.play().catch(() => undefined);
+      } else {
+        resumePlaylistAudio = !!audioPlayer && !audioPlayer.paused;
+        audioPlayer?.pause();
+        playlist.hidden = true;
+      }
       root.querySelectorAll<HTMLButtonElement>("[data-playlist-toggle]").forEach((toggle) => {
         const isVisible = !playlist.hidden;
         toggle.setAttribute("aria-pressed", String(isVisible));
@@ -94,6 +104,52 @@ if (root) {
       });
     });
   });
+
+  const playlistCard = playlist?.querySelector<HTMLElement>(".desktop__playlist-card");
+  const playlistTracks = Array.from(playlist?.querySelectorAll<HTMLButtonElement>("[data-playlist-track]") ?? []);
+  if (audioPlayer && playlistTracks.length > 0) {
+    let currentTrack = 0;
+    const syncPlayback = () => {
+      const isPlaying = !audioPlayer.paused && !audioPlayer.ended;
+      playlistCard?.setAttribute("data-playing", String(isPlaying));
+      playlist?.querySelector<HTMLButtonElement>("[data-playlist-play]")?.setAttribute("aria-label", isPlaying ? "Pause" : "Play");
+    };
+    const playCurrentTrack = () => audioPlayer.play().catch(() => syncPlayback());
+    const selectTrack = (index: number, shouldPlay: boolean) => {
+      currentTrack = (index + playlistTracks.length) % playlistTracks.length;
+      const track = playlistTracks[currentTrack];
+      const source = track.dataset.playlistSource;
+      playlistTracks.forEach((item, itemIndex) => {
+        if (itemIndex === currentTrack) item.setAttribute("aria-current", "true");
+        else item.removeAttribute("aria-current");
+      });
+      track.scrollIntoView({ block: "nearest" });
+      if (source && audioPlayer.getAttribute("src") !== source) {
+        audioPlayer.src = source;
+        audioPlayer.load();
+      }
+      if (shouldPlay) playCurrentTrack();
+      else syncPlayback();
+    };
+
+    playlistTracks.forEach((track, index) => track.addEventListener("click", () => selectTrack(index, true)));
+    playlist?.querySelector<HTMLButtonElement>("[data-playlist-play]")?.addEventListener("click", () => {
+      if (audioPlayer.paused) playCurrentTrack();
+      else audioPlayer.pause();
+    });
+    playlist?.querySelector<HTMLButtonElement>("[data-playlist-next]")?.addEventListener("click", () => selectTrack(currentTrack + 1, true));
+    playlist?.querySelector<HTMLButtonElement>("[data-playlist-previous]")?.addEventListener("click", () => {
+      if (audioPlayer.currentTime > 3) {
+        audioPlayer.currentTime = 0;
+        return;
+      }
+      selectTrack(currentTrack - 1, true);
+    });
+    audioPlayer.addEventListener("play", syncPlayback);
+    audioPlayer.addEventListener("pause", syncPlayback);
+    audioPlayer.addEventListener("ended", () => selectTrack(currentTrack + 1, true));
+    syncPlayback();
+  }
 
   const dates = root.querySelectorAll<HTMLTimeElement>("[data-current-date]");
   const times = root.querySelectorAll<HTMLTimeElement>("[data-current-time]");
