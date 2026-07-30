@@ -120,23 +120,45 @@ if (root) {
     }, bloomDuration);
   };
 
+  const waitForWindowLoad = () => document.readyState === "complete"
+    ? Promise.resolve()
+    : new Promise<void>((resolve) => window.addEventListener("load", () => resolve(), { once: true }));
+  const preloadImage = (url: string) => new Promise<void>((resolve) => {
+    const image = new Image();
+    image.onload = () => resolve();
+    image.onerror = () => resolve();
+    image.src = url;
+  });
+  const preloadAudio = (url: string) => fetch(url, { cache: "force-cache" }).then((response) => response.arrayBuffer()).then(() => undefined).catch(() => undefined);
+  const warmProjectAssets = (onProgress?: (completed: number, total: number) => void) => {
+    const imageUrls = [...new Set(Array.from(root.querySelectorAll<HTMLImageElement>("img[src]")).map((image) => image.currentSrc || image.src))];
+    const audioUrls = [...new Set(Array.from(root.querySelectorAll<HTMLSourceElement>("audio source[src]")).map((source) => source.src))];
+    const tasks = [waitForWindowLoad(), document.fonts?.ready ?? Promise.resolve(), ...imageUrls.map(preloadImage), ...audioUrls.map(preloadAudio)];
+    let completed = 0;
+    const total = tasks.length;
+    onProgress?.(completed, total);
+    return Promise.all(tasks.map((task) => Promise.resolve(task).finally(() => {
+      completed += 1;
+      onProgress?.(completed, total);
+    })));
+  };
+
   const forceIntro = new URLSearchParams(window.location.search).has("intro");
   const introSeen = !forceIntro && sessionStorage.getItem("portfolio-intro-seen") === "true";
   if (introSeen) {
     appShell?.setAttribute("aria-hidden", "false");
     loader?.setAttribute("data-state", "hidden");
+    void warmProjectAssets();
   } else if (loader && progress && mascot && status) {
-    let value = 0;
-    const tick = window.setInterval(() => {
-      value = Math.min(100, value + Math.max(4, Math.round((100 - value) / 5)));
+    void warmProjectAssets((completed, total) => {
+      const value = total === 0 ? 100 : Math.round((completed / total) * 100);
       progress.style.width = `${value}%`;
       mascot.style.left = `${value}%`;
       if (value === 100) {
-        window.clearInterval(tick);
         status.textContent = "Ready!";
         window.setTimeout(showWelcome, reduceMotion ? 0 : 300);
       }
-    }, reduceMotion ? 20 : 120);
+    });
   }
 
   homepage?.querySelectorAll<HTMLButtonElement>("[data-homepage-enter]").forEach((button) => button.addEventListener("click", revealApp));
