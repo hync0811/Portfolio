@@ -6,6 +6,9 @@ import work4 from "../../assets/works/work-4.svg?url";
 import work5 from "../../assets/works/work-5.svg?url";
 import work6 from "../../assets/works/work-6.svg?url";
 import eiterLogo from "../../assets/ei-main.svg?url";
+import work1Drag1 from "../../assets/works/work-1/drag1.svg?url";
+import work1Drag2 from "../../assets/works/work-1/drag2.svg?url";
+import work1Drag3 from "../../assets/works/work-1/drag3.svg?url";
 import work2Pic1 from "../../assets/works/work-2/pic1.png?url";
 import work2Pic2 from "../../assets/works/work-2/pic2.png?url";
 import work2Pic3 from "../../assets/works/work-2/pic3.png?url";
@@ -82,6 +85,12 @@ const crescentDragItems = [
   { image: work2Drag3, position: "top: 12rem; right: 4%;" },
 ];
 
+const lotusDragItems = [
+  { image: work1Drag1, position: "top: 0; left: 45%;" },
+  { image: work1Drag2, position: "top: 11.5rem; left: 1%;" },
+  { image: work1Drag3, position: "top: 21rem; right: 1%;" },
+];
+
 const holidayDragItems = [
   { image: work3Drag1, position: "top: 0; left: 39%;" },
   { image: work3Drag2, position: "top: 9rem; left: 1%;" },
@@ -117,7 +126,7 @@ const remainingProjects: Array<{ project: (typeof projects)[number]; panel: numb
   <h2 id="works-heading" class="sr-only">Works</h2>
   <div class="works-panel__grid" role="list">
     {projects.map(({ name, preview }, index) => (
-      <button class="work-folder" type="button" data-folder data-project={name} data-work-modal-trigger={index === 1 || index === 2 || index === 3 || index === 4 || index === 5 ? index : undefined} aria-haspopup={index === 1 || index === 2 || index === 3 || index === 4 || index === 5 ? "dialog" : undefined} aria-expanded="false" disabled={index !== 1 && index !== 2 && index !== 3 && index !== 4 && index !== 5} role="listitem">
+      <button class="work-folder" type="button" data-folder data-project={name} data-work-modal-trigger={index === 0 || index === 1 || index === 2 || index === 3 || index === 4 || index === 5 ? index : undefined} aria-haspopup={index === 0 || index === 1 || index === 2 || index === 3 || index === 4 || index === 5 ? "dialog" : undefined} aria-expanded="false" disabled={false} role="listitem">
         <span class="work-folder__art" aria-hidden="true">
           <span class="work-folder__back">
             <span class="work-folder__paper">
@@ -142,6 +151,58 @@ const remainingProjects: Array<{ project: (typeof projects)[number]; panel: numb
 
   <div class="work-modal" data-work-modal hidden aria-hidden="true">
     <button class="work-modal__backdrop" type="button" data-work-modal-close aria-label="Close project detail"></button>
+    <article class="work-modal__window work-modal--crescent work-modal--lotus" data-work-modal-panel="0" role="dialog" aria-modal="true" aria-labelledby="work-modal-title-0" hidden>
+      <header class="work-modal__bar">
+        <span>Works</span>
+        <button type="button" data-work-modal-close aria-label="Close Lotus Water Puppet"><img src={closeIcon} alt="" /></button>
+      </header>
+      <div class="work-modal__body">
+        <section class="crescent-intro lotus-intro">
+          <div class="crescent-intro__meta">
+            <p class="work-modal__number">01</p>
+            <h3 id="work-modal-title-0">Lotus Water Puppet</h3>
+            <dl>
+              <div><dt>Type of work:</dt><dd>Branding and identity</dd></div>
+              <div><dt>Client:</dt><dd>Personal project</dd></div>
+              <div><dt>Year:</dt><dd>2026</dd></div>
+              <div><dt>Participants:</dt><dd>Chu Phuong Anh</dd></div>
+            </dl>
+          </div>
+          <img class="crescent-intro__eiter" src={eiterLogo} alt="Eiter" />
+          <div class="crescent-drag-area" aria-label="Lotus Water Puppet image previews">
+            {lotusDragItems.map(({ image, position }, card) => (
+              <img class:list={["crescent-drag-card", "lotus-drag-card", `lotus-drag-card--${card + 1}`]} style={`position: absolute; ${position}`} src={image} alt="" draggable="false" data-modal-draggable />
+            ))}
+          </div>
+        </section>
+
+        <section class="crescent-copy lotus-copy">
+          <span class="crescent-copy__marker" aria-hidden="true" style="display: block; width: 31px; height: 31px; margin: 0 0 26px; background: var(--color-mint);"></span>
+          <span class="crescent-copy__markers crescent-copy__markers--right" aria-hidden="true" style="display: flex; gap: 35px; position: absolute; top: 16px; right: clamp(1.4rem, 6vw, 3.6rem);"><span class="crescent-copy__marker" style="display: block; flex: 0 0 31px; width: 31px; height: 31px; background: var(--color-mint);"></span><span class="crescent-copy__marker" style="display: block; flex: 0 0 31px; width: 31px; height: 31px; background: var(--color-mint);"></span></span>
+          <h4>Lotus Water Puppet</h4>
+          <div class="work-modal__columns">
+            <p>Operating under the Vietnam Contemporary Art Theatre in Hanoi, Lotus Water Puppet Theater stands as a primary guardian of a thousand-year-old performing art deeply rooted in the agricultural folklore of the Red River Delta. Over years of operation, the theater has continuously served as a vital cultural venue, attracting both local heritage enthusiasts and international tourists.<br /><br />By connecting historical craftsmanship, traditional music, and masterful water staging, the institution writes a narrative of cultural continuity. However, in a modern entertainment ecosystem, the theater faces the challenge of the “heritage trap,” where rigid preservation methods without contemporary presentation risk distancing the brand from younger, design-conscious demographics.</p>
+            <p>This project focuses on a complete visual identity overhaul and rebranding strategy for Lotus Water Puppet Theater. The initiative introduces a refined “Neo-Traditional” graphic system that preserves the authentic cultural essence of water puppetry while infusing modern visual energy into the brand.<br /><br />Featuring a redesigned lotus logo, modern typography, a sophisticated deep blue and ochre gold color palette, and geometric folk asset motifs, the campaign elevates the theater into a modern cultural destination.</p>
+          </div>
+          <h4 class="lotus-copy__statement">“Lotus Reborn – Tradition Reimagined”</h4>
+          <div class="work-modal__columns">
+            <p>The creative direction centers around a modern, scalable geometric graphic language inspired by iconic Vietnamese water puppet forms, village symbolism, and traditional characters like Chu Teu. The visual identity streamlines complex folk imagery into dynamic vector assets, making the brand adaptable, visually clean, and instantly appealing to Gen Z and global travelers.</p>
+            <p>The physical and touchpoint execution extends the cultural experience across an entire physical and digital ecosystem. From standardized corporate stationery, tickets, and souvenir packaging to employee uniforms, wayfinding signage, and mobile interfaces, every item is modularly structured. This systematic approach turns the visit into an immersive, highly engaging cultural lifestyle experience.</p>
+          </div>
+        </section>
+
+        <section class="crescent-gallery lotus-gallery" aria-label="Lotus Water Puppet gallery placeholder">
+          <span class="crescent-gallery__chrome" aria-hidden="true"><i></i><i></i><i></i><b></b></span>
+          <span class="crescent-gallery__arrow crescent-gallery__arrow--previous" aria-hidden="true"><img src={triangleLeft} alt="" /></span>
+          <span class="crescent-gallery__arrow crescent-gallery__arrow--next" aria-hidden="true"><img src={triangleRight} alt="" /></span>
+        </section>
+        <footer class="crescent-footer">
+          <button class="crescent-footer__top" type="button" data-work-modal-top aria-label="Back to top"><img src={arrowUp} alt="" /></button>
+          <button type="button" data-work-modal-next>Next Project <img src={arrowRight} alt="" /></button>
+        </footer>
+      </div>
+    </article>
+
     <article class="work-modal__window work-modal--crescent" data-work-modal-panel="1" role="dialog" aria-modal="true" aria-labelledby="work-modal-title-1" hidden>
       <header class="work-modal__bar">
         <span>Works</span>
@@ -478,7 +539,7 @@ const remainingProjects: Array<{ project: (typeof projects)[number]; panel: numb
 <style>
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .works-panel { position: relative; min-height: 100%; }
-  .works-panel__grid { display: grid; grid-template-columns: repeat(3, minmax(7.5rem, 1fr)); gap: clamp(2rem, 5vw, 5rem) clamp(1.5rem, 6vw, 5rem); padding: 11rem clamp(3rem, 7vw, 6rem) 1.5rem clamp(4rem, 8vw, 7rem); }
+  .works-panel__grid { display: grid; grid-template-columns: repeat(3, minmax(7.5rem, 10rem)); justify-content: center; gap: clamp(2rem, 5vw, 5rem) clamp(3rem, 8vw, 7rem); padding: 11rem clamp(3rem, 7vw, 6rem) 1.5rem; }
   .work-folder { display: grid; gap: .85rem; padding: 0; border: 0; color: var(--color-ink); background: transparent; text-align: left; cursor: pointer; }
   .work-folder:disabled { opacity: 1; cursor: default; }
   .work-folder__art { position: relative; display: block; width: min(10rem, 100%); aspect-ratio: 1.34; perspective: 42rem; }
@@ -609,6 +670,12 @@ const remainingProjects: Array<{ project: (typeof projects)[number]; panel: numb
   .work-modal--holiday .holiday-drag-card--3 { width: clamp(9rem, 22vw, 13rem); }
   .work-modal--holiday .holiday-drag-card--4 { width: clamp(8rem, 19vw, 11rem); }
   .work-modal--holiday .crescent-logo img { width: min(100%, 28rem); }
+  .work-modal--lotus .crescent-intro { min-height: 64rem; }
+  .work-modal--lotus .crescent-drag-area { min-height: 39rem; }
+  .work-modal--lotus .crescent-intro__meta h3 { max-width: 25rem; }
+  .work-modal--lotus .lotus-drag-card,
+  .work-modal--lotus .lotus-drag-card--1,
+  .work-modal--lotus .lotus-drag-card--3 { width: clamp(16rem, 36vw, 22rem); }
   .work-modal--rvhg .crescent-intro { min-height: 58rem; }
   .work-modal--rvhg .crescent-drag-area { min-height: 33rem; }
   .work-modal--rvhg .rvhg-drag-card { width: clamp(10rem, 25vw, 15rem); }
@@ -663,6 +730,8 @@ const remainingProjects: Array<{ project: (typeof projects)[number]; panel: numb
   .aanta-logo-column { display: flex; flex-direction: column; align-self: stretch; }
   .aanta-copy__right { margin: 3rem 0 0; font: 400 14px/1.4 var(--font-sans); }
   .crescent-copy__statement { width: fit-content; margin-left: auto !important; font-size: 24px !important; font-weight: 500 !important; }
+  .lotus-copy__statement { width: fit-content; margin: 9rem 0 1.25rem auto !important; text-align: right; }
+  .lotus-gallery { min-height: 28rem; }
   .crescent-gallery { position: relative; display: grid; place-items: center; width: min(calc(100% - 3rem), 612px); aspect-ratio: 612 / 458; margin: 0 auto 2.5rem; overflow: hidden; border-radius: 1rem; background: var(--color-purple); }
   .crescent-gallery__chrome { position: absolute; z-index: 1; top: 20px; right: 17px; left: 22px; display: flex; align-items: center; gap: 7px; }
   .crescent-gallery__chrome i { display: block; width: 9px; height: 9px; border-radius: 50%; background: var(--color-pink); }
@@ -693,7 +762,7 @@ const remainingProjects: Array<{ project: (typeof projects)[number]; panel: numb
   @keyframes dogout-girl-frame-6 { 0%, 83.30% { opacity: 0; } 83.31%, 100% { opacity: 1; } }
   @keyframes detail-enter { from { opacity: 0; translate: 0 .75rem; } }
   @keyframes work-modal-enter { from { opacity: 0; transform: scale(.92); } }
-  @media (max-width: 48rem) { .works-panel__grid { grid-template-columns: repeat(2, minmax(7rem, 1fr)); gap: 2rem 1.5rem; padding: 2rem 1.5rem 1.5rem; } .work-modal { padding: .45rem; } .work-modal__window { height: min(100%, 48rem); } .work-modal__intro { grid-template-columns: 1fr; } .work-modal__cards { min-height: 14rem; } .work-modal__card { width: 9rem; } .work-modal__card--1 { left: 25%; } .work-modal__card--2 { top: 5rem; } .work-modal__card--3 { top: 6.2rem; } .crescent-intro { min-height: 32rem; } .crescent-drag-area { inset: 11.5rem 1rem 1rem; min-height: 18rem; } .crescent-drag-card--1 { left: 29%; } .crescent-drag-card--2 { top: 8rem; left: 0; } .crescent-drag-card--3 { top: 9rem; right: 0; } .work-modal--rvhg .crescent-intro { min-height: 38rem; } .work-modal--rvhg .crescent-drag-area { min-height: 23rem; } .work-modal--dogout .crescent-intro { min-height: 43rem; } .work-modal--dogout .crescent-drag-area { min-height: 28rem; } .work-modal--aanta .crescent-intro { min-height: 42rem; } .work-modal--aanta .crescent-drag-area { min-height: 27rem; } .aanta-visuals, .dogout-characters { grid-template-columns: 1fr; } .aanta-content-frame { max-height: 23rem; } .aanta-logo { min-height: auto; } .dogout-sprite { justify-self: center; } }
+  @media (max-width: 48rem) { .works-panel__grid { grid-template-columns: repeat(2, minmax(7rem, 1fr)); gap: 2rem 1.5rem; padding: 2rem 1.5rem 1.5rem; } .work-modal { padding: .45rem; } .work-modal__window { height: min(100%, 48rem); } .work-modal__intro { grid-template-columns: 1fr; } .work-modal__cards { min-height: 14rem; } .work-modal__card { width: 9rem; } .work-modal__card--1 { left: 25%; } .work-modal__card--2 { top: 5rem; } .work-modal__card--3 { top: 6.2rem; } .crescent-intro { min-height: 32rem; } .crescent-drag-area { inset: 11.5rem 1rem 1rem; min-height: 18rem; } .crescent-drag-card--1 { left: 29%; } .crescent-drag-card--2 { top: 8rem; left: 0; } .crescent-drag-card--3 { top: 9rem; right: 0; } .work-modal--lotus .crescent-intro { min-height: 42rem; } .work-modal--lotus .crescent-drag-area { min-height: 27rem; } .work-modal--rvhg .crescent-intro { min-height: 38rem; } .work-modal--rvhg .crescent-drag-area { min-height: 23rem; } .work-modal--dogout .crescent-intro { min-height: 43rem; } .work-modal--dogout .crescent-drag-area { min-height: 28rem; } .work-modal--aanta .crescent-intro { min-height: 42rem; } .work-modal--aanta .crescent-drag-area { min-height: 27rem; } .aanta-visuals, .dogout-characters { grid-template-columns: 1fr; } .aanta-content-frame { max-height: 23rem; } .aanta-logo { min-height: auto; } .dogout-sprite { justify-self: center; } }
   @media (max-width: 28rem) { .work-modal__intro, .work-modal__story { padding-inline: 1rem; } .work-modal__pixel--right { right: 1rem; } .work-modal__columns { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) { .work-folder__front, .work-folder__preview img { transition-duration: 1ms; } .works-panel__detail, .work-modal__window { animation-duration: 1ms; } }
 </style>
