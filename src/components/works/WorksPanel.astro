@@ -24,6 +24,15 @@ import work3Img2 from "../../assets/works/work-3/img2.svg?url";
 import work3Img3 from "../../assets/works/work-3/img3.svg?url";
 import work3Img4 from "../../assets/works/work-3/img4.svg?url";
 import work3Img5 from "../../assets/works/work-3/img5.svg?url";
+import work4Drag1 from "../../assets/works/work-4/drag1.svg?url";
+import work4Drag2 from "../../assets/works/work-4/drag2.svg?url";
+import work4Drag3 from "../../assets/works/work-4/drag3.svg?url";
+import work4Logo from "../../assets/works/work-4/img-logo.svg?url";
+import work4Img1 from "../../assets/works/work-4/img1.svg?url";
+import work4Img2 from "../../assets/works/work-4/img2.svg?url";
+import work4Img3 from "../../assets/works/work-4/img3.svg?url";
+import work4Img4 from "../../assets/works/work-4/img4.svg?url";
+import work4Img5 from "../../assets/works/work-4/img5.svg?url";
 import work5Drag1 from "../../assets/works/work-5/drag1.svg?url";
 import work5Drag2 from "../../assets/works/work-5/drag2.svg?url";
 import work5Drag3 from "../../assets/works/work-5/drag3.svg?url";
@@ -34,6 +43,24 @@ import work5Img1 from "../../assets/works/work-5/img1.svg?url";
 import work5Img2 from "../../assets/works/work-5/img2.svg?url";
 import work5Img3 from "../../assets/works/work-5/img3.svg?url";
 import work5Img4 from "../../assets/works/work-5/img4.svg?url";
+import work6Drag1 from "../../assets/works/work-6/drag1.svg?url";
+import work6Drag2 from "../../assets/works/work-6/drag2.svg?url";
+import work6Drag3 from "../../assets/works/work-6/drag3.svg?url";
+import work6Dog1 from "../../assets/works/work-6/dog1.svg?url";
+import work6Dog2 from "../../assets/works/work-6/dog2.svg?url";
+import work6Girl1 from "../../assets/works/work-6/girl1.svg?url";
+import work6Girl2 from "../../assets/works/work-6/girl2.svg?url";
+import work6Girl3 from "../../assets/works/work-6/girl3.svg?url";
+import work6Girl4 from "../../assets/works/work-6/girl4.svg?url";
+import work6Girl5 from "../../assets/works/work-6/girl5.svg?url";
+import work6Girl6 from "../../assets/works/work-6/girl6.svg?url";
+import work6Img1 from "../../assets/works/work-6/img1.svg?url";
+import work6Img2 from "../../assets/works/work-6/img2.svg?url";
+import work6Img3 from "../../assets/works/work-6/img3.svg?url";
+import work6Img4 from "../../assets/works/work-6/img4.svg?url";
+import work6Img5 from "../../assets/works/work-6/img5.svg?url";
+import work6Img6 from "../../assets/works/work-6/img6.svg?url";
+import work6Img7 from "../../assets/works/work-6/img7.svg?url";
 import triangleLeft from "../../assets/triangle-left.svg?url";
 import triangleRight from "../../assets/triangle-right.svg?url";
 import arrowRight from "../../assets/arrow-right.svg?url";
@@ -62,6 +89,12 @@ const holidayDragItems = [
   { image: work3Drag4, position: "top: 21rem; left: 32%;" },
 ];
 
+const rvhgDragItems = [
+  { image: work4Drag1, position: "top: 0; left: 38%;" },
+  { image: work4Drag2, position: "top: 11rem; left: 2%;" },
+  { image: work4Drag3, position: "top: 13rem; right: 2%;" },
+];
+
 const aantaDragItems = [
   { image: work5Drag1, position: "top: 0; left: 43%;" },
   { image: work5Drag2, position: "top: 7rem; left: 2%;" },
@@ -69,17 +102,22 @@ const aantaDragItems = [
   { image: work5Drag4, position: "top: 21rem; right: 2%;" },
 ];
 
-const remainingProjects = [
-  { project: projects[3], panel: 3 },
-  { project: projects[5], panel: 5 },
+const dogOutDragItems = [
+  { image: work6Drag1, position: "top: 0; left: 46%;" },
+  { image: work6Drag2, position: "top: 13rem; left: 2%;" },
+  { image: work6Drag3, position: "top: 22rem; right: 2%;" },
 ];
+
+const dogOutGirlFrames = [work6Girl1, work6Girl2, work6Girl3, work6Girl4, work6Girl5, work6Girl6];
+
+const remainingProjects: Array<{ project: (typeof projects)[number]; panel: number }> = [];
 ---
 
 <section class="works-panel" data-panel="works" hidden aria-labelledby="works-heading">
   <h2 id="works-heading" class="sr-only">Works</h2>
   <div class="works-panel__grid" role="list">
     {projects.map(({ name, preview }, index) => (
-      <button class="work-folder" type="button" data-folder data-project={name} data-work-modal-trigger={index === 1 || index === 2 || index === 4 ? index : undefined} aria-haspopup={index === 1 || index === 2 || index === 4 ? "dialog" : undefined} aria-expanded="false" disabled={index !== 1 && index !== 2 && index !== 4} role="listitem">
+      <button class="work-folder" type="button" data-folder data-project={name} data-work-modal-trigger={index === 1 || index === 2 || index === 3 || index === 4 || index === 5 ? index : undefined} aria-haspopup={index === 1 || index === 2 || index === 3 || index === 4 || index === 5 ? "dialog" : undefined} aria-expanded="false" disabled={index !== 1 && index !== 2 && index !== 3 && index !== 4 && index !== 5} role="listitem">
         <span class="work-folder__art" aria-hidden="true">
           <span class="work-folder__back">
             <span class="work-folder__paper">
@@ -221,6 +259,60 @@ const remainingProjects = [
       </div>
     </article>
 
+    <article class="work-modal__window work-modal--crescent work-modal--rvhg" data-work-modal-panel="3" role="dialog" aria-modal="true" aria-labelledby="work-modal-title-3" hidden>
+      <header class="work-modal__bar">
+        <span>Works</span>
+        <button type="button" data-work-modal-close aria-label="Close Rong Vang Hoang Gia"><img src={closeIcon} alt="" /></button>
+      </header>
+      <div class="work-modal__body">
+        <section class="crescent-intro rvhg-intro">
+          <div class="crescent-intro__meta">
+            <p class="work-modal__number">04</p>
+            <h3 id="work-modal-title-3">Rong Vang Hoang Gia</h3>
+            <dl>
+              <div><dt>Type of work:</dt><dd>Packaging</dd></div>
+              <div><dt>Client:</dt><dd>Rong Vang Hoang Gia</dd></div>
+              <div><dt>Year:</dt><dd>2024</dd></div>
+              <div><dt>Participants:</dt><dd>Chu Phuong Anh</dd></div>
+            </dl>
+          </div>
+          <img class="crescent-intro__eiter" src={eiterLogo} alt="Eiter" />
+          <div class="crescent-drag-area" aria-label="Rong Vang Hoang Gia image previews">
+            {rvhgDragItems.map(({ image, position }, card) => (
+              <img class:list={["crescent-drag-card", "rvhg-drag-card", `rvhg-drag-card--${card + 1}`]} style={`position: absolute; ${position}`} src={image} alt="" draggable="false" data-modal-draggable />
+            ))}
+          </div>
+        </section>
+
+        <section class="crescent-copy rvhg-copy">
+          <span class="crescent-copy__marker" aria-hidden="true" style="display: block; width: 31px; height: 31px; margin: 0 0 26px; background: var(--color-mint);"></span>
+          <span class="crescent-copy__markers crescent-copy__markers--right" aria-hidden="true" style="display: flex; gap: 35px; position: absolute; top: 16px; right: clamp(1.4rem, 6vw, 3.6rem);"><span class="crescent-copy__marker" style="display: block; flex: 0 0 31px; width: 31px; height: 31px; background: var(--color-mint);"></span><span class="crescent-copy__marker" style="display: block; flex: 0 0 31px; width: 31px; height: 31px; background: var(--color-mint);"></span></span>
+          <h4>Rong Vang Hoang Gia</h4>
+          <div class="work-modal__columns">
+            <p>Officially registered for production and consumption in 1997, Hoang Giang Joint Stock Company has spent over two decades remaining steadfast on the path of preserving and developing Vietnamese traditional crafts. Mung bean cake has always stood as a profound cultural specialty of the Red River Delta.<br /><br />By selecting high-quality, meticulously standard input materials combined with advanced hygiene processes, the brand writes a story of cultural continuity, connecting the architectural identity and decades of expert experience to honor a national delicacy on an international scale.</p>
+            <p>This project focuses entirely on a unique Mid-Autumn Festival edition, leaving the core brand identity and original Royal Golden Dragon logo completely untouched. The iconic circular emblem with its powerful dragon silhouette remains proudly at the center of the design to preserve brand authenticity and historical trust. By housing the timeless product in a fresh, festive jacket, the campaign aims to inject modern visual energy into the brand’s steady revenue stream, turning a familiar staple into a premium, desirable gift choice.</p>
+          </div>
+          <div class="rvhg-logo"><img src={work4Logo} alt="Rong Vang Hoang Gia characters" /></div>
+            <h4>“The Moon of Hope — The Moments of Longing”</h4>
+            <div class="work-modal__columns">
+            <p>The creative direction for this Mid-Autumn edition centers around a minimalist 2D flat illustration of the traditional Lion Dance. The graphic layout softens the formal look of the product into a playful, emotionally engaging experience that appeals directly to modern families and children.<br /><br />To pair beautifully with the original logo, we curated a custom typographic layout using L'Hanoienne typeface which expertly mirrors the nostalgic charm of classic Vietnamese signage while maintaining a clean appearance.</p>
+            <p>The physical execution reinvents the unboxing ritual through an interactive, puzzle-like sliding box system. Moving away from ordinary commercial wrappers, the internal layout splits into modular components. The real magic happens when four individual boxes are stacked and aligned side-by-side: they puzzle together perfectly to reveal a single, cohesive lion artwork across the boxes. Accompanied by a premium matching carrier bag, this seasonal packaging effectively elevates structural safety into a festive, highly engaging interactive gift set.</p>
+          </div>
+        </section>
+
+        <section class="crescent-gallery" aria-label="Rong Vang Hoang Gia project gallery" data-work-gallery data-work-gallery-sources={JSON.stringify([work4Img1, work4Img2, work4Img3, work4Img4, work4Img5])}>
+          <span class="crescent-gallery__chrome" aria-hidden="true"><i></i><i></i><i></i><b></b></span>
+          <button type="button" class="crescent-gallery__arrow crescent-gallery__arrow--previous" data-work-gallery-previous aria-label="Previous image"><img src={triangleLeft} alt="" /></button>
+          <img class="crescent-gallery__image" src={work4Img1} alt="Rong Vang Hoang Gia project artwork" data-work-gallery-image />
+          <button type="button" class="crescent-gallery__arrow crescent-gallery__arrow--next" data-work-gallery-next aria-label="Next image"><img src={triangleRight} alt="" /></button>
+        </section>
+        <footer class="crescent-footer">
+          <button class="crescent-footer__top" type="button" data-work-modal-top aria-label="Back to top"><img src={arrowUp} alt="" /></button>
+          <button type="button" data-work-modal-next>Next Project <img src={arrowRight} alt="" /></button>
+        </footer>
+      </div>
+    </article>
+
     <article class="work-modal__window work-modal--crescent work-modal--aanta" data-work-modal-panel="4" role="dialog" aria-modal="true" aria-labelledby="work-modal-title-4" hidden>
       <header class="work-modal__bar">
         <span>Works</span>
@@ -271,6 +363,66 @@ const remainingProjects = [
           <span class="crescent-gallery__chrome" aria-hidden="true"><i></i><i></i><i></i><b></b></span>
           <button type="button" class="crescent-gallery__arrow crescent-gallery__arrow--previous" data-work-gallery-previous aria-label="Previous image"><img src={triangleLeft} alt="" /></button>
           <img class="crescent-gallery__image" src={work5Img1} alt="Antibiotic Abuse project artwork" data-work-gallery-image />
+          <button type="button" class="crescent-gallery__arrow crescent-gallery__arrow--next" data-work-gallery-next aria-label="Next image"><img src={triangleRight} alt="" /></button>
+        </section>
+        <footer class="crescent-footer">
+          <button class="crescent-footer__top" type="button" data-work-modal-top aria-label="Back to top"><img src={arrowUp} alt="" /></button>
+          <button type="button" data-work-modal-next>Next Project <img src={arrowRight} alt="" /></button>
+        </footer>
+      </div>
+    </article>
+
+    <article class="work-modal__window work-modal--crescent work-modal--dogout" data-work-modal-panel="5" role="dialog" aria-modal="true" aria-labelledby="work-modal-title-5" hidden>
+      <header class="work-modal__bar">
+        <span>Works</span>
+        <button type="button" data-work-modal-close aria-label="Close Dog Out!"><img src={closeIcon} alt="" /></button>
+      </header>
+      <div class="work-modal__body">
+        <section class="crescent-intro dogout-intro">
+          <div class="crescent-intro__meta">
+            <p class="work-modal__number">06</p>
+            <h3 id="work-modal-title-5">Dog Out!</h3>
+            <dl>
+              <div><dt>Type of work:</dt><dd>Game development</dd></div>
+              <div><dt>Client:</dt><dd>Personal project</dd></div>
+              <div><dt>Year:</dt><dd>2026</dd></div>
+              <div><dt>Participants:</dt><dd>Chu Phuong Anh, Vu Thuy Quynh, Tran Thuy Ngan</dd></div>
+            </dl>
+          </div>
+          <img class="crescent-intro__eiter" src={eiterLogo} alt="Eiter" />
+          <div class="crescent-drag-area" aria-label="Dog Out game screenshots">
+            {dogOutDragItems.map(({ image, position }, card) => (
+              <img class:list={["crescent-drag-card", "dogout-drag-card", `dogout-drag-card--${card + 1}`]} style={`position: absolute; ${position}`} src={image} alt="" draggable="false" data-modal-draggable />
+            ))}
+          </div>
+        </section>
+
+        <section class="crescent-copy dogout-copy">
+          <span class="crescent-copy__marker" aria-hidden="true" style="display: block; width: 31px; height: 31px; margin: 0 0 26px; background: var(--color-mint);"></span>
+          <span class="crescent-copy__markers crescent-copy__markers--right" aria-hidden="true" style="display: flex; gap: 35px; position: absolute; top: 16px; right: clamp(1.4rem, 6vw, 3.6rem);"><span class="crescent-copy__marker" style="display: block; flex: 0 0 31px; width: 31px; height: 31px; background: var(--color-mint);"></span><span class="crescent-copy__marker" style="display: block; flex: 0 0 31px; width: 31px; height: 31px; background: var(--color-mint);"></span></span>
+          <h4>Dog Out!</h4>
+          <div class="work-modal__columns">
+            <p>“Dog Out” is a fast-paced web-based 2D pixel platformer inspired by classic endless runner mechanics. The game places players in a continuous escape from a pursuing dog while dodging obstacles set against vibrant, everyday Vietnamese streetscapes.<br /><br />The name reflects the core gameplay concept of escaping from a pursuing dog, represents the sound of tension and challenge, while “Out” suggests movement, urgency, and the act of getting away.</p>
+            <p>Popular casual games often feature generic or abstract settings. Dog Out was envisioned to bridge the gap between lightweight entertainment and local culture by translating everyday Vietnamese street life into a charming pixel art aesthetic. The game creates an environment that feels immediately relatable, nostalgic, and visually distinct.</p>
+          </div>
+          <div class="work-modal__columns dogout-copy__intro">
+            <p>“Dog Out” is a fast-paced web-based 2D pixel platformer inspired by classic endless runner mechanics. The game places players in a continuous escape from a pursuing dog while dodging obstacles set against vibrant, everyday Vietnamese streetscapes.<br /><br />The name “Dog Out” reflects the core gameplay concept of escaping from a pursuing dog. “Dog” represents the main source of tension and challenge, while “Out” suggests movement, urgency, and the act of getting away. Together, the name conveys a fast-paced, action-driven experience that is simple, memorable, and directly tied to the game’s mechanics.</p>
+            <p>Popular casual games often feature generic or abstract settings. Dog Out was envisioned to bridge the gap between lightweight entertainment and local culture. By translating everyday Vietnamese street life as busy alleys, street vendors, and local landmarks into a charming pixel art aesthetic, the game creates an environment that feels immediately relatable, nostalgic, and visually distinct.</p>
+          </div>
+          <div class="dogout-characters" aria-label="Animated Dog Out characters">
+            <span class="dogout-sprite dogout-sprite--dog" data-frame-animation data-frame-delay="1000"><img class="is-active" src={work6Dog1} alt="" /><img src={work6Dog2} alt="" /></span>
+            <span class="dogout-sprite dogout-sprite--girl" data-frame-animation data-frame-delay="1000">{dogOutGirlFrames.map((frame, index) => <img class:list={{ "is-active": index === 0 }} src={frame} alt="" />)}</span>
+          </div>
+          <h4 class="dogout-copy__statement">“Scenics of the Street”</h4>
+          <div class="work-modal__columns">
+            <p><i>“Bringing everyday Vietnamese street dynamics into an interactive pixel world.”</i> <br> The visual identity leans into bold 2D pixel art with high readability, exaggerated crosswalk and street machinery maps, Street, Train, and Night Market. Each environment blends nostalgic retro game aesthetics with authentic local details, supported by dynamic regional chip-tune audio.</p>
+            <p>Designed around low-risk trial and error, Dog Out offers an intuitive, accessible experience for quick sessions across desktop and mobile browsers. Through responsive one-touch controls and escalating speed, the game transforms simple continuous movement into an engaging loop of skill refinement and high-score chasing.</p>
+          </div>
+        </section>
+        <section class="crescent-gallery dogout-gallery" aria-label="Dog Out project gallery" data-work-gallery data-work-gallery-sources={JSON.stringify([work6Img1, work6Img2, work6Img3, work6Img4, work6Img5, work6Img6, work6Img7])}>
+          <span class="crescent-gallery__chrome" aria-hidden="true"><i></i><i></i><i></i><b></b></span>
+          <button type="button" class="crescent-gallery__arrow crescent-gallery__arrow--previous" data-work-gallery-previous aria-label="Previous image"><img src={triangleLeft} alt="" /></button>
+          <a class="dogout-gallery__link" href="https://gd.games/thienthach/dogout-" target="_blank" rel="noopener noreferrer" aria-label="Open Dog Out game in a new tab"><img class="crescent-gallery__image" src={work6Img1} alt="Dog Out game artwork" data-work-gallery-image /></a>
           <button type="button" class="crescent-gallery__arrow crescent-gallery__arrow--next" data-work-gallery-next aria-label="Next image"><img src={triangleRight} alt="" /></button>
         </section>
         <footer class="crescent-footer">
@@ -457,6 +609,16 @@ const remainingProjects = [
   .work-modal--holiday .holiday-drag-card--3 { width: clamp(9rem, 22vw, 13rem); }
   .work-modal--holiday .holiday-drag-card--4 { width: clamp(8rem, 19vw, 11rem); }
   .work-modal--holiday .crescent-logo img { width: min(100%, 28rem); }
+  .work-modal--rvhg .crescent-intro { min-height: 58rem; }
+  .work-modal--rvhg .crescent-drag-area { min-height: 33rem; }
+  .work-modal--rvhg .rvhg-drag-card { width: clamp(10rem, 25vw, 15rem); }
+  .work-modal--rvhg .rvhg-drag-card--1 { width: clamp(12rem, 29vw, 17rem); }
+  .work-modal--rvhg .rvhg-drag-card--3 { width: clamp(10rem, 23vw, 13rem); }
+  .work-modal--dogout .crescent-intro { min-height: 65rem; }
+  .work-modal--dogout .crescent-drag-area { min-height: 40rem; }
+  .work-modal--dogout .dogout-drag-card,
+  .work-modal--dogout .dogout-drag-card--1,
+  .work-modal--dogout .dogout-drag-card--3 { width: clamp(16rem, 36vw, 22rem); }
   .work-modal--aanta .crescent-intro { min-height: 64rem; }
   .work-modal--aanta .crescent-drag-area { min-height: 39rem; }
   .work-modal--aanta .crescent-intro__meta h3 { max-width: 20rem; }
@@ -471,6 +633,27 @@ const remainingProjects = [
   .crescent-copy .work-modal__columns p { font-size: 14px; }
   .crescent-logo { display: grid; place-items: center; min-height: 14rem; padding: 2.5rem 1rem; }
   .crescent-logo img { width: min(100%, 22rem); }
+  .rvhg-logo { display: grid; place-items: center; min-height: 20rem; margin: 2.5rem 0; }
+  .rvhg-logo img { display: block; width: min(100%, 34rem); height: auto; }
+  .work-modal--rvhg .rvhg-logo + h4 { width: fit-content; margin-left: auto; text-align: right; }
+  .dogout-characters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; gap: clamp(2rem, 10vw, 8rem); max-width: 34rem; margin: 4rem auto; }
+  .dogout-sprite { position: relative; display: block; width: 100%; aspect-ratio: 1; }
+  .dogout-sprite img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; opacity: 0; }
+  .dogout-sprite img.is-active { opacity: 1; }
+  .dogout-sprite--dog img:nth-child(1) { animation: dogout-dog-frame-1 .5s steps(1, end) infinite; }
+  .dogout-sprite--dog img:nth-child(2) { animation: dogout-dog-frame-2 .5s steps(1, end) infinite; }
+  .dogout-sprite--girl img:nth-child(1) { animation: dogout-girl-frame-1 .72s steps(1, end) infinite; }
+  .dogout-sprite--girl img:nth-child(2) { animation: dogout-girl-frame-2 .72s steps(1, end) infinite; }
+  .dogout-sprite--girl img:nth-child(3) { animation: dogout-girl-frame-3 .72s steps(1, end) infinite; }
+  .dogout-sprite--girl img:nth-child(4) { animation: dogout-girl-frame-4 .72s steps(1, end) infinite; }
+  .dogout-sprite--girl img:nth-child(5) { animation: dogout-girl-frame-5 .72s steps(1, end) infinite; }
+  .dogout-sprite--girl img:nth-child(6) { animation: dogout-girl-frame-6 .72s steps(1, end) infinite; }
+  .dogout-sprite--dog { width: min(100%, 12rem); justify-self: end; }
+  .dogout-sprite--girl { width: min(100%, 13rem); }
+  .dogout-copy__statement { width: fit-content; margin-left: auto !important; text-align: right; }
+  .dogout-copy > .work-modal__columns:first-of-type { display: none; }
+  .dogout-gallery__link { z-index: 0; display: grid; place-items: center; width: 100%; height: 100%; }
+  .dogout-gallery .crescent-gallery__image { width: min(421px, 68.84%); max-height: 61.32%; }
   .aanta-visuals { display: grid; grid-template-columns: minmax(0, 1fr) minmax(12rem, .72fr); align-items: center; gap: clamp(1.5rem, 6vw, 4.5rem); }
   .aanta-content-frame { max-height: 29.5rem; overflow: auto; padding: 1.25rem; -ms-overflow-style: none; scrollbar-width: none; }
   .aanta-content-frame::-webkit-scrollbar { display: none; }
@@ -500,9 +683,17 @@ const remainingProjects = [
   .crescent-footer__top img { display: block; width: 16px; height: 16px; max-width: none; object-fit: contain; }
   .crescent-footer [data-work-modal-next] { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; gap: .75rem; min-height: 2.5rem; padding-inline: 1rem; color: #231F20; white-space: nowrap; font: 700 23px/1 var(--font-mono); }
   .crescent-footer [data-work-modal-next] img { display: block; flex: 0 0 20px; width: 20px; height: 20px; max-width: none; object-fit: contain; }
+  @keyframes dogout-dog-frame-1 { 0%, 49.99% { opacity: 1; } 50%, 100% { opacity: 0; } }
+  @keyframes dogout-dog-frame-2 { 0%, 49.99% { opacity: 0; } 50%, 100% { opacity: 1; } }
+  @keyframes dogout-girl-frame-1 { 0%, 16.66% { opacity: 1; } 16.67%, 100% { opacity: 0; } }
+  @keyframes dogout-girl-frame-2 { 0%, 16.66%, 33.33%, 100% { opacity: 0; } 16.67%, 33.32% { opacity: 1; } }
+  @keyframes dogout-girl-frame-3 { 0%, 33.32%, 49.99%, 100% { opacity: 0; } 33.33%, 49.98% { opacity: 1; } }
+  @keyframes dogout-girl-frame-4 { 0%, 49.98%, 66.65%, 100% { opacity: 0; } 49.99%, 66.64% { opacity: 1; } }
+  @keyframes dogout-girl-frame-5 { 0%, 66.64%, 83.31%, 100% { opacity: 0; } 66.65%, 83.30% { opacity: 1; } }
+  @keyframes dogout-girl-frame-6 { 0%, 83.30% { opacity: 0; } 83.31%, 100% { opacity: 1; } }
   @keyframes detail-enter { from { opacity: 0; translate: 0 .75rem; } }
   @keyframes work-modal-enter { from { opacity: 0; transform: scale(.92); } }
-  @media (max-width: 48rem) { .works-panel__grid { grid-template-columns: repeat(2, minmax(7rem, 1fr)); gap: 2rem 1.5rem; padding: 2rem 1.5rem 1.5rem; } .work-modal { padding: .45rem; } .work-modal__window { height: min(100%, 48rem); } .work-modal__intro { grid-template-columns: 1fr; } .work-modal__cards { min-height: 14rem; } .work-modal__card { width: 9rem; } .work-modal__card--1 { left: 25%; } .work-modal__card--2 { top: 5rem; } .work-modal__card--3 { top: 6.2rem; } .crescent-intro { min-height: 32rem; } .crescent-drag-area { inset: 11.5rem 1rem 1rem; min-height: 18rem; } .crescent-drag-card--1 { left: 29%; } .crescent-drag-card--2 { top: 8rem; left: 0; } .crescent-drag-card--3 { top: 9rem; right: 0; } .work-modal--aanta .crescent-intro { min-height: 42rem; } .work-modal--aanta .crescent-drag-area { min-height: 27rem; } .aanta-visuals { grid-template-columns: 1fr; } .aanta-content-frame { max-height: 23rem; } .aanta-logo { min-height: auto; } }
+  @media (max-width: 48rem) { .works-panel__grid { grid-template-columns: repeat(2, minmax(7rem, 1fr)); gap: 2rem 1.5rem; padding: 2rem 1.5rem 1.5rem; } .work-modal { padding: .45rem; } .work-modal__window { height: min(100%, 48rem); } .work-modal__intro { grid-template-columns: 1fr; } .work-modal__cards { min-height: 14rem; } .work-modal__card { width: 9rem; } .work-modal__card--1 { left: 25%; } .work-modal__card--2 { top: 5rem; } .work-modal__card--3 { top: 6.2rem; } .crescent-intro { min-height: 32rem; } .crescent-drag-area { inset: 11.5rem 1rem 1rem; min-height: 18rem; } .crescent-drag-card--1 { left: 29%; } .crescent-drag-card--2 { top: 8rem; left: 0; } .crescent-drag-card--3 { top: 9rem; right: 0; } .work-modal--rvhg .crescent-intro { min-height: 38rem; } .work-modal--rvhg .crescent-drag-area { min-height: 23rem; } .work-modal--dogout .crescent-intro { min-height: 43rem; } .work-modal--dogout .crescent-drag-area { min-height: 28rem; } .work-modal--aanta .crescent-intro { min-height: 42rem; } .work-modal--aanta .crescent-drag-area { min-height: 27rem; } .aanta-visuals, .dogout-characters { grid-template-columns: 1fr; } .aanta-content-frame { max-height: 23rem; } .aanta-logo { min-height: auto; } .dogout-sprite { justify-self: center; } }
   @media (max-width: 28rem) { .work-modal__intro, .work-modal__story { padding-inline: 1rem; } .work-modal__pixel--right { right: 1rem; } .work-modal__columns { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) { .work-folder__front, .work-folder__preview img { transition-duration: 1ms; } .works-panel__detail, .work-modal__window { animation-duration: 1ms; } }
 </style>

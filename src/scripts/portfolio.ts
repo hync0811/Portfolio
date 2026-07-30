@@ -382,6 +382,21 @@ if (root) {
     gallery.querySelector<HTMLButtonElement>("[data-work-gallery-previous]")?.addEventListener("click", () => setImage(-1));
     gallery.querySelector<HTMLButtonElement>("[data-work-gallery-next]")?.addEventListener("click", () => setImage(1));
   });
+  root.querySelectorAll<HTMLElement>("[data-frame-animation]").forEach((sprite) => {
+    const frames = Array.from(sprite.querySelectorAll<HTMLImageElement>("img"));
+    if (frames.length === 0) return;
+    let currentFrame = 0;
+    const pause = Number(sprite.dataset.frameDelay ?? "1000");
+    const frameDuration = sprite.classList.contains("dogout-sprite--girl") ? 120 : 250;
+    const showFrame = () => {
+      frames.forEach((frame, index) => frame.classList.toggle("is-active", index === currentFrame));
+      if (reduceMotion) return;
+      currentFrame = (currentFrame + 1) % frames.length;
+      const nextDelay = currentFrame === 0 ? pause : frameDuration;
+      window.setTimeout(showFrame, nextDelay);
+    };
+    showFrame();
+  });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && workModal && !workModal.hidden) closeWorkModal();
   });
