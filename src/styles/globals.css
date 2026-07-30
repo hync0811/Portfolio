@@ -7,6 +7,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 3px solid var(--color-yellow); outline-offset: 3px; }
 [hidden] { display: none !important; }
 .portfolio__app[aria-hidden="true"] { visibility: hidden; }
+.portfolio.playlist-open-on-home .portfolio__app[aria-hidden="true"] .desktop { z-index: 30; visibility: visible; pointer-events: none; background: transparent; }
+.portfolio.playlist-open-on-home .desktop__stage > :not([data-playlist]) { visibility: hidden; }
+.portfolio.playlist-open-on-home [data-playlist] { visibility: visible; pointer-events: auto; }
 * { scrollbar-width: thin; scrollbar-color: var(--color-purple) transparent; }
 *::-webkit-scrollbar { width: 6px; height: 6px; }
 *::-webkit-scrollbar-track { background: transparent; }

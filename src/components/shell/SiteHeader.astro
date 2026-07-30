@@ -14,11 +14,11 @@ import icEi from "../../assets/ic-ei.svg?url";
 </header>
 
 <style>
-  .site-header { position: fixed; z-index: var(--z-shell); top: var(--shell-gap); left: var(--shell-gap); display: flex; align-items: center; width: min(350px, calc(100vw - (var(--shell-gap) * 2))); min-height: var(--header-height); padding: .75rem 1.25rem; border-radius: .5rem; background: var(--color-chrome); }
+  .site-header { position: fixed; z-index: var(--z-shell); top: var(--shell-gap); left: var(--shell-gap); display: flex; align-items: center; justify-content: space-between; width: min(350px, calc(100vw - (var(--shell-gap) * 2))); min-height: var(--header-height); padding: .75rem 1.25rem; border-radius: .5rem; background: var(--color-chrome); }
   .site-header__brand { display: grid; flex: 0 0 32px; width: 32px; height: 28px; place-items: center; text-decoration: none; }
   .site-header__brand img { width: 32px; height: 28px; max-width: none; object-fit: contain; }
-  .site-header__status { display: grid; flex: 0 0 28px; width: 28px; height: 28px; margin-left: 1.25rem; padding: 0; border: 0; place-items: center; background: transparent; cursor: pointer; }
+  .site-header__status { display: grid; flex: 0 0 28px; width: 28px; height: 28px; padding: 0; border: 0; place-items: center; background: transparent; cursor: pointer; }
   .site-header__status img { display: block; width: 28px; height: 28px; max-width: none; object-fit: contain; }
-  .site-header__clock { display: flex; gap: 1.25rem; margin-left: auto; color: var(--color-purple); font: 700 .7rem/1 var(--font-mono); white-space: nowrap; }
+  .site-header__clock { display: flex; justify-content: space-between; width: 9.5rem; color: var(--color-purple); font: 700 .7rem/1 var(--font-mono); white-space: nowrap; }
   @media (max-width: 28rem) { .site-header__clock { gap: .5rem; font-size: .6rem; } }
 </style>

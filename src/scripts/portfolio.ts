@@ -11,9 +11,78 @@ if (root) {
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const bloomDuration = reduceMotion ? 1 : 1400;
   const welcomeDuration = reduceMotion ? 0 : 1400;
+  let homepageDriftersStarted = false;
+  const startHomepageDrifters = () => {
+    if (homepageDriftersStarted || !homepage || reduceMotion) return;
+    window.requestAnimationFrame(() => {
+      const elements = Array.from(homepage.querySelectorAll<HTMLElement>("[data-homepage-drifter]"));
+      if (elements.some((element) => element.getBoundingClientRect().width === 0)) {
+        window.setTimeout(startHomepageDrifters, 80);
+        return;
+      }
+      homepageDriftersStarted = true;
+      const drifters = elements.map((element, index) => {
+        const bounds = element.getBoundingClientRect();
+        element.dataset.jsDrifting = "true";
+        element.style.left = `${bounds.left}px`;
+        element.style.top = `${bounds.top}px`;
+        element.style.right = "auto";
+        element.style.bottom = "auto";
+        return { element, x: bounds.left, y: bounds.top, width: bounds.width, height: bounds.height, vx: index === 0 ? 88 : -74, vy: index === 0 ? 61 : 79, dragging: false, offsetX: 0, offsetY: 0 };
+      });
+      let previousTime = performance.now();
+      const frame = (time: number) => {
+        const delta = Math.min((time - previousTime) / 1000, .05);
+        previousTime = time;
+        if (homepage.hidden) {
+          window.setTimeout(() => window.requestAnimationFrame(frame), 200);
+          return;
+        }
+        drifters.forEach((drifter) => {
+          if (drifter.dragging) return;
+          drifter.x += drifter.vx * delta;
+          drifter.y += drifter.vy * delta;
+          const maxX = Math.max(0, window.innerWidth - drifter.width);
+          const maxY = Math.max(0, window.innerHeight - drifter.height);
+          if (drifter.x <= 0 || drifter.x >= maxX) {
+            drifter.x = Math.min(maxX, Math.max(0, drifter.x));
+            drifter.vx *= -1;
+          }
+          if (drifter.y <= 0 || drifter.y >= maxY) {
+            drifter.y = Math.min(maxY, Math.max(0, drifter.y));
+            drifter.vy *= -1;
+          }
+          drifter.element.style.left = `${drifter.x}px`;
+          drifter.element.style.top = `${drifter.y}px`;
+        });
+        window.requestAnimationFrame(frame);
+      };
+      drifters.forEach((drifter) => {
+        drifter.element.addEventListener("pointerdown", (event) => {
+          event.preventDefault();
+          drifter.dragging = true;
+          drifter.offsetX = event.clientX - drifter.x;
+          drifter.offsetY = event.clientY - drifter.y;
+          drifter.element.setPointerCapture(event.pointerId);
+        });
+        drifter.element.addEventListener("pointermove", (event) => {
+          if (!drifter.dragging) return;
+          drifter.x = Math.min(window.innerWidth - drifter.width, Math.max(0, event.clientX - drifter.offsetX));
+          drifter.y = Math.min(window.innerHeight - drifter.height, Math.max(0, event.clientY - drifter.offsetY));
+          drifter.element.style.left = `${drifter.x}px`;
+          drifter.element.style.top = `${drifter.y}px`;
+        });
+        const release = () => { drifter.dragging = false; };
+        drifter.element.addEventListener("pointerup", release);
+        drifter.element.addEventListener("pointercancel", release);
+      });
+      window.requestAnimationFrame(frame);
+    });
+  };
 
   const revealApp = () => {
     if (!appShell) return;
+    root.classList.remove("playlist-open-on-home");
     homepage?.setAttribute("aria-hidden", "true");
     if (homepage) homepage.hidden = true;
     appShell.ariaHidden = "false";
@@ -24,6 +93,7 @@ if (root) {
     if (!loader || !homepage || loader.dataset.state === "dropping") return;
     homepage.hidden = false;
     homepage.setAttribute("aria-hidden", "false");
+    startHomepageDrifters();
     loader.dataset.state = "dropping";
     window.setTimeout(() => { loader.dataset.state = "hidden"; }, reduceMotion ? 0 : 700);
   };
@@ -33,6 +103,7 @@ if (root) {
     appShell.ariaHidden = "true";
     homepage.hidden = false;
     homepage.setAttribute("aria-hidden", "false");
+    startHomepageDrifters();
   };
 
   const showWelcome = () => {
@@ -102,6 +173,7 @@ if (root) {
         toggle.setAttribute("aria-pressed", String(isVisible));
         toggle.setAttribute("aria-label", isVisible ? "Hide playlist" : "Show playlist");
       });
+      root.classList.toggle("playlist-open-on-home", appShell?.ariaHidden === "true" && !playlist.hidden);
     });
   });
 
