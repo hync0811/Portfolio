@@ -360,6 +360,19 @@ if (root) {
   }
   const modalPanels = workModal?.querySelectorAll<HTMLElement>("[data-work-modal-panel]") ?? [];
   let modalTrigger: HTMLButtonElement | null = null;
+  const preloadedGallerySources = new Set<string>();
+  const preloadGallery = (panel: HTMLElement) => {
+    panel.querySelectorAll<HTMLElement>("[data-work-gallery]").forEach((gallery) => {
+      const sources = JSON.parse(gallery.dataset.workGallerySources ?? "[]") as string[];
+      sources.forEach((source) => {
+        if (preloadedGallerySources.has(source)) return;
+        preloadedGallerySources.add(source);
+        const preload = new Image();
+        preload.decoding = "async";
+        preload.src = source;
+      });
+    });
+  };
   const closeWorkModal = () => {
     if (!workModal) return;
     workModal.hidden = true;
@@ -375,12 +388,14 @@ if (root) {
       const project = folder.dataset.workModalTrigger;
       if (!project || !workModal) return;
       modalTrigger = folder;
-      root.querySelectorAll<HTMLElement>("[data-folder]").forEach((item) => item.setAttribute("aria-expanded", "false"));
-      folder.setAttribute("aria-expanded", "true");
-      modalPanels.forEach((panel) => { panel.hidden = panel.dataset.workModalPanel !== project; });
-      workModal.hidden = false;
-      workModal.setAttribute("aria-hidden", "false");
-      workModal.querySelector<HTMLButtonElement>("[data-work-modal-close]")?.focus();
+       root.querySelectorAll<HTMLElement>("[data-folder]").forEach((item) => item.setAttribute("aria-expanded", "false"));
+       folder.setAttribute("aria-expanded", "true");
+       modalPanels.forEach((panel) => { panel.hidden = panel.dataset.workModalPanel !== project; });
+       workModal.hidden = false;
+       workModal.setAttribute("aria-hidden", "false");
+       const activePanel = Array.from(modalPanels).find((panel) => panel.dataset.workModalPanel === project);
+       if (activePanel) preloadGallery(activePanel);
+       workModal.querySelector<HTMLButtonElement>("[data-work-modal-close]")?.focus();
     });
   });
   workModal?.querySelectorAll<HTMLButtonElement>("[data-work-modal-close]").forEach((button) => button.addEventListener("click", closeWorkModal));
