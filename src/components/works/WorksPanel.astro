@@ -113,7 +113,7 @@ const rvhgDragItems = [
 ];
 
 const aantaDragItems = [
-  { image: work5Drag1, position: "top: 0; left: 43%;" },
+  { image: work5Drag1, position: "top: 0; left: 50%;" },
   { image: work5Drag2, position: "top: 7rem; left: 2%;" },
   { image: work5Drag3, position: "top: 18rem; left: 25%;" },
   { image: work5Drag4, position: "top: 21rem; right: 2%;" },
@@ -423,7 +423,10 @@ const remainingProjects: Array<{ project: (typeof projects)[number]; panel: numb
                 Through impactful visuals and clear messaging, the project encourages responsible healthcare decisions and promotes greater awareness of antimicrobial resistance. The creative approach focuses on transforming complex medical information into accessible and engaging visual communication.</p>
           </div>
           <div class="aanta-visuals">
-            <div class="aanta-content-frame" tabindex="0" aria-label="Scrollable campaign content preview"><img src={work5Content} alt="Antibiotics are not the answer campaign content" /></div>
+            <div class="aanta-content-column">
+              <div class="aanta-content-frame" tabindex="0" aria-label="Scrollable campaign content preview"><img src={work5Content} alt="Antibiotics are not the answer campaign content" /></div>
+              <p class="aanta-scroll-hint">scroll it!</p>
+            </div>
             <div class="aanta-logo-column">
               <div class="aanta-logo"><img src={work5Logo} alt="Antibiotics are not the answer logo" /></div>
               <p class="aanta-copy__right">Overuse of antibiotics is both an individual and public health problem. Individuals who overuse antibiotics may be more vulnerable to antibiotic-related complications such as digestive problems, yeast infections, and allergic reactions. From a public health perspective, widespread antibiotic overuse allows bacteria to evolve resistance to antibiotics rapidly. This can create infections that do not respond to typical treatments.</p>
@@ -749,9 +752,11 @@ const remainingProjects: Array<{ project: (typeof projects)[number]; panel: numb
   .dogout-gallery__link { z-index: 0; display: grid; place-items: center; width: 100%; height: 100%; }
   .dogout-gallery .crescent-gallery__image { width: min(421px, 68.84%); max-height: 61.32%; }
   .aanta-visuals { display: grid; grid-template-columns: minmax(0, 1fr) minmax(12rem, .72fr); align-items: center; gap: clamp(1.5rem, 6vw, 4.5rem); margin: 3rem 0; }
+  .aanta-content-column { display: flex; flex-direction: column; align-items: center; }
   .aanta-content-frame { max-height: 29.5rem; overflow: auto; padding: 1.25rem; -ms-overflow-style: none; scrollbar-width: none; }
   .aanta-content-frame::-webkit-scrollbar { display: none; }
   .aanta-content-frame img { display: block; width: 100%; height: auto; }
+  .aanta-content-column .aanta-scroll-hint { display: block; width: 100%; margin: 1rem 0 0; color: var(--color-purple) !important; font-family: var(--font-mono); font-size: 14px; font-weight: 500; line-height: 1; text-align: center; }
   .aanta-logo { display: grid; place-items: center; min-height: 15rem; padding: 0; }
   .aanta-logo img { display: block; width: min(100%, 17rem); height: auto; }
   .aanta-logo-column { display: flex; flex-direction: column; align-self: stretch; }

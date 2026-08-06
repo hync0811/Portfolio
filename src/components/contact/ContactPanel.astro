@@ -13,7 +13,7 @@ import eyesMid from "../../assets/ei-eyes-left.svg?url";
     <address>
       <a>cphuonganh1909@gmail.com</a>
       <a>0965754678</a>
-      <a target="_blank" rel="noreferrer">behance.net/phuonganhchu</a>
+       <a href="https://www.behance.net/phuonganhchu" target="_blank" rel="noopener noreferrer">behance.net/phuonganhchu</a>
     </address>
   </div>
 
@@ -37,6 +37,7 @@ import eyesMid from "../../assets/ei-eyes-left.svg?url";
   .contact-panel__details p { margin: 0; color: var(--color-purple); }
   address { display: grid; gap: .35rem; font-style: normal; }
   address a { width: fit-content; color: var(--color-ink); text-decoration: none; }
+  address a[href] { cursor: pointer; }
   address a:hover, address a:focus-visible { color: var(--color-purple); }
   .contact-form { position: relative; width: min(100%, 612px); min-height: 413px; margin: 6.8rem auto 0; padding: 4.55rem 2.65rem 1.7rem; border-radius: 1rem; background: var(--color-purple); }
   .contact-form__chrome { position: absolute; top: 20px; right: 17px; left: 22px; display: flex; align-items: center; gap: 7px; }
