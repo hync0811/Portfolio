@@ -67,7 +67,7 @@ const playlist = [
 <style>
   .desktop { position: fixed; inset: 0 0 var(--footer-height); overflow: hidden; background: var(--color-canvas); }
   .desktop__stage { position: relative; width: 100%; height: 100%; }
-  .desktop__playlist[data-draggable], .desktop__playlist[data-draggable]:active { position: absolute; top: 16%; left: 1%; z-index: 1; width: min(20.45vw, 392.581px); min-width: 16rem; aspect-ratio: 392.581 / 260.426; cursor: default; user-select: none; }
+  .desktop__playlist[data-draggable], .desktop__playlist[data-draggable]:active { position: absolute; top: calc(16% + 1.36rem); left: 1%; z-index: 1; width: min(20.45vw, 392.581px); min-width: 16rem; aspect-ratio: 392.581 / 260.426; cursor: default; user-select: none; }
   .desktop__playlist::before { position: absolute; inset: 9.562% 1.102% 1.91% 10.585%; border-radius: 14.247px; content: ""; background: var(--color-mint); }
   .desktop__playlist-card { position: absolute; inset: 1.909% 4.481% 8.068% 5.564%; overflow: hidden; border-radius: 14.247px; color: var(--color-purple); background: var(--color-purple); cursor: default; touch-action: none; }
   .desktop__playlist-header { position: absolute; z-index: 3; top: 6.567%; right: 4.656%; display: flex; align-items: center; gap: 16.27px; color: var(--color-mint); font: 700 8px/1 var(--font-mono); cursor: grab; touch-action: none; }
