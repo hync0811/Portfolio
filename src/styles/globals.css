@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&family=Montserrat:wght@800;900&display=swap");
 
 body { overflow: hidden; color: var(--color-ink); background: var(--color-canvas); font-family: var(--font-sans); text-rendering: optimizeLegibility; }
+.portfolio { min-height: 100%; }
+@media (min-width: 48.01rem) and (min-resolution: 120dpi) and (max-resolution: 143dpi) { .portfolio { zoom: .8; } }
 button, a { -webkit-tap-highlight-color: transparent; }
 [data-draggable], [data-drag-handle], [data-modal-draggable] { cursor: grab; }
 [data-draggable]:active, [data-drag-handle]:active, [data-modal-draggable]:active { cursor: grabbing; }

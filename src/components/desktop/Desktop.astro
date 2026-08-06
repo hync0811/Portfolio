@@ -78,12 +78,12 @@ const playlist = [
   .desktop__playlist-record i { position: absolute; top: 50%; left: 50%; width: 27.415%; aspect-ratio: 1; border-radius: 50%; background: var(--color-mint); translate: -50% -50%; }
   .desktop__playlist-card[data-playing="true"] .desktop__playlist-record { animation: playlist-record-spin 6s linear infinite; }
   .desktop__playlist h2 { position: absolute; z-index: 2; top: 16.5%; left: 38.1%; margin: 0; color: var(--color-mint); font: 700 clamp(.8rem, 1vw, 1.15rem)/1.22 var(--font-mono); letter-spacing: .02em; }
-  .desktop__playlist-list { position: absolute; z-index: 2; top: 41%; left: 38.5%; width: 48.1%; height: 34.6%; margin: 0; padding: 0 .3rem 0 0; overflow-y: auto; list-style: none; scrollbar-width: thin; scrollbar-color: var(--color-mint) transparent; cursor: auto; touch-action: pan-y; }
+  .desktop__playlist-list { position: absolute; z-index: 2; top: 41%; left: 38.5%; width: 48.1%; height: 34.6%; margin: 0; padding: 0 .3rem 0 0; overflow-x: hidden; overflow-y: auto; list-style: none; scrollbar-width: thin; scrollbar-color: var(--color-mint) transparent; cursor: auto; touch-action: pan-y; }
   .desktop__playlist-list::-webkit-scrollbar { display: block; width: 3px; }
   .desktop__playlist-list::-webkit-scrollbar-thumb { min-height: .9rem; border: 0; border-radius: 999px; background: var(--color-mint); }
   .desktop__playlist-list li { height: 20%; min-height: 16px; }
-  .desktop__playlist-list li button { display: grid; grid-template-columns: 24px max-content minmax(0, 1fr); width: 100%; height: 100%; padding: 0; border: 0; align-items: center; column-gap: 0; color: var(--color-ink); background: transparent; font: 400 9px/1 var(--font-sans); text-align: left; white-space: nowrap; cursor: pointer; }
-  .desktop__playlist-list li button > b { color: var(--color-mint); font: 700 9px/1 var(--font-mono); }
+  .desktop__playlist-list li button { display: grid; grid-template-columns: 24px max-content minmax(0, 1fr); width: 100%; height: 100%; padding: 0; border: 0; align-items: center; column-gap: 0; color: var(--color-ink); background: transparent; font: 400 11px/1 var(--font-sans); text-align: left; white-space: nowrap; cursor: pointer; }
+  .desktop__playlist-list li button > b { color: var(--color-mint); font: 700 11px/1 var(--font-mono); }
   .desktop__playlist-list li button > span { overflow: hidden; text-overflow: ellipsis; }
   .desktop__playlist-list li button > span::after { content: " ·"; color: #C9A4FC; font-size: 12px; }
   .desktop__playlist-list li button > em { min-width: 0; margin-left: 6px; overflow: hidden; color: #C9A4FC; font-style: normal; text-overflow: ellipsis; }
@@ -101,6 +101,7 @@ const playlist = [
   .desktop__sticker { position: absolute; z-index: 2; user-select: none; touch-action: none; cursor: grab; }
   .desktop__sticker--brand { left: 8%; bottom: 18%; scale: 1.2; rotate: -12deg; }
   .desktop__sticker--eyes { right: 6%; top: 35%; width: 6.5rem; rotate: 20deg; }
+  @media (min-width: 48.01rem) and (min-resolution: 120dpi) and (max-resolution: 143dpi) { .desktop__playlist[data-draggable] { scale: 1.25; transform-origin: top left; } }
   @keyframes playlist-record-spin { to { transform: rotate(360deg); } }
   @media (max-width: 48rem) { .desktop__playlist, .desktop__sticker { display: none; } }
 </style>
