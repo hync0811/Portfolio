@@ -267,20 +267,25 @@ if (root) {
     handle.addEventListener("pointerdown", (event) => {
       if ((event.target as HTMLElement).closest("button, a, [data-no-drag]")) return;
       const bounds = item.getBoundingClientRect();
-      const parentBounds = item.parentElement?.getBoundingClientRect();
-      if (!parentBounds) return;
+      const parent = item.parentElement;
+      const parentBounds = parent?.getBoundingClientRect();
+      if (!parent || !parentBounds) return;
+      const scaleX = parent.clientWidth ? parentBounds.width / parent.clientWidth : 1;
+      const scaleY = parent.clientHeight ? parentBounds.height / parent.clientHeight : 1;
       const startX = event.clientX;
       const startY = event.clientY;
-      const startLeft = bounds.left - parentBounds.left;
-      const startTop = bounds.top - parentBounds.top;
+      const startLeft = (bounds.left - parentBounds.left) / scaleX;
+      const startTop = (bounds.top - parentBounds.top) / scaleY;
       item.style.translate = "0 0";
       item.style.left = `${startLeft}px`;
       item.style.top = `${startTop}px`;
       handle.setPointerCapture(event.pointerId);
 
       const move = (moveEvent: PointerEvent) => {
-        const left = Math.min(parentBounds.width - bounds.width, Math.max(0, startLeft + moveEvent.clientX - startX));
-        const top = Math.min(parentBounds.height - bounds.height, Math.max(0, startTop + moveEvent.clientY - startY));
+        const maxLeft = Math.max(0, parent.clientWidth - item.offsetWidth);
+        const maxTop = Math.max(0, parent.clientHeight - item.offsetHeight);
+        const left = Math.min(maxLeft, Math.max(0, startLeft + (moveEvent.clientX - startX) / scaleX));
+        const top = Math.min(maxTop, Math.max(0, startTop + (moveEvent.clientY - startY) / scaleY));
         item.style.left = `${left}px`;
         item.style.top = `${top}px`;
       };

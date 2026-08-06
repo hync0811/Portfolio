@@ -40,7 +40,7 @@ const { id, title } = Astro.props;
 </article>
 
 <style>
-  .window { --sidebar-width: clamp(12.5rem, 13vw, 250px); --chrome-height: 140px; --window-height: min(862px, calc(100vh - 5rem)); --content-height: calc(var(--window-height) - var(--chrome-height)); position: absolute; top: clamp(1.5rem, 4vh, 3rem); left: calc(100% - 2rem); width: min(1331px, calc(100vw - clamp(15rem, 25vw, 29rem))); min-width: 0; height: var(--window-height); max-height: calc(100% - 2rem); overflow: hidden; translate: -100% 0; border-radius: var(--radius-window); background: var(--color-surface); box-shadow: 1rem 1rem 0 var(--color-purple); cursor: default; touch-action: none; }
+  .window { --sidebar-width: clamp(12.5rem, 13vw, 250px); --chrome-height: 140px; --window-height: min(862px, calc(100vh - 5rem)); --content-height: calc(var(--window-height) - var(--chrome-height)); position: absolute; top: clamp(1.5rem, 4vh, 3rem); left: calc(100% - 3rem); width: min(1331px, calc(100vw - clamp(15rem, 25vw, 29rem))); min-width: 0; height: var(--window-height); max-height: calc(100% - 2rem); overflow: hidden; translate: -100% 0; border-radius: var(--radius-window); background: var(--color-surface); box-shadow: 1rem 1rem 0 var(--color-purple); cursor: default; touch-action: none; }
   .window__titlebar { position: relative; display: flex; align-items: center; justify-content: space-between; height: 50px; padding: 0 1.25rem 0 3rem; color: var(--color-purple); background: var(--color-purple); font: 600 .8rem/1 var(--font-mono); cursor: grab; }
   .window__titlebar > span { position: absolute; z-index: 1; inset: 0 auto 0 0; display: grid; width: var(--sidebar-width); place-items: center; font-size: 26px; font-weight: 600; }
   .window__titlebar::before { content: ""; position: absolute; inset: 0 auto 0 0; width: var(--sidebar-width); border-top-left-radius: var(--radius-window); border-top-right-radius: var(--radius-window); background: var(--color-mint); }
@@ -74,6 +74,6 @@ const { id, title } = Astro.props;
   }
   aside a:hover .window__nav-label, aside a:focus-visible .window__nav-label { color: var(--color-surface); background: color-mix(in srgb, var(--color-purple) 78%, transparent); }
   .window__content { width: auto; height: 100%; overflow: auto; padding: 0; border-left: 1px solid #9853E8; }
-  @media (min-width: 48.01rem) and (min-resolution: 120dpi) and (max-resolution: 143dpi) { .window { --window-height: min(1000px, calc(100vh + 5rem)); } }
-  @media (max-width: 48rem) { .window { top: 5%; width: calc(100vw - 2rem); min-width: 0; height: calc(100% - 2rem); } .window__toolbar { grid-template-columns: repeat(4, auto) 1fr; } .window__toolbar div:last-child { display: none; } .window__body { grid-template-columns: 1fr; height: calc(100% - 140px); } .window__content { width: 100%; height: auto; } aside { display: none; } }
+  @media (min-width: 48.01rem) and (min-resolution: 120dpi) and (max-resolution: 143dpi) { .window { --window-height: min(1000px, calc(100vh + 5rem)); width: min(2030px, calc(100vw - 10rem)); } }
+  @media (max-width: 48rem) { .window { top: 5%; left: calc(100% - 2rem); width: calc(100vw - 2rem); min-width: 0; height: calc(100% - 2rem); } .window__toolbar { grid-template-columns: repeat(4, auto) 1fr; } .window__toolbar div:last-child { display: none; } .window__body { grid-template-columns: 1fr; height: calc(100% - 140px); } .window__content { width: 100%; height: auto; } aside { display: none; } }
 </style>
