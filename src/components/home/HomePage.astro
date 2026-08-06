@@ -3,6 +3,7 @@ import SiteHeader from "../shell/SiteHeader.astro";
 import eiterMark from "../../assets/ei-main.svg?url";
 import eyesMid from "../../assets/ic-eyes-mid.svg?url";
 import eyesPurple from "../../assets/ic-eyes-left-purple.svg?url";
+import eyesRight from "../../assets/ic-eyes-right.svg?url";
 import arrowUp from "../../assets/arrow-up.svg?url";
 ---
 
@@ -10,6 +11,7 @@ import arrowUp from "../../assets/arrow-up.svg?url";
   <SiteHeader />
   <img class="homepage__eyes homepage__eyes--purple" src={eyesPurple} alt="" aria-hidden="true" draggable="false" data-homepage-drifter />
   <button class="homepage__mark" type="button" data-homepage-enter aria-label="Enter portfolio"><img src={eiterMark} alt="Eiter" /></button>
+  <img class="homepage__eyes homepage__eyes--right" src={eyesRight} alt="" aria-hidden="true" draggable="false" data-homepage-drifter />
   <img class="homepage__eyes homepage__eyes--mint" src={eyesMid} alt="" aria-hidden="true" draggable="false" data-homepage-drifter />
   <button class="homepage__enter" type="button" data-homepage-enter>
     <img src={arrowUp} alt="" aria-hidden="true" />
@@ -24,8 +26,11 @@ import arrowUp from "../../assets/arrow-up.svg?url";
   .homepage__eyes { position: absolute; z-index: 2; height: auto; cursor: grab; touch-action: none; user-select: none; }
   .homepage__eyes:active { cursor: grabbing; }
   .homepage__eyes[data-js-drifting] { animation: none; }
-  .homepage__eyes--purple { top: 35.9%; left: 12.15%; width: clamp(6rem, 10vw, 9.5rem); rotate: 21deg; animation: homepage-purple-dvd 19s linear infinite; }
-  .homepage__eyes--mint { right: 10.75%; bottom: 19.5%; width: clamp(5rem, 8vw, 7.3rem); rotate: 22deg; animation: homepage-mint-dvd 23s linear infinite; }
+  .homepage__eyes--purple { width: clamp(6rem, 10vw, 9.5rem); }
+  .homepage__eyes--right, .homepage__eyes--mint { width: clamp(7rem, 11vw, 10.5rem); }
+  .homepage__eyes--purple { top: 35.9%; left: 12.15%; rotate: 21deg; animation: homepage-purple-dvd 19s linear infinite; }
+  .homepage__eyes--right { top: 16%; left: 70%; rotate: -16deg; scale: .945; animation: homepage-right-dvd 21s linear infinite; }
+  .homepage__eyes--mint { right: 10.75%; bottom: 19.5%; rotate: 22deg; scale: .898; animation: homepage-mint-dvd 23s linear infinite; }
   .homepage__enter { position: absolute; top: 61.6%; left: 50%; display: grid; justify-items: center; gap: .5rem; padding: 0; border: 0; color: var(--color-purple); background: transparent; font: 700 clamp(.75rem, 1.2vw, 1rem)/1 var(--font-mono); cursor: pointer; translate: -50% 0; }
   .homepage__enter img { width: 18px; height: 24px; object-fit: contain; }
   .homepage__enter:hover, .homepage__enter:focus-visible { color: var(--color-ink); }
@@ -41,5 +46,11 @@ import arrowUp from "../../assets/arrow-up.svg?url";
     50% { right: 2%; bottom: 80%; }
     75% { right: 88%; bottom: 5%; }
   }
-  @media (max-width: 48rem) { .homepage__eyes--purple { left: 8%; } .homepage__eyes--mint { right: 7%; } }
+  @keyframes homepage-right-dvd {
+    0%, 100% { top: 16%; left: 70%; }
+    25% { top: 5%; left: 84%; }
+    50% { top: 20%; left: 76%; }
+    75% { top: 4%; left: 64%; }
+  }
+  @media (max-width: 48rem) { .homepage__eyes--purple { left: 8%; } .homepage__eyes--right { top: 18%; left: 66%; } .homepage__eyes--mint { right: 7%; } }
 </style>
